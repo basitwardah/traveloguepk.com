@@ -1,0 +1,106 @@
+<!-- Mountain Divider -->
+<div class="mountain-divider mountain-divider-blue"></div>
+
+<!-- Footer -->
+<footer class="bg-dark-navy text-white pt-16 pb-8">
+    <div class="container mx-auto px-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+            <!-- Logo & Description -->
+            <div class="lg:col-span-1">
+                <a asp-controller="Home" asp-action="Index" class="inline-block mb-4">
+                    <img src="~/images/logo-white.png" alt="Travelogue PK" class="h-12" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                    <div style="display:none;" class="text-2xl font-bold">
+                        <span class="text-white">TRAVEL</span><span class="text-primary-orange">OGUE</span> <span class="text-primary-orange">PK</span>
+                    </div>
+                </a>
+                <p class="text-gray-300 text-sm leading-relaxed mb-4">
+                    Our mission is to showcase Pakistan's natural beauty in all its glory, inspiring you to explore what lies beyond the ordinary.
+                </p>
+                <!-- Social Media Icons -->
+                <div class="flex space-x-4">
+                    <a href="#" class="text-gray-300 hover:text-primary-orange transition-colors">
+                        <i class="fab fa-facebook-f text-lg"></i>
+                    </a>
+                    <a href="#" class="text-gray-300 hover:text-primary-orange transition-colors">
+                        <i class="fab fa-instagram text-lg"></i>
+                    </a>
+                    <a href="#" class="text-gray-300 hover:text-primary-orange transition-colors">
+                        <i class="fab fa-youtube text-lg"></i>
+                    </a>
+                    <a href="#" class="text-gray-300 hover:text-primary-orange transition-colors">
+                        <i class="fab fa-linkedin-in text-lg"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Quick Links -->
+            <div>
+                <h3 class="text-xl font-semibold mb-4 border-b-2 border-primary-orange inline-block pb-2">QUICK LINKS</h3>
+                <ul class="space-y-2">
+                    <li>
+                        <a asp-controller="Home" asp-action="Index" class="text-gray-300 hover:text-primary-orange transition-colors text-sm">Home</a>
+                    </li>
+                    <li>
+                        <a asp-controller="About" asp-action="Index" class="text-gray-300 hover:text-primary-orange transition-colors text-sm">About Us</a>
+                    </li>
+                    <li>
+                        <a asp-controller="Categories" asp-action="Index" class="text-gray-300 hover:text-primary-orange transition-colors text-sm">Categories</a>
+                    </li>
+                    <li>
+                        <a asp-controller="Contact" asp-action="Index" class="text-gray-300 hover:text-primary-orange transition-colors text-sm">Contact Us</a>
+                    </li>
+                </ul>
+            </div>
+            
+            <!-- Legal -->
+            <div>
+                <h3 class="text-xl font-semibold mb-4 border-b-2 border-primary-orange inline-block pb-2">LEGAL</h3>
+                <ul class="space-y-2">
+                    <li>
+                        <a href="#" class="text-gray-300 hover:text-primary-orange transition-colors text-sm">Terms & Condition</a>
+                    </li>
+                    <li>
+                        <a href="#" class="text-gray-300 hover:text-primary-orange transition-colors text-sm">Privacy</a>
+                    </li>
+                    <li>
+                        <a href="#" class="text-gray-300 hover:text-primary-orange transition-colors text-sm">Cookies</a>
+                    </li>
+                    <li>
+                        <a href="#" class="text-gray-300 hover:text-primary-orange transition-colors text-sm">Licenses</a>
+                    </li>
+                </ul>
+            </div>
+            
+            <!-- Contact Us -->
+            <div>
+                <h3 class="text-xl font-semibold mb-4 border-b-2 border-primary-orange inline-block pb-2">CONTACT US</h3>
+                <ul class="space-y-3">
+                    <li class="flex items-start text-sm">
+                        <i class="fas fa-map-marker-alt text-primary-orange mt-1 mr-3"></i>
+                        <span class="text-gray-300">Loremipsum528 doghouse</span>
+                    </li>
+                    <li class="flex items-center text-sm">
+                        <i class="fas fa-phone text-primary-orange mr-3"></i>
+                        <a href="tel:+123-456-7890" class="text-gray-300 hover:text-primary-orange transition-colors">+123-456-7890</a>
+                    </li>
+                    <li class="flex items-center text-sm">
+                        <i class="fas fa-envelope text-primary-orange mr-3"></i>
+                        <a href="mailto:zoomescue@gmail.com" class="text-gray-300 hover:text-primary-orange transition-colors">zoomescue@gmail.com</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- Copyright -->
+        <div class="border-t border-gray-700 pt-6 flex flex-col md:flex-row justify-between items-center">
+            <p class="text-gray-400 text-sm mb-4 md:mb-0">
+                &copy; 2025 - Travelogue. All rights reserved.
+            </p>
+            <div class="flex space-x-6 text-sm">
+                <a href="#" class="text-gray-400 hover:text-primary-orange transition-colors">Privacy & Policy</a>
+                <a href="#" class="text-gray-400 hover:text-primary-orange transition-colors">Terms & Conditions</a>
+            </div>
+        </div>
+    </div>
+</footer>
+

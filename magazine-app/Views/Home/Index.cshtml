@@ -1,0 +1,366 @@
+﻿@{
+    ViewData["Title"] = "Home";
+}
+
+<!-- Hero Section -->
+<section class="relative h-screen">
+    <!-- Hero Background -->
+    <div class="absolute inset-0">
+        <img src="~/images/hero-bg.jpg" alt="Pakistan's Beauty" class="w-full h-full object-cover" 
+             onerror="this.src='https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1920'">
+        <div class="absolute inset-0 bg-gradient-to-r from-dark-navy/70 to-dark-navy/30"></div>
+    </div>
+    
+    <!-- Hero Content -->
+    <div class="relative container mx-auto px-4 h-full flex items-center">
+        <div class="max-w-3xl">
+            <div class="orange-label mb-6 animate-fade-in">
+                TRAVELOGUE PK
+            </div>
+            <h1 class="hero-title text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight">
+                DISCOVERING ALL <br>
+                <span class="text-primary-orange">PAKISTAN'S HIDDEN</span><br>
+                WONDERS
+            </h1>
+            <p class="text-white text-lg md:text-xl mb-8 max-w-2xl">
+                Travelogue PK is your gateway to Pakistan's hidden gems. Step into journey closer to the untold wonders of majestic landscapes, centuries-old heritage, and vibrant cultures to timeless memories.
+            </p>
+            <div class="flex flex-wrap gap-4">
+                <a asp-controller="Categories" asp-action="Index" class="bg-primary-blue hover:bg-blue-600 text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all inline-flex items-center shadow-lg hover:shadow-xl transform hover:scale-105">
+                    START YOUR ADVENTURE
+                    <i class="fas fa-arrow-right ml-3"></i>
+                </a>
+                <button class="bg-white hover:bg-gray-100 text-dark-navy px-8 py-4 rounded-lg font-semibold text-lg transition-all shadow-lg hover:shadow-xl">
+                    LEARN MORE
+                </button>
+            </div>
+        </div>
+        
+        <!-- Magazine Mockup (Right Side) -->
+        <div class="hidden xl:block absolute right-20 top-1/2 transform -translate-y-1/2">
+            <img src="~/images/magazine-3d.png" alt="Magazine" class="w-96 animate-float" 
+                 onerror="this.style.display='none'">
+        </div>
+    </div>
+</section>
+
+<!-- Mountain Divider -->
+<div class="mountain-divider mountain-divider-white"></div>
+
+<!-- Pakistan Beauty Section -->
+<section class="py-20 bg-white">
+    <div class="container mx-auto px-4">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <!-- Image -->
+            <div class="order-2 lg:order-1">
+                <div class="relative">
+                    <img src="~/images/pakistan-beauty.jpg" alt="Pakistan Beauty" class="rounded-full w-full max-w-lg mx-auto shadow-2xl" 
+                         onerror="this.src='https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=800'">
+                    <!-- Decorative Circle -->
+                    <div class="absolute -bottom-10 -right-10 w-64 h-64 bg-primary-orange rounded-full -z-10 opacity-20"></div>
+                </div>
+            </div>
+            
+            <!-- Content -->
+            <div class="order-1 lg:order-2">
+                <h2 class="text-4xl md:text-5xl font-bold text-gray-800 mb-6">
+                    PAKISTAN <span class="text-primary-orange">UNBELIEVABLE<br>BEAUTY</span> OF WORLD.
+                </h2>
+                
+                <!-- Feature 1 -->
+                <div class="flex items-start mb-6 bg-gray-50 p-6 rounded-lg">
+                    <div class="bg-primary-orange text-white rounded-lg p-4 mr-4">
+                        <i class="fas fa-mountain text-3xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">Step beyond the ordinary and dive into a world towering peaks touching.</h3>
+                        <p class="text-gray-600">
+                            The skies and emerald rivers carve their way through gorgeous natural valleys. From the mystical beauty of the Hunza Valley to the golden silence of the Cholistan Desert, every corner of Pakistan holds an adventure waiting to be discovered.
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- Feature 2 -->
+                <div class="flex items-start mb-6 bg-gray-50 p-6 rounded-lg">
+                    <div class="bg-primary-orange text-white rounded-lg p-4 mr-4">
+                        <i class="fas fa-landmark text-3xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">Venture into hidden landscapes where nature reigns supreme & history whispers through ancient ruins</h3>
+                        <p class="text-gray-600">
+                            Journey to serene valleys nestled between snow-capped peaks. Traverse trails where mighty mountains meet crystalline lakes. Trace the footprints of ancient civilizations at the enigmatic ruins. Explore.
+                        </p>
+                    </div>
+                </div>
+                
+                <button class="bg-primary-orange hover:bg-orange-600 text-white px-8 py-3 rounded-lg font-semibold transition-all inline-flex items-center shadow-lg">
+                    EXPLORE MORE
+                    <i class="fas fa-arrow-right ml-3"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Mountain Divider -->
+<div class="mountain-divider mountain-divider-blue"></div>
+
+<!-- Explore Pakistan Section -->
+<section class="py-20 bg-dark-navy text-white">
+    <div class="container mx-auto px-4">
+        <div class="text-center mb-16">
+            <h2 class="text-4xl md:text-5xl font-bold mb-4">
+                EXPLORE PAKISTAN, WHERE ADVENTURE<br>MEETS WONDER
+            </h2>
+            <p class="text-gray-300 text-lg max-w-3xl mx-auto">
+                Travelogue PK is a journey through Pakistan's hidden treasure, showcasing the splendor of mountain peaks, emerald valleys, ancient landmarks. It's a roadmap to discover and find your story, one journey at a time.
+            </p>
+        </div>
+        
+        <!-- Magazine Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+            <!-- Magazine Card 1 -->
+            <div class="card-hover">
+                <div class="bg-gradient-to-br from-orange-400 to-orange-600 rounded-lg p-6 h-80 flex items-center justify-center relative overflow-hidden">
+                    <img src="~/images/magazine-1.jpg" alt="Magazine" class="h-full object-contain relative z-10" 
+                         onerror="this.src='https://via.placeholder.com/300x400/FF6B35/FFFFFF?text=Magazine'">
+                    <div class="absolute bottom-4 left-4 bg-white text-orange-500 px-4 py-1 rounded-full text-sm font-semibold z-20">
+                        OVERNIGHT TRIPS
+                    </div>
+                </div>
+                <div class="mt-4">
+                    <div class="flex items-center mb-2">
+                        <i class="fas fa-star text-yellow-400 text-sm"></i>
+                        <i class="fas fa-star text-yellow-400 text-sm"></i>
+                        <i class="fas fa-star text-yellow-400 text-sm"></i>
+                        <i class="fas fa-star text-yellow-400 text-sm"></i>
+                        <i class="fas fa-star text-yellow-400 text-sm"></i>
+                    </div>
+                    <h3 class="text-lg font-semibold mb-2">A Million Little Pieces</h3>
+                    <p class="text-primary-orange text-2xl font-bold">$36.00 <span class="text-sm text-gray-400 line-through">$48.00</span></p>
+                </div>
+            </div>
+            
+            <!-- Magazine Card 2 -->
+            <div class="card-hover">
+                <div class="bg-gradient-to-br from-blue-400 to-blue-600 rounded-lg p-6 h-80 flex items-center justify-center relative overflow-hidden">
+                    <img src="~/images/magazine-2.jpg" alt="Magazine" class="h-full object-contain relative z-10" 
+                         onerror="this.src='https://via.placeholder.com/300x400/0C789A/FFFFFF?text=Magazine'">
+                    <div class="absolute bottom-4 left-4 bg-white text-blue-500 px-4 py-1 rounded-full text-sm font-semibold z-20">
+                        OVERNIGHT TRIPS
+                    </div>
+                </div>
+                <div class="mt-4">
+                    <div class="flex items-center mb-2">
+                        <i class="fas fa-star text-yellow-400 text-sm"></i>
+                        <i class="fas fa-star text-yellow-400 text-sm"></i>
+                        <i class="fas fa-star text-yellow-400 text-sm"></i>
+                        <i class="fas fa-star text-yellow-400 text-sm"></i>
+                        <i class="fas fa-star text-yellow-400 text-sm"></i>
+                    </div>
+                    <h3 class="text-lg font-semibold mb-2">A Million Little Pieces</h3>
+                    <p class="text-primary-orange text-2xl font-bold">$36.00 <span class="text-sm text-gray-400 line-through">$48.00</span></p>
+                </div>
+            </div>
+            
+            <!-- Magazine Card 3 -->
+            <div class="card-hover">
+                <div class="bg-gradient-to-br from-orange-400 to-orange-600 rounded-lg p-6 h-80 flex items-center justify-center relative overflow-hidden">
+                    <img src="~/images/magazine-3.jpg" alt="Magazine" class="h-full object-contain relative z-10" 
+                         onerror="this.src='https://via.placeholder.com/300x400/FF6B35/FFFFFF?text=Magazine'">
+                    <div class="absolute bottom-4 left-4 bg-white text-orange-500 px-4 py-1 rounded-full text-sm font-semibold z-20">
+                        OVERNIGHT TRIPS
+                    </div>
+                </div>
+                <div class="mt-4">
+                    <div class="flex items-center mb-2">
+                        <i class="fas fa-star text-yellow-400 text-sm"></i>
+                        <i class="fas fa-star text-yellow-400 text-sm"></i>
+                        <i class="fas fa-star text-yellow-400 text-sm"></i>
+                        <i class="fas fa-star text-yellow-400 text-sm"></i>
+                        <i class="fas fa-star text-yellow-400 text-sm"></i>
+                    </div>
+                    <h3 class="text-lg font-semibold mb-2">A Million Little Pieces</h3>
+                    <p class="text-primary-orange text-2xl font-bold">$36.00 <span class="text-sm text-gray-400 line-through">$48.00</span></p>
+                </div>
+            </div>
+            
+            <!-- Magazine Card 4 -->
+            <div class="card-hover">
+                <div class="bg-gradient-to-br from-blue-400 to-blue-600 rounded-lg p-6 h-80 flex items-center justify-center relative overflow-hidden">
+                    <img src="~/images/magazine-4.jpg" alt="Magazine" class="h-full object-contain relative z-10" 
+                         onerror="this.src='https://via.placeholder.com/300x400/0C789A/FFFFFF?text=Magazine'">
+                    <div class="absolute bottom-4 left-4 bg-white text-blue-500 px-4 py-1 rounded-full text-sm font-semibold z-20">
+                        OVERNIGHT TRIPS
+                    </div>
+                </div>
+                <div class="mt-4">
+                    <div class="flex items-center mb-2">
+                        <i class="fas fa-star text-yellow-400 text-sm"></i>
+                        <i class="fas fa-star text-yellow-400 text-sm"></i>
+                        <i class="fas fa-star text-yellow-400 text-sm"></i>
+                        <i class="fas fa-star text-yellow-400 text-sm"></i>
+                        <i class="fas fa-star text-yellow-400 text-sm"></i>
+                    </div>
+                    <h3 class="text-lg font-semibold mb-2">A Million Little Pieces</h3>
+                    <p class="text-primary-orange text-2xl font-bold">$36.00 <span class="text-sm text-gray-400 line-through">$48.00</span></p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- View More Button -->
+        <div class="text-center">
+            <a asp-controller="Categories" asp-action="Index" class="bg-primary-blue hover:bg-blue-600 text-white px-10 py-4 rounded-lg font-semibold text-lg transition-all inline-flex items-center shadow-lg">
+                VIEW MORE
+                <i class="fas fa-arrow-right ml-3"></i>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Mountain Divider -->
+<div class="mountain-divider mountain-divider-white"></div>
+
+<!-- Video Section -->
+<section class="py-20 bg-white">
+    <div class="container mx-auto px-4">
+        <div class="text-center mb-12">
+            <h2 class="text-4xl md:text-5xl font-bold text-gray-800 mb-4">
+                LET'S MAKE <span class="text-primary-orange">YOUR JOURNEY</span> MOMENTOUS
+            </h2>
+        </div>
+        
+        <div class="max-w-4xl mx-auto">
+            <div class="relative rounded-2xl overflow-hidden shadow-2xl">
+                <img src="~/images/video-thumbnail.jpg" alt="Journey Video" class="w-full" 
+                     onerror="this.src='https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1200'">
+                <div class="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center">
+                    <button class="video-play-btn">
+                        <i class="fas fa-play text-white text-2xl ml-1"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Mountain Divider -->
+<div class="mountain-divider mountain-divider-orange"></div>
+
+<!-- How It Works Section -->
+<section class="py-20 bg-primary-orange text-white relative overflow-hidden">
+    <div class="container mx-auto px-4 relative z-10">
+        <div class="text-center mb-16">
+            <h2 class="text-4xl md:text-5xl font-bold mb-4">HOW IT WORKS?</h2>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+            <!-- Step 1 -->
+            <div class="text-center">
+                <div class="bg-white bg-opacity-20 backdrop-blur-sm rounded-2xl p-8 mb-4 h-48 flex items-center justify-center">
+                    <i class="fas fa-user-plus text-6xl"></i>
+                </div>
+                <h3 class="text-2xl font-bold mb-2">Create Account</h3>
+                <p class="text-white text-opacity-90">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.
+                </p>
+            </div>
+            
+            <!-- Arrow -->
+            <div class="hidden md:flex items-center justify-center">
+                <i class="fas fa-arrow-right text-4xl opacity-50"></i>
+            </div>
+            
+            <!-- Step 2 -->
+<div class="text-center">
+                <div class="bg-white bg-opacity-20 backdrop-blur-sm rounded-2xl p-8 mb-4 h-48 flex items-center justify-center">
+                    <i class="fas fa-book-open text-6xl"></i>
+                </div>
+                <h3 class="text-2xl font-bold mb-2">Select Your Package</h3>
+                <p class="text-white text-opacity-90">
+                    Sed ut perspiciatis unde omnis iste natus error sit voluptatem.
+                </p>
+            </div>
+            
+            <!-- Arrow -->
+            <div class="hidden md:flex items-center justify-center md:col-span-3">
+                <i class="fas fa-arrow-down text-4xl opacity-50"></i>
+            </div>
+            
+            <!-- Step 3 (Centered) -->
+            <div class="text-center md:col-span-3">
+                <div class="inline-block">
+                    <div class="bg-white bg-opacity-20 backdrop-blur-sm rounded-2xl p-8 mb-4 w-64 h-48 flex items-center justify-center mx-auto">
+                        <i class="fas fa-plane-departure text-6xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-2">Travel</h3>
+                    <p class="text-white text-opacity-90 max-w-md mx-auto">
+                        Add your favourite destinations and magazines. Get ready for the adventure of a lifetime!
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Background Decoration -->
+    <div class="absolute inset-0 opacity-10">
+        <div class="absolute top-20 left-20 w-64 h-64 bg-white rounded-full"></div>
+        <div class="absolute bottom-20 right-20 w-96 h-96 bg-white rounded-full"></div>
+    </div>
+</section>
+
+<!-- Mountain Divider -->
+<div class="mountain-divider mountain-divider-white"></div>
+
+<!-- Newsletter Section -->
+<section class="py-20 bg-gray-50">
+    <div class="container mx-auto px-4">
+        <div class="max-w-5xl mx-auto">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <!-- Content -->
+                <div>
+                    <h2 class="text-4xl md:text-5xl font-bold text-gray-800 mb-6">
+                        JOIN <span class="text-primary-blue">THE BEST<br>STORYTELLERS</span> OF<br>WORLD
+                    </h2>
+                    <p class="text-gray-600 text-lg mb-8">
+                        A collection of travel stories and stunning photos that help to plan big.
+                    </p>
+                    
+                    <!-- Newsletter Form -->
+                    <div class="flex gap-4">
+                        <input type="email" placeholder="Enter Your Email" 
+                               class="flex-1 px-6 py-4 border border-gray-300 rounded-lg focus:outline-none focus:border-primary-blue focus:ring-2 focus:ring-primary-blue focus:ring-opacity-20">
+                        <button class="bg-primary-blue hover:bg-blue-600 text-white px-8 py-4 rounded-lg font-semibold transition-all whitespace-nowrap">
+                            SUBSCRIBE
+                        </button>
+                    </div>
+</div>
+                
+                <!-- Image -->
+                <div class="relative">
+                    <div class="relative z-10">
+                        <img src="~/images/storyteller.jpg" alt="Storyteller" class="rounded-full w-full max-w-md mx-auto shadow-2xl" 
+                             onerror="this.src='https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=600'">
+                    </div>
+                    <!-- Decorative Circle -->
+                    <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full h-full bg-primary-blue rounded-full -z-0 scale-110 opacity-10"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    @@keyframes float {
+        0%, 100% {
+            transform: translateY(0px) translateX(-50%);
+        }
+        50% {
+            transform: translateY(-20px) translateX(-50%);
+        }
+    }
+    
+    .animate-float {
+        animation: float 3s ease-in-out infinite;
+    }
+</style>

@@ -1,0 +1,510 @@
+@{
+    ViewData["Title"] = "Product Detail";
+}
+
+<!-- Breadcrumb -->
+<section class="bg-gray-50 py-4">
+    <div class="container mx-auto px-4">
+        <nav class="text-gray-600">
+            <ol class="flex items-center space-x-2 text-sm">
+                <li><a asp-controller="Home" asp-action="Index" class="hover:text-primary-orange"><i class="fas fa-home"></i> Home</a></li>
+                <li><i class="fas fa-chevron-right text-xs"></i></li>
+                <li><a asp-controller="Categories" asp-action="Index" class="hover:text-primary-orange">Categories</a></li>
+                <li><i class="fas fa-chevron-right text-xs"></i></li>
+                <li class="text-gray-800 font-medium">Product Detail</li>
+            </ol>
+        </nav>
+    </div>
+</section>
+
+<!-- Product Detail Section -->
+<section class="py-12 bg-white">
+    <div class="container mx-auto px-4">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- Left: Product Images (2 columns) -->
+            <div class="lg:col-span-2">
+                <div class="bg-white rounded-lg border border-gray-200 p-6">
+                    <!-- Main Image -->
+                    <div class="relative mb-4 bg-gray-50 rounded-lg overflow-hidden">
+                        <img id="main-product-image" src="~/images/magazine-detail-1.jpg" alt="Product" class="w-full h-auto" 
+                             onerror="this.src='https://via.placeholder.com/800x600/FF6B35/FFFFFF?text=Magazine+Detail'">
+                        
+                        <!-- Wishlist Button -->
+                        <button class="absolute top-4 right-4 bg-white text-gray-600 hover:text-red-500 rounded-full w-12 h-12 flex items-center justify-center shadow-lg transition-all hover:scale-110">
+                            <i class="far fa-heart text-xl"></i>
+                        </button>
+                    </div>
+                    
+                    <!-- Thumbnail Images -->
+                    <div class="grid grid-cols-5 gap-3">
+                        <button onclick="changeImage(this, '~/images/magazine-detail-1.jpg')" class="product-thumbnail active border-2 border-primary-blue rounded-lg overflow-hidden">
+                            <img src="~/images/magazine-detail-1.jpg" alt="Thumbnail 1" class="w-full h-20 object-cover" 
+                                 onerror="this.src='https://via.placeholder.com/150x150/FF6B35/FFFFFF?text=1'">
+                        </button>
+                        <button onclick="changeImage(this, '~/images/magazine-detail-2.jpg')" class="product-thumbnail border-2 border-transparent rounded-lg overflow-hidden">
+                            <img src="~/images/magazine-detail-2.jpg" alt="Thumbnail 2" class="w-full h-20 object-cover" 
+                                 onerror="this.src='https://via.placeholder.com/150x150/0C789A/FFFFFF?text=2'">
+                        </button>
+                        <button onclick="changeImage(this, '~/images/magazine-detail-3.jpg')" class="product-thumbnail border-2 border-transparent rounded-lg overflow-hidden">
+                            <img src="~/images/magazine-detail-3.jpg" alt="Thumbnail 3" class="w-full h-20 object-cover" 
+                                 onerror="this.src='https://via.placeholder.com/150x150/FF6B35/FFFFFF?text=3'">
+                        </button>
+                        <button onclick="changeImage(this, '~/images/magazine-detail-4.jpg')" class="product-thumbnail border-2 border-transparent rounded-lg overflow-hidden">
+                            <img src="~/images/magazine-detail-4.jpg" alt="Thumbnail 4" class="w-full h-20 object-cover" 
+                                 onerror="this.src='https://via.placeholder.com/150x150/0C789A/FFFFFF?text=4'">
+                        </button>
+                        <button onclick="changeImage(this, '~/images/magazine-detail-5.jpg')" class="product-thumbnail border-2 border-transparent rounded-lg overflow-hidden">
+                            <img src="~/images/magazine-detail-5.jpg" alt="Thumbnail 5" class="w-full h-20 object-cover" 
+                                 onerror="this.src='https://via.placeholder.com/150x150/FF6B35/FFFFFF?text=5'">
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Tabs Section -->
+                <div class="mt-8">
+                    <!-- Tab Navigation -->
+                    <div class="border-b border-gray-200">
+                        <ul class="flex space-x-8">
+                            <li>
+                                <button onclick="switchTab('features')" id="tab-features" class="tab-active px-4 py-3 text-sm font-semibold transition-all">
+                                    FEATURES
+                                </button>
+                            </li>
+                            <li>
+                                <button onclick="switchTab('description')" id="tab-description" class="px-4 py-3 text-sm font-semibold text-gray-600 hover:text-primary-blue transition-all">
+                                    DESCRIPTION
+                                </button>
+                            </li>
+                            <li>
+                                <button onclick="switchTab('reviews')" id="tab-reviews" class="px-4 py-3 text-sm font-semibold text-gray-600 hover:text-primary-blue transition-all">
+                                    REVIEWS
+                                </button>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Tab Content -->
+                    <div class="py-8">
+                        <!-- Features Tab -->
+                        <div id="content-features" class="tab-content">
+                            <div class="space-y-4">
+                                <div class="flex items-center">
+                                    <div class="w-2/3">
+                                        <div class="h-3 bg-primary-orange rounded-full"></div>
+                                    </div>
+                                    <div class="w-1/3 pl-4 flex items-center justify-between">
+                                        <div class="flex items-center">
+                                            <i class="fas fa-star text-yellow-400 mr-2"></i>
+                                            <i class="fas fa-star text-yellow-400 mr-2"></i>
+                                            <i class="fas fa-star text-yellow-400 mr-2"></i>
+                                            <i class="fas fa-star text-yellow-400 mr-2"></i>
+                                            <i class="fas fa-star text-yellow-400 mr-2"></i>
+                                        </div>
+                                        <span class="text-gray-600 font-semibold">(45%)</span>
+                                    </div>
+                                </div>
+                                <div class="flex items-center">
+                                    <div class="w-2/3">
+                                        <div class="h-3 bg-primary-orange rounded-full" style="width: 70%;"></div>
+                                    </div>
+                                    <div class="w-1/3 pl-4 flex items-center justify-between">
+                                        <div class="flex items-center">
+                                            <i class="fas fa-star text-yellow-400 mr-2"></i>
+                                            <i class="fas fa-star text-yellow-400 mr-2"></i>
+                                            <i class="fas fa-star text-yellow-400 mr-2"></i>
+                                            <i class="fas fa-star text-yellow-400 mr-2"></i>
+                                        </div>
+                                        <span class="text-gray-600 font-semibold">(30%)</span>
+                                    </div>
+                                </div>
+                                <div class="flex items-center">
+                                    <div class="w-2/3">
+                                        <div class="h-3 bg-primary-orange rounded-full" style="width: 20%;"></div>
+                                    </div>
+                                    <div class="w-1/3 pl-4 flex items-center justify-between">
+                                        <div class="flex items-center">
+                                            <i class="fas fa-star text-yellow-400 mr-2"></i>
+                                            <i class="fas fa-star text-yellow-400 mr-2"></i>
+                                            <i class="fas fa-star text-yellow-400 mr-2"></i>
+                                        </div>
+                                        <span class="text-gray-600 font-semibold">(9%)</span>
+                                    </div>
+                                </div>
+                                <div class="flex items-center">
+                                    <div class="w-2/3">
+                                        <div class="h-3 bg-primary-orange rounded-full" style="width: 10%;"></div>
+                                    </div>
+                                    <div class="w-1/3 pl-4 flex items-center justify-between">
+                                        <div class="flex items-center">
+                                            <i class="fas fa-star text-yellow-400 mr-2"></i>
+                                            <i class="fas fa-star text-yellow-400 mr-2"></i>
+                                        </div>
+                                        <span class="text-gray-600 font-semibold">(2%)</span>
+                                    </div>
+                                </div>
+                                <div class="flex items-center">
+                                    <div class="w-2/3">
+                                        <div class="h-3 bg-primary-orange rounded-full" style="width: 5%;"></div>
+                                    </div>
+                                    <div class="w-1/3 pl-4 flex items-center justify-between">
+                                        <div class="flex items-center">
+                                            <i class="fas fa-star text-yellow-400 mr-2"></i>
+                                        </div>
+                                        <span class="text-gray-600 font-semibold">(1%)</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Description Tab (Hidden) -->
+                        <div id="content-description" class="tab-content hidden">
+                            <p class="text-gray-600 leading-relaxed mb-4">
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                            </p>
+                            <p class="text-gray-600 leading-relaxed">
+                                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                            </p>
+                        </div>
+                        
+                        <!-- Reviews Tab (Hidden) -->
+                        <div id="content-reviews" class="tab-content hidden">
+                            <!-- Review Summary -->
+                            <div class="bg-gray-50 rounded-lg p-6 mb-6 text-center">
+                                <div class="text-5xl font-bold text-primary-orange mb-2">4.8</div>
+                                <div class="flex items-center justify-center mb-2">
+                                    <i class="fas fa-star text-yellow-400"></i>
+                                    <i class="fas fa-star text-yellow-400"></i>
+                                    <i class="fas fa-star text-yellow-400"></i>
+                                    <i class="fas fa-star text-yellow-400"></i>
+                                    <i class="fas fa-star text-yellow-400"></i>
+                                </div>
+                                <p class="text-gray-600">Based on 127 reviews</p>
+                                <button class="mt-4 bg-primary-orange hover:bg-orange-600 text-white px-6 py-2 rounded-lg font-semibold transition-all">
+                                    WRITE A CUSTOMER REVIEW
+                                </button>
+                            </div>
+                            
+                            <!-- Individual Reviews -->
+                            <div class="space-y-6">
+                                <!-- Review 1 -->
+                                <div class="border-b border-gray-200 pb-6">
+                                    <div class="flex items-start mb-3">
+                                        <div class="flex-shrink-0">
+                                            <div class="w-12 h-12 bg-gray-300 rounded-full flex items-center justify-center text-white font-bold text-xl">
+                                                G
+                                            </div>
+                                        </div>
+                                        <div class="ml-4 flex-1">
+                                            <div class="flex items-center justify-between mb-1">
+                                                <h4 class="font-bold text-gray-800">Georgia Moe <span class="text-gray-400 font-normal text-sm">Verified Purchase</span></h4>
+                                                <span class="text-gray-500 text-sm">August 16, 2024</span>
+                                            </div>
+                                            <div class="flex items-center mb-2">
+                                                <i class="fas fa-star text-yellow-400 text-sm"></i>
+                                                <i class="fas fa-star text-yellow-400 text-sm"></i>
+                                                <i class="fas fa-star text-yellow-400 text-sm"></i>
+                                                <i class="fas fa-star text-yellow-400 text-sm"></i>
+                                                <i class="fas fa-star text-yellow-400 text-sm"></i>
+                                            </div>
+                                            <h5 class="font-semibold text-gray-800 mb-2">Absolutely Beautiful Product</h5>
+                                            <p class="text-gray-600 text-sm leading-relaxed mb-3">
+                                                Different with sight news office. I choose simply during choices wait. Things well with developed think. It's very safe, with insights into things we enjoy. I am really enjoying this. Presence will with magazine from they.
+                                            </p>
+                                            <div class="flex items-center space-x-4 text-sm">
+                                                <button class="text-gray-600 hover:text-primary-blue"><i class="far fa-thumbs-up mr-1"></i> 16</button>
+                                                <button class="text-gray-600 hover:text-primary-blue"><i class="far fa-thumbs-down mr-1"></i> 1</button>
+                                                <button class="text-primary-blue hover:text-blue-700"><i class="fas fa-share mr-1"></i> Share</button>
+                                                <button class="text-gray-600 hover:text-primary-blue">Was This Review Helpful?</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Review 2 -->
+                                <div class="border-b border-gray-200 pb-6">
+                                    <div class="flex items-start mb-3">
+                                        <div class="flex-shrink-0">
+                                            <div class="w-12 h-12 bg-gray-300 rounded-full flex items-center justify-center text-white font-bold text-xl">
+                                                C
+                                            </div>
+                                        </div>
+                                        <div class="ml-4 flex-1">
+                                            <div class="flex items-center justify-between mb-1">
+                                                <h4 class="font-bold text-gray-800">Christopher Daniel <span class="text-gray-400 font-normal text-sm">Verified Purchase</span></h4>
+                                                <span class="text-gray-500 text-sm">August 16, 2024</span>
+                                            </div>
+                                            <div class="flex items-center mb-2">
+                                                <i class="fas fa-star text-yellow-400 text-sm"></i>
+                                                <i class="fas fa-star text-yellow-400 text-sm"></i>
+                                                <i class="fas fa-star text-yellow-400 text-sm"></i>
+                                                <i class="fas fa-star text-yellow-400 text-sm"></i>
+                                                <i class="fas fa-star text-yellow-400 text-sm"></i>
+                                            </div>
+                                            <h5 class="font-semibold text-gray-800 mb-2">Exceeded expectations</h5>
+                                            <p class="text-gray-600 text-sm leading-relaxed mb-3">
+                                                Its genuinely quite different are the content for the material for guide quality. Allowed people way it will make it and really my definitely hear it and very easy. Long simple, unique. It really feels now and it's so sleek.
+                                            </p>
+                                            <div class="flex items-center space-x-4 text-sm">
+                                                <button class="text-gray-600 hover:text-primary-blue"><i class="far fa-thumbs-up mr-1"></i> 25</button>
+                                                <button class="text-gray-600 hover:text-primary-blue"><i class="far fa-thumbs-down mr-1"></i> 2</button>
+                                                <button class="text-primary-blue hover:text-blue-700"><i class="fas fa-share mr-1"></i> Share</button>
+                                                <button class="text-gray-600 hover:text-primary-blue">Was This Review Helpful?</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Review 3 -->
+                                <div class="pb-6">
+                                    <div class="flex items-start mb-3">
+                                        <div class="flex-shrink-0">
+                                            <div class="w-12 h-12 bg-gray-300 rounded-full flex items-center justify-center text-white font-bold text-xl">
+                                                L
+                                            </div>
+                                        </div>
+                                        <div class="ml-4 flex-1">
+                                            <div class="flex items-center justify-between mb-1">
+                                                <h4 class="font-bold text-gray-800">Lia Johnson <span class="text-gray-400 font-normal text-sm">Verified Purchase</span></h4>
+                                                <span class="text-gray-500 text-sm">August 15, 2024</span>
+                                            </div>
+                                            <div class="flex items-center mb-2">
+                                                <i class="fas fa-star text-yellow-400 text-sm"></i>
+                                                <i class="fas fa-star text-yellow-400 text-sm"></i>
+                                                <i class="fas fa-star text-yellow-400 text-sm"></i>
+                                                <i class="fas fa-star text-yellow-400 text-sm"></i>
+                                                <i class="far fa-star text-yellow-400 text-sm"></i>
+                                            </div>
+                                            <h5 class="font-semibold text-gray-800 mb-2">A little goes a long way</h5>
+                                            <p class="text-gray-600 text-sm leading-relaxed mb-3">
+                                                This Pakistan Travelogue Payable Excellent reason you are used in it these way tours came it and made it in an affordable holder is very good place. I should add this later on my magazine every time I'm going out the pictures and stories really really good.
+                                            </p>
+                                            <div class="flex items-center space-x-4 text-sm">
+                                                <button class="text-gray-600 hover:text-primary-blue"><i class="far fa-thumbs-up mr-1"></i> 18</button>
+                                                <button class="text-gray-600 hover:text-primary-blue"><i class="far fa-thumbs-down mr-1"></i> 0</button>
+                                                <button class="text-primary-blue hover:text-blue-700"><i class="fas fa-share mr-1"></i> Share</button>
+                                                <button class="text-gray-600 hover:text-primary-blue">Was This Review Helpful?</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Pagination -->
+                            <div class="mt-6 flex items-center justify-between">
+                                <div class="text-sm text-gray-600">
+                                    Showing Reviews 1-3 - <span class="text-primary-blue cursor-pointer hover:underline">Back to Top</span>
+                                </div>
+                                <button class="text-primary-blue hover:text-blue-700 text-sm font-semibold">
+                                    Next <i class="fas fa-chevron-right ml-1"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Right: Product Info & Cart (1 column) -->
+            <div class="lg:col-span-1">
+                <div class="bg-white rounded-lg border border-gray-200 p-6 sticky top-4">
+                    <!-- Rating & Reviews -->
+                    <div class="flex items-center mb-2">
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <span class="ml-2 text-sm text-gray-600">4.8 (317 Reviews)</span>
+                    </div>
+                    
+                    <!-- Title -->
+                    <h1 class="text-2xl font-bold text-gray-800 mb-4">A Million Little Pieces</h1>
+                    
+                    <!-- Price -->
+                    <div class="mb-6">
+                        <span class="text-4xl font-bold text-primary-orange">$36.00</span>
+                        <span class="text-xl text-gray-400 line-through ml-3">$48.00</span>
+                    </div>
+                    
+                    <!-- Description -->
+                    <p class="text-gray-600 text-sm mb-6 leading-relaxed">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.
+                    </p>
+                    
+                    <!-- One-time Purchase -->
+                    <div class="mb-4">
+                        <label class="flex items-center p-4 border-2 border-primary-blue rounded-lg cursor-pointer bg-blue-50">
+                            <input type="radio" name="purchase-type" checked class="w-5 h-5 text-primary-blue">
+                            <div class="ml-3 flex-1">
+                                <div class="font-semibold text-gray-800">One-time Purchase</div>
+                                <div class="text-sm text-gray-600">$450.88 / magazine</div>
+                            </div>
+                        </label>
+                    </div>
+                    
+                    <!-- Subscribe & Save -->
+                    <div class="mb-6">
+                        <label class="flex items-center p-4 border-2 border-gray-200 rounded-lg cursor-pointer hover:border-primary-blue">
+                            <input type="radio" name="purchase-type" class="w-5 h-5 text-primary-blue">
+                            <div class="ml-3 flex-1">
+                                <div class="flex items-center">
+                                    <span class="font-semibold text-gray-800">Subscribe & Save</span>
+                                    <span class="ml-2 bg-primary-orange text-white text-xs px-2 py-1 rounded">SAVE 5% TODAY</span>
+                                </div>
+                                <div class="text-sm text-gray-600 mt-1">$350.99 ($350.99 / magazine)</div>
+                            </div>
+                        </label>
+                    </div>
+                    
+                    <!-- Features -->
+                    <div class="space-y-2 mb-6">
+                        <div class="flex items-center text-sm text-gray-700">
+                            <i class="fas fa-check-circle text-primary-blue mr-2"></i>
+                            Free shipping on every order
+                        </div>
+                        <div class="flex items-center text-sm text-gray-700">
+                            <i class="fas fa-check-circle text-primary-blue mr-2"></i>
+                            Easy process to begin Magazine
+                        </div>
+                        <div class="flex items-center text-sm text-gray-700">
+                            <i class="fas fa-check-circle text-primary-blue mr-2"></i>
+                            Cancel at edit anytime
+                        </div>
+                    </div>
+                    
+                    <!-- Quantity -->
+                    <div class="flex items-center mb-4">
+                        <button class="w-10 h-10 border border-gray-300 rounded-l-lg flex items-center justify-center hover:bg-gray-100">
+                            <i class="fas fa-minus"></i>
+                        </button>
+                        <input type="number" value="1" class="w-16 h-10 border-t border-b border-gray-300 text-center focus:outline-none">
+                        <button class="w-10 h-10 border border-gray-300 rounded-r-lg flex items-center justify-center hover:bg-gray-100">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </div>
+                    
+                    <!-- Add to Cart Button -->
+                    <button onclick="addToCart(this)" class="w-full bg-primary-orange hover:bg-orange-600 text-white font-bold py-4 rounded-lg transition-all shadow-lg mb-3">
+                        <i class="fas fa-shopping-cart mr-2"></i>ADD TO CART
+                    </button>
+                    
+                    <!-- Checkout Button -->
+                    <a asp-controller="Checkout" asp-action="Index" class="block w-full bg-dark-navy hover:bg-gray-800 text-white font-bold py-4 rounded-lg transition-all text-center">
+                        CHECK OUT
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Related Products Section -->
+<section class="py-20 bg-gray-50">
+    <div class="container mx-auto px-4">
+        <h2 class="text-3xl font-bold text-center text-gray-800 mb-12">OUR RELATED MAGAZINE</h2>
+        
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            @for (int i = 1; i <= 4; i++)
+            {
+                var isOrange = i % 2 != 0;
+                <div class="card-hover bg-white rounded-lg shadow-lg overflow-hidden">
+                    <div class="relative">
+                        <div class="bg-gradient-to-br @(isOrange ? "from-orange-400 to-orange-600" : "from-blue-400 to-blue-600") p-6 flex items-center justify-center h-80">
+                            <img src="~/images/magazine-@(i).jpg" alt="Magazine" class="h-full object-contain" 
+                                 onerror="this.src='https://via.placeholder.com/300x400/@(isOrange ? "FF6B35" : "0C789A")/FFFFFF?text=Magazine'">
+                        </div>
+                        <div class="absolute bottom-4 left-4 bg-white text-@(isOrange ? "orange" : "blue")-500 px-4 py-1 rounded-full text-sm font-semibold">
+                            OVERNIGHT TRIPS
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <div class="flex items-center mb-2">
+                            <i class="fas fa-star text-yellow-400 text-sm"></i>
+                            <i class="fas fa-star text-yellow-400 text-sm"></i>
+                            <i class="fas fa-star text-yellow-400 text-sm"></i>
+                            <i class="fas fa-star text-yellow-400 text-sm"></i>
+                            <i class="fas fa-star text-yellow-400 text-sm"></i>
+                        </div>
+                        <h3 class="text-lg font-semibold text-gray-800 mb-3">A Million Little Pieces</h3>
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <span class="text-2xl font-bold text-primary-orange">$36.00</span>
+                                <span class="text-sm text-gray-400 line-through ml-2">$48.00</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+
+<!-- Newsletter Section -->
+<section class="py-20 bg-gray-50">
+    <div class="container mx-auto px-4">
+        <div class="max-w-5xl mx-auto">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h2 class="text-4xl md:text-5xl font-bold text-gray-800 mb-6">
+                        JOIN <span class="text-primary-blue">THE BEST<br>STORYTELLERS</span> OF<br>WORLD
+                    </h2>
+                    <p class="text-gray-600 text-lg mb-8">
+                        A collection of travel stories and stunning photos that help to plan big.
+                    </p>
+                    
+                    <div class="flex gap-4">
+                        <input type="email" placeholder="Enter Your Email" 
+                               class="flex-1 px-6 py-4 border border-gray-300 rounded-lg focus:outline-none focus:border-primary-blue focus:ring-2 focus:ring-primary-blue focus:ring-opacity-20">
+                        <button class="bg-primary-blue hover:bg-blue-600 text-white px-8 py-4 rounded-lg font-semibold transition-all whitespace-nowrap">
+                            SUBSCRIBE
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="relative">
+                    <div class="relative z-10">
+                        <img src="~/images/storyteller.jpg" alt="Storyteller" class="rounded-full w-full max-w-md mx-auto shadow-2xl" 
+                             onerror="this.src='https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=600'">
+                    </div>
+                    <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full h-full bg-primary-blue rounded-full -z-0 scale-110 opacity-10"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    function changeImage(thumbnail, imageSrc) {
+        // Update main image
+        document.getElementById('main-product-image').src = imageSrc;
+        
+        // Update active thumbnail
+        document.querySelectorAll('.product-thumbnail').forEach(thumb => {
+            thumb.classList.remove('active', 'border-primary-blue');
+            thumb.classList.add('border-transparent');
+        });
+        thumbnail.classList.add('active', 'border-primary-blue');
+        thumbnail.classList.remove('border-transparent');
+    }
+    
+    function switchTab(tabName) {
+        // Hide all tab content
+        document.querySelectorAll('.tab-content').forEach(content => {
+            content.classList.add('hidden');
+        });
+        
+        // Remove active class from all tabs
+        document.querySelectorAll('[id^="tab-"]').forEach(tab => {
+            tab.classList.remove('tab-active', 'text-primary-blue');
+            tab.classList.add('text-gray-600');
+        });
+        
+        // Show selected tab content
+        document.getElementById('content-' + tabName).classList.remove('hidden');
+        
+        // Add active class to selected tab
+        const selectedTab = document.getElementById('tab-' + tabName);
+        selectedTab.classList.add('tab-active');
+        selectedTab.classList.remove('text-gray-600');
+    }
+</script>
+

@@ -1,0 +1,84 @@
+<!-- Header Navigation -->
+<header class="bg-dark-navy text-white sticky top-0 z-50 shadow-lg">
+    <nav class="container mx-auto px-4 py-4">
+        <div class="flex items-center justify-between">
+            <!-- Logo -->
+            <div class="flex items-center">
+                <a asp-controller="Home" asp-action="Index" class="flex items-center">
+                    <img src="~/images/logo.png" alt="Travelogue PK" class="h-12" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                    <div style="display:none;" class="text-2xl font-bold">
+                        <span class="text-white">TRAVEL</span><span class="text-primary-orange">OGUE</span> <span class="text-primary-orange">PK</span>
+                    </div>
+                </a>
+            </div>
+            
+            <!-- Desktop Navigation -->
+            <div class="hidden lg:flex items-center space-x-8">
+                <a asp-controller="Home" asp-action="Index" class="hover:text-primary-orange transition-colors font-medium">Home</a>
+                <a asp-controller="About" asp-action="Index" class="hover:text-primary-orange transition-colors font-medium">About Us</a>
+                <a asp-controller="Categories" asp-action="Index" class="hover:text-primary-orange transition-colors font-medium">Categories</a>
+                <a asp-controller="Contact" asp-action="Index" class="hover:text-primary-orange transition-colors font-medium">Contact Us</a>
+            </div>
+            
+            <!-- Right Side Buttons -->
+            <div class="hidden lg:flex items-center space-x-4">
+                <!-- Search Button -->
+                <button id="search-button" class="bg-primary-blue hover:bg-blue-600 text-white p-2 rounded-lg transition-all">
+                    <i class="fas fa-search"></i>
+                </button>
+                
+                <!-- Login Button -->
+                <button onclick="showLoginModal()" class="border-2 border-white hover:bg-white hover:text-dark-navy px-6 py-2 rounded-lg font-medium transition-all flex items-center">
+                    <i class="fas fa-user mr-2"></i>LOGIN
+                </button>
+                
+                <!-- Sign Up Button -->
+                <a asp-controller="Profile" asp-action="Index" class="bg-primary-orange hover:bg-orange-600 text-white px-6 py-2 rounded-lg font-medium transition-all flex items-center">
+                    <i class="fas fa-user-plus mr-2"></i>SIGN UP
+                </a>
+            </div>
+            
+            <!-- Mobile Menu Button -->
+            <button id="mobile-menu-button" class="lg:hidden text-white focus:outline-none">
+                <i class="fas fa-bars text-2xl"></i>
+            </button>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden lg:hidden mt-4 pb-4">
+            <div class="flex flex-col space-y-4">
+                <a asp-controller="Home" asp-action="Index" class="hover:text-primary-orange transition-colors font-medium">Home</a>
+                <a asp-controller="About" asp-action="Index" class="hover:text-primary-orange transition-colors font-medium">About Us</a>
+                <a asp-controller="Categories" asp-action="Index" class="hover:text-primary-orange transition-colors font-medium">Categories</a>
+                <a asp-controller="Contact" asp-action="Index" class="hover:text-primary-orange transition-colors font-medium">Contact Us</a>
+                <div class="pt-4 border-t border-gray-600 space-y-3">
+                    <button onclick="showLoginModal()" class="w-full border-2 border-white hover:bg-white hover:text-dark-navy px-6 py-2 rounded-lg font-medium transition-all">
+                        <i class="fas fa-user mr-2"></i>LOGIN
+                    </button>
+                    <a asp-controller="Profile" asp-action="Index" class="block w-full bg-primary-orange hover:bg-orange-600 text-white px-6 py-2 rounded-lg font-medium transition-all text-center">
+                        <i class="fas fa-user-plus mr-2"></i>SIGN UP
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<!-- Search Overlay -->
+<div id="search-overlay" class="hidden fixed inset-0 bg-black bg-opacity-80 z-50 flex items-center justify-center">
+    <div class="container mx-auto px-4">
+        <div class="max-w-3xl mx-auto">
+            <div class="relative">
+                <input type="text" placeholder="Search for magazines, destinations, tours..." 
+                       class="w-full px-6 py-4 text-lg rounded-lg focus:outline-none focus:ring-4 focus:ring-primary-blue">
+                <button class="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-primary-blue">
+                    <i class="fas fa-search text-2xl"></i>
+                </button>
+            </div>
+            <button id="close-search" class="mt-8 text-white hover:text-primary-orange text-lg">
+                <i class="fas fa-times mr-2"></i>Close
+            </button>
+        </div>
+    </div>
+</div>
+

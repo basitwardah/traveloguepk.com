@@ -1,0 +1,237 @@
+@{
+    ViewData["Title"] = "Checkout";
+}
+
+<!-- Checkout Section -->
+<section class="py-12 bg-gray-50 min-h-screen">
+    <div class="container mx-auto px-4">
+        <div class="max-w-6xl mx-auto">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Left: Checkout Form (2 columns) -->
+                <div class="lg:col-span-2">
+                    <!-- Payment Express -->
+                    <div class="mb-6">
+                        <h3 class="text-sm text-gray-600 mb-3 text-center">Payment express</h3>
+                        <button class="w-full bg-yellow-400 hover:bg-yellow-500 text-gray-800 font-bold py-4 rounded-lg transition-all flex items-center justify-center">
+                            <i class="fab fa-paypal text-blue-700 text-2xl"></i>
+                        </button>
+                        <div class="text-center my-4 text-gray-500 text-sm">OR</div>
+                    </div>
+                    
+                    <!-- Contact Section -->
+                    <div class="bg-white rounded-lg p-6 mb-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <h2 class="text-xl font-bold text-gray-800">Contact</h2>
+                            <a href="#" class="text-primary-blue text-sm hover:underline">Login</a>
+                        </div>
+                        <input type="email" placeholder="Email Address" 
+                               class="w-full px-4 py-3 border-2 border-primary-blue rounded-lg focus:outline-none focus:border-blue-600">
+                    </div>
+                    
+                    <!-- Details Section -->
+                    <div class="bg-white rounded-lg p-6 mb-6">
+                        <h2 class="text-xl font-bold text-gray-800 mb-4">Details</h2>
+                        
+                        <!-- Country -->
+                        <div class="mb-4">
+                            <select class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-primary-blue text-gray-600">
+                                <option>Country</option>
+                                <option selected>Pakistan</option>
+                                <option>United States</option>
+                                <option>United Kingdom</option>
+                                <option>Canada</option>
+                            </select>
+                        </div>
+                        
+                        <!-- First Name & Last Name -->
+                        <div class="grid grid-cols-2 gap-4 mb-4">
+                            <input type="text" placeholder="First Name" 
+                                   class="px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-primary-blue">
+                            <input type="text" placeholder="Last Name" 
+                                   class="px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-primary-blue">
+                        </div>
+                        
+                        <!-- Address Line 1 -->
+                        <div class="mb-4">
+                            <input type="text" placeholder="Address Line 1" 
+                                   class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-primary-blue">
+                        </div>
+                        
+                        <!-- Address Line 2 -->
+                        <div class="mb-4">
+                            <input type="text" placeholder="Address Line 2" 
+                                   class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-primary-blue">
+                        </div>
+                        
+                        <!-- Postal Code & City -->
+                        <div class="grid grid-cols-2 gap-4 mb-4">
+                            <input type="text" placeholder="Postal Code" 
+                                   class="px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-primary-blue">
+                            <input type="text" placeholder="City" 
+                                   class="px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-primary-blue">
+                        </div>
+                        
+                        <!-- Phone Number -->
+                        <div class="mb-4">
+                            <input type="tel" placeholder="Phone Number" 
+                                   class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-primary-blue">
+                        </div>
+                        
+                        <!-- Save Details Checkbox -->
+                        <label class="flex items-center cursor-pointer">
+                            <input type="checkbox" class="w-4 h-4 text-primary-blue border-gray-300 rounded focus:ring-primary-blue">
+                            <span class="ml-2 text-sm text-gray-700">Save my details for next time</span>
+                        </label>
+                    </div>
+                    
+                    <!-- Shipping Method -->
+                    <div class="bg-white rounded-lg p-6 mb-6">
+                        <h2 class="text-xl font-bold text-gray-800 mb-4">Shipping Method</h2>
+                        <div class="bg-gray-50 rounded-lg p-4 text-center text-gray-600">
+                            Enter your shipping address to see available shipping methods.
+                        </div>
+                    </div>
+                    
+                    <!-- Payment Section -->
+                    <div class="bg-white rounded-lg p-6 mb-6">
+                        <h2 class="text-xl font-bold text-gray-800 mb-2">Payment</h2>
+                        <p class="text-sm text-gray-600 mb-4">All transactions are secure and encrypted.</p>
+                        
+                        <!-- Credit Card Option -->
+                        <div class="border-2 border-gray-200 rounded-lg p-4 mb-4">
+                            <label class="flex items-center cursor-pointer mb-4">
+                                <input type="radio" name="payment-method" checked class="w-4 h-4 text-primary-blue">
+                                <span class="ml-3 text-gray-800 font-semibold">Credit card</span>
+                                <div class="ml-auto flex items-center space-x-2">
+                                    <i class="fab fa-cc-visa text-3xl text-blue-600"></i>
+                                    <i class="fab fa-cc-mastercard text-3xl text-red-600"></i>
+                                    <i class="fab fa-cc-amex text-3xl text-blue-600"></i>
+                                    <i class="fab fa-cc-discover text-3xl text-orange-600"></i>
+                                    <span class="text-gray-400">+1</span>
+                                </div>
+                            </label>
+                            
+                            <div class="bg-gray-50 p-4 rounded space-y-4">
+                                <!-- Card Number -->
+                                <input type="text" placeholder="Card Number" 
+                                       class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-primary-blue">
+                                
+                                <!-- Expiry & CVV -->
+                                <div class="grid grid-cols-2 gap-4">
+                                    <input type="text" placeholder="Expiry Date (MM/YY)" 
+                                           class="px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-primary-blue">
+                                    <input type="text" placeholder="CVV" 
+                                           class="px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-primary-blue">
+                                </div>
+                                
+                                <!-- Name on Card -->
+                                <input type="text" placeholder="Name" 
+                                       class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-primary-blue">
+                                
+                                <!-- Use Shipping Address Checkbox -->
+                                <label class="flex items-center cursor-pointer">
+                                    <input type="checkbox" checked class="w-4 h-4 text-primary-blue border-gray-300 rounded focus:ring-primary-blue">
+                                    <span class="ml-2 text-sm text-gray-700">Use same billing address as shipping address</span>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <!-- PayPal Option -->
+                        <div class="border-2 border-gray-200 rounded-lg p-4">
+                            <label class="flex items-center justify-between cursor-pointer">
+                                <div class="flex items-center">
+                                    <input type="radio" name="payment-method" class="w-4 h-4 text-primary-blue">
+                                    <span class="ml-3 text-gray-800 font-semibold">PayPal</span>
+                                </div>
+                                <i class="fab fa-paypal text-3xl text-blue-700"></i>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <!-- Pay Now Button -->
+                    <button class="w-full bg-primary-orange hover:bg-orange-600 text-white font-bold py-4 rounded-lg transition-all text-lg shadow-lg">
+                        Pay Now
+                    </button>
+                </div>
+                
+                <!-- Right: Order Summary (1 column) -->
+                <div class="lg:col-span-1">
+                    <div class="bg-white rounded-lg p-6 sticky top-4">
+                        <h2 class="text-xl font-bold text-gray-800 mb-6">MY BAG</h2>
+                        <p class="text-sm text-gray-600 mb-6">CONSIDER CULTURAL TOURS OR HIKES FOR THIS TOO! DELIVERY</p>
+                        
+                        <!-- Cart Items -->
+                        <div class="space-y-4 mb-6">
+                            <!-- Cart Item 1 -->
+                            <div class="flex items-start space-x-4 pb-4 border-b border-gray-200">
+                                <div class="relative flex-shrink-0">
+                                    <img src="~/images/magazine-cart-1.jpg" alt="Magazine" class="w-16 h-20 object-cover rounded" 
+                                         onerror="this.src='https://via.placeholder.com/100x120/0C789A/FFFFFF?text=Mag'">
+                                    <span class="absolute -top-2 -right-2 bg-primary-orange text-white text-xs rounded-full w-5 h-5 flex items-center justify-center font-bold">1</span>
+                                </div>
+                                <div class="flex-1">
+                                    <h4 class="font-semibold text-gray-800 text-sm mb-1">A Million Little Pieces</h4>
+                                    <p class="text-primary-orange font-bold">$22.50</p>
+                                </div>
+                                <button class="text-red-500 hover:text-red-700">
+                                    <i class="fas fa-trash-alt"></i>
+                                </button>
+                            </div>
+                            
+                            <!-- Cart Item 2 -->
+                            <div class="flex items-start space-x-4 pb-4 border-b border-gray-200">
+                                <div class="relative flex-shrink-0">
+                                    <img src="~/images/magazine-cart-2.jpg" alt="Magazine" class="w-16 h-20 object-cover rounded" 
+                                         onerror="this.src='https://via.placeholder.com/100x120/FF6B35/FFFFFF?text=Mag'">
+                                    <span class="absolute -top-2 -right-2 bg-primary-orange text-white text-xs rounded-full w-5 h-5 flex items-center justify-center font-bold">1</span>
+                                </div>
+                                <div class="flex-1">
+                                    <h4 class="font-semibold text-gray-800 text-sm mb-1">A Million Little Pieces</h4>
+                                    <p class="text-primary-orange font-bold">$22.50</p>
+                                </div>
+                                <button class="text-red-500 hover:text-red-700">
+                                    <i class="fas fa-trash-alt"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Voucher Code -->
+                        <div class="mb-6">
+                            <div class="flex gap-2">
+                                <input type="text" placeholder="Voucher Code" 
+                                       class="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary-blue text-sm">
+                                <button class="bg-gray-800 hover:bg-gray-700 text-white px-6 py-2 rounded-lg font-semibold text-sm transition-all">
+                                    Submit
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Summary -->
+                        <div class="space-y-3 mb-6">
+                            <div class="flex items-center justify-between text-gray-700">
+                                <span>Sub-total</span>
+                                <span class="font-semibold">$35.60</span>
+                            </div>
+                            <div class="flex items-center justify-between text-gray-700">
+                                <span>Expedition</span>
+                                <span class="text-sm text-gray-500">Saisir une adresse d'expédition</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Total -->
+                        <div class="pt-4 border-t-2 border-gray-300">
+                            <div class="flex items-center justify-between">
+                                <span class="text-lg font-bold text-gray-800">Total</span>
+                                <div class="text-right">
+                                    <div class="text-sm text-gray-500">DOLLAR</div>
+                                    <div class="text-2xl font-bold text-gray-800">$35.50</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+

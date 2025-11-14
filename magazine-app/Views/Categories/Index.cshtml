@@ -1,0 +1,298 @@
+@{
+    ViewData["Title"] = "Categories";
+}
+
+<!-- Hero Section -->
+<section class="relative h-96">
+    <div class="absolute inset-0">
+        <img src="~/images/categories-hero.jpg" alt="Categories" class="w-full h-full object-cover" 
+             onerror="this.src='https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1920'">
+        <div class="absolute inset-0 bg-dark-navy bg-opacity-60"></div>
+    </div>
+    
+    <div class="relative container mx-auto px-4 h-full flex flex-col justify-center">
+        <!-- Breadcrumb -->
+        <nav class="text-white mb-4">
+            <ol class="flex items-center space-x-2 text-sm">
+                <li><a asp-controller="Home" asp-action="Index" class="hover:text-primary-orange">Home</a></li>
+                <li><i class="fas fa-chevron-right text-xs"></i></li>
+                <li>About Us</li>
+            </ol>
+        </nav>
+        
+        <div class="orange-label mb-4">
+            TRAVELOGUE PK
+        </div>
+        <h1 class="text-5xl md:text-6xl font-bold text-white">
+            CATEGORIES
+        </h1>
+    </div>
+</section>
+
+<!-- Mountain Divider -->
+<div class="mountain-divider mountain-divider-white"></div>
+
+<!-- Products Section -->
+<section class="py-20 bg-white">
+    <div class="container mx-auto px-4">
+        <div class="flex flex-col lg:flex-row gap-8">
+            <!-- Sidebar Filters -->
+            <aside class="lg:w-1/4">
+                <!-- Filter Toggle (Mobile) -->
+                <button class="lg:hidden w-full bg-gray-200 text-gray-800 px-4 py-3 rounded-lg mb-4 flex items-center justify-center">
+                    <i class="fas fa-filter mr-2"></i> Filter
+                </button>
+                
+                <div class="bg-white rounded-lg border border-gray-200 p-6">
+                    <!-- Search -->
+                    <div class="mb-6">
+                        <div class="relative">
+                            <input type="text" placeholder="Search here..." 
+                                   class="w-full pl-4 pr-10 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-primary-blue">
+                            <button class="absolute right-3 top-1/2 transform -translate-y-1/2 text-white bg-primary-blue p-2 rounded">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Categories -->
+                    <div class="mb-6">
+                        <h3 class="text-lg font-bold text-gray-800 mb-4">Categories</h3>
+                        <div class="space-y-2">
+                            <label class="flex items-center justify-between cursor-pointer hover:bg-gray-50 p-2 rounded">
+                                <div class="flex items-center">
+                                    <input type="checkbox" class="w-4 h-4 text-primary-orange border-gray-300 rounded focus:ring-primary-orange mr-3">
+                                    <span class="text-gray-700">Adventure Travel</span>
+                                </div>
+                                <span class="text-gray-400 text-sm">65</span>
+                            </label>
+                            <label class="flex items-center justify-between cursor-pointer hover:bg-gray-50 p-2 rounded">
+                                <div class="flex items-center">
+                                    <input type="checkbox" class="w-4 h-4 text-primary-orange border-gray-300 rounded focus:ring-primary-orange mr-3">
+                                    <span class="text-gray-700">Luxury Travel</span>
+                                </div>
+                                <span class="text-gray-400 text-sm">32</span>
+                            </label>
+                            <label class="flex items-center justify-between cursor-pointer hover:bg-gray-50 p-2 rounded">
+                                <div class="flex items-center">
+                                    <input type="checkbox" class="w-4 h-4 text-primary-orange border-gray-300 rounded focus:ring-primary-orange mr-3">
+                                    <span class="text-gray-700">Budget Travel</span>
+                                </div>
+                                <span class="text-gray-400 text-sm">21</span>
+                            </label>
+                            <label class="flex items-center justify-between cursor-pointer hover:bg-gray-50 p-2 rounded">
+                                <div class="flex items-center">
+                                    <input type="checkbox" checked class="w-4 h-4 text-primary-orange border-gray-300 rounded focus:ring-primary-orange mr-3">
+                                    <span class="text-gray-700">Cultural Experiences</span>
+                                </div>
+                                <span class="text-gray-400 text-sm">45</span>
+                            </label>
+                            <label class="flex items-center justify-between cursor-pointer hover:bg-gray-50 p-2 rounded">
+                                <div class="flex items-center">
+                                    <input type="checkbox" class="w-4 h-4 text-primary-orange border-gray-300 rounded focus:ring-primary-orange mr-3">
+                                    <span class="text-gray-700">Beach Destinations</span>
+                                </div>
+                                <span class="text-gray-400 text-sm">28</span>
+                            </label>
+                            <label class="flex items-center justify-between cursor-pointer hover:bg-gray-50 p-2 rounded">
+                                <div class="flex items-center">
+                                    <input type="checkbox" class="w-4 h-4 text-primary-orange border-gray-300 rounded focus:ring-primary-orange mr-3">
+                                    <span class="text-gray-700">Mountain Getaways</span>
+                                </div>
+                                <span class="text-gray-400 text-sm">53</span>
+                            </label>
+                            <label class="flex items-center justify-between cursor-pointer hover:bg-gray-50 p-2 rounded">
+                                <div class="flex items-center">
+                                    <input type="checkbox" class="w-4 h-4 text-primary-orange border-gray-300 rounded focus:ring-primary-orange mr-3">
+                                    <span class="text-gray-700">City Breaks</span>
+                                </div>
+                                <span class="text-gray-400 text-sm">69</span>
+                            </label>
+                            <label class="flex items-center justify-between cursor-pointer hover:bg-gray-50 p-2 rounded">
+                                <div class="flex items-center">
+                                    <input type="checkbox" class="w-4 h-4 text-primary-orange border-gray-300 rounded focus:ring-primary-orange mr-3">
+                                    <span class="text-gray-700">Wildlife and Nature</span>
+                                </div>
+                                <span class="text-gray-400 text-sm">18</span>
+                            </label>
+                            <label class="flex items-center justify-between cursor-pointer hover:bg-gray-50 p-2 rounded">
+                                <div class="flex items-center">
+                                    <input type="checkbox" class="w-4 h-4 text-primary-orange border-gray-300 rounded focus:ring-primary-orange mr-3">
+                                    <span class="text-gray-700">Historical Sites</span>
+                                </div>
+                                <span class="text-gray-400 text-sm">41</span>
+                            </label>
+                            <label class="flex items-center justify-between cursor-pointer hover:bg-gray-50 p-2 rounded">
+                                <div class="flex items-center">
+                                    <input type="checkbox" class="w-4 h-4 text-primary-orange border-gray-300 rounded focus:ring-primary-orange mr-3">
+                                    <span class="text-gray-700">Romantic Escapes</span>
+                                </div>
+                                <span class="text-gray-400 text-sm">100</span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <!-- Price Range -->
+                    <div>
+                        <h3 class="text-lg font-bold text-gray-800 mb-4">Prices</h3>
+                        <div class="flex items-center gap-4 mb-4">
+                            <input type="number" placeholder="$ (USD)" value="1000" 
+                                   class="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary-blue text-sm">
+                            <input type="number" placeholder="$ (USD)" value="1300" 
+                                   class="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary-blue text-sm">
+                        </div>
+                        <!-- Price Slider -->
+                        <input type="range" min="0" max="2000" value="1300" class="w-full accent-primary-orange">
+                    </div>
+                </div>
+            </aside>
+            
+            <!-- Products Grid -->
+            <div class="flex-1">
+                <!-- Toolbar -->
+                <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-8 gap-4">
+                    <div class="flex items-center">
+                        <span class="text-gray-600 mr-4">Sort By:</span>
+                        <select class="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary-blue">
+                            <option>Featured Products</option>
+                            <option>Price: Low to High</option>
+                            <option>Price: High to Low</option>
+                            <option>Newest First</option>
+                            <option>Best Rating</option>
+                        </select>
+                    </div>
+                    
+                    <div class="flex items-center">
+                        <span class="text-gray-600 mr-4">Show:</span>
+                        <select class="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary-blue">
+                            <option>All - 30 Items</option>
+                            <option>12 Items</option>
+                            <option>24 Items</option>
+                            <option>48 Items</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <!-- Products Grid -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+                    <!-- Magazine Card 1 -->
+                    <div class="card-hover bg-white rounded-lg shadow-lg overflow-hidden">
+                        <div class="relative">
+                            <div class="bg-gradient-to-br from-orange-400 to-orange-600 p-6 flex items-center justify-center h-80">
+                                <img src="~/images/magazine-1.jpg" alt="Magazine" class="h-full object-contain" 
+                                     onerror="this.src='https://via.placeholder.com/300x400/FF6B35/FFFFFF?text=Magazine'">
+                            </div>
+                            <button class="absolute top-4 right-4 bg-white text-gray-600 hover:text-red-500 rounded-full w-10 h-10 flex items-center justify-center shadow-lg">
+                                <i class="far fa-heart"></i>
+                            </button>
+                            <div class="absolute bottom-4 left-4 bg-white text-orange-500 px-4 py-1 rounded-full text-sm font-semibold">
+                                OVERNIGHT TRIPS
+                            </div>
+                        </div>
+                        <div class="p-4">
+                            <div class="flex items-center mb-2">
+                                <i class="fas fa-star text-yellow-400 text-sm"></i>
+                                <i class="fas fa-star text-yellow-400 text-sm"></i>
+                                <i class="fas fa-star text-yellow-400 text-sm"></i>
+                                <i class="fas fa-star text-yellow-400 text-sm"></i>
+                                <i class="fas fa-star text-yellow-400 text-sm"></i>
+                            </div>
+                            <h3 class="text-lg font-semibold text-gray-800 mb-3">A Million Little Pieces</h3>
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <span class="text-2xl font-bold text-primary-orange">$36.00</span>
+                                    <span class="text-sm text-gray-400 line-through ml-2">$48.00</span>
+                                </div>
+                                <a asp-controller="Product" asp-action="Detail" asp-route-id="1" class="bg-primary-orange hover:bg-orange-600 text-white rounded-full w-10 h-10 flex items-center justify-center transition-all hover:scale-110 shadow-lg">
+                                    <i class="fas fa-shopping-cart"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Magazine Card 2 -->
+                    <div class="card-hover bg-white rounded-lg shadow-lg overflow-hidden">
+                        <div class="relative">
+                            <div class="bg-gradient-to-br from-blue-400 to-blue-600 p-6 flex items-center justify-center h-80">
+                                <img src="~/images/magazine-2.jpg" alt="Magazine" class="h-full object-contain" 
+                                     onerror="this.src='https://via.placeholder.com/300x400/0C789A/FFFFFF?text=Magazine'">
+                            </div>
+                            <button class="absolute top-4 right-4 bg-white text-gray-600 hover:text-red-500 rounded-full w-10 h-10 flex items-center justify-center shadow-lg">
+                                <i class="far fa-heart"></i>
+                            </button>
+                            <div class="absolute bottom-4 left-4 bg-white text-blue-500 px-4 py-1 rounded-full text-sm font-semibold">
+                                OVERNIGHT TRIPS
+                            </div>
+                        </div>
+                        <div class="p-4">
+                            <div class="flex items-center mb-2">
+                                <i class="fas fa-star text-yellow-400 text-sm"></i>
+                                <i class="fas fa-star text-yellow-400 text-sm"></i>
+                                <i class="fas fa-star text-yellow-400 text-sm"></i>
+                                <i class="fas fa-star text-yellow-400 text-sm"></i>
+                                <i class="fas fa-star text-yellow-400 text-sm"></i>
+                            </div>
+                            <h3 class="text-lg font-semibold text-gray-800 mb-3">A Million Little Pieces</h3>
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <span class="text-2xl font-bold text-primary-orange">$36.00</span>
+                                    <span class="text-sm text-gray-400 line-through ml-2">$48.00</span>
+                                </div>
+                                <a asp-controller="Product" asp-action="Detail" asp-route-id="2" class="bg-primary-orange hover:bg-orange-600 text-white rounded-full w-10 h-10 flex items-center justify-center transition-all hover:scale-110 shadow-lg">
+                                    <i class="fas fa-shopping-cart"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Repeat pattern for more products (Cards 3-12) -->
+                    @for (int i = 3; i <= 12; i++)
+                    {
+                        var isOrange = i % 2 != 0;
+                        <div class="card-hover bg-white rounded-lg shadow-lg overflow-hidden">
+                            <div class="relative">
+                                <div class="bg-gradient-to-br @(isOrange ? "from-orange-400 to-orange-600" : "from-blue-400 to-blue-600") p-6 flex items-center justify-center h-80">
+                                    <img src="~/images/magazine-@(i).jpg" alt="Magazine" class="h-full object-contain" 
+                                         onerror="this.src='https://via.placeholder.com/300x400/@(isOrange ? "FF6B35" : "0C789A")/FFFFFF?text=Magazine'">
+                                </div>
+                                <button class="absolute top-4 right-4 bg-white text-gray-600 hover:text-red-500 rounded-full w-10 h-10 flex items-center justify-center shadow-lg">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <div class="absolute bottom-4 left-4 bg-white text-@(isOrange ? "orange" : "blue")-500 px-4 py-1 rounded-full text-sm font-semibold">
+                                    OVERNIGHT TRIPS
+                                </div>
+                            </div>
+                            <div class="p-4">
+                                <div class="flex items-center mb-2">
+                                    <i class="fas fa-star text-yellow-400 text-sm"></i>
+                                    <i class="fas fa-star text-yellow-400 text-sm"></i>
+                                    <i class="fas fa-star text-yellow-400 text-sm"></i>
+                                    <i class="fas fa-star text-yellow-400 text-sm"></i>
+                                    <i class="fas fa-star text-yellow-400 text-sm"></i>
+                                </div>
+                                <h3 class="text-lg font-semibold text-gray-800 mb-3">A Million Little Pieces</h3>
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <span class="text-2xl font-bold text-primary-orange">$36.00</span>
+                                        <span class="text-sm text-gray-400 line-through ml-2">$48.00</span>
+                                    </div>
+                                    <a asp-controller="Product" asp-action="Detail" asp-route-id="@i" class="bg-primary-orange hover:bg-orange-600 text-white rounded-full w-10 h-10 flex items-center justify-center transition-all hover:scale-110 shadow-lg">
+                                        <i class="fas fa-shopping-cart"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+                
+                <!-- Pagination -->
+                <div class="text-center">
+                    <button class="bg-primary-orange hover:bg-orange-600 text-white px-10 py-3 rounded-lg font-semibold transition-all shadow-lg">
+                        LOAD MORE
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
