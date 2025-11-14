@@ -27,15 +27,39 @@
                     <i class="fas fa-search"></i>
                 </button>
                 
-                <!-- Login Button -->
-                <button onclick="showLoginModal()" class="border-2 border-white hover:bg-white hover:text-dark-navy px-6 py-2 rounded-lg font-medium transition-all flex items-center">
-                    <i class="fas fa-user mr-2"></i>LOGIN
-                </button>
-                
-                <!-- Sign Up Button -->
-                <a asp-controller="Profile" asp-action="Index" class="bg-primary-orange hover:bg-orange-600 text-white px-6 py-2 rounded-lg font-medium transition-all flex items-center">
-                    <i class="fas fa-user-plus mr-2"></i>SIGN UP
-                </a>
+                @if (User.Identity?.IsAuthenticated == true)
+                {
+                    <!-- Logged In User -->
+                    <span class="text-white">Hello, @User.Identity.Name</span>
+                    
+                    @if (User.IsInRole("Admin") || User.IsInRole("SuperAdmin") || User.IsInRole("Uploader"))
+                    {
+                        <a asp-controller="GuideAdmin" asp-action="Index" class="border-2 border-white hover:bg-white hover:text-dark-navy px-6 py-2 rounded-lg font-medium transition-all flex items-center">
+                            <i class="fas fa-cog mr-2"></i>ADMIN
+                        </a>
+                    }
+                    
+                    <a asp-controller="Guide" asp-action="Index" class="border-2 border-white hover:bg-white hover:text-dark-navy px-6 py-2 rounded-lg font-medium transition-all flex items-center">
+                        <i class="fas fa-book mr-2"></i>MAGAZINES
+                    </a>
+                    
+                    <form asp-controller="Account" asp-action="Logout" method="post" class="inline">
+                        <button type="submit" class="bg-red-600 hover:bg-red-700 text-white px-6 py-2 rounded-lg font-medium transition-all flex items-center">
+                            <i class="fas fa-sign-out-alt mr-2"></i>LOGOUT
+                        </button>
+                    </form>
+                }
+                else
+                {
+                    <!-- Not Logged In -->
+                    <a asp-controller="Account" asp-action="Login" class="border-2 border-white hover:bg-white hover:text-dark-navy px-6 py-2 rounded-lg font-medium transition-all flex items-center">
+                        <i class="fas fa-user mr-2"></i>LOGIN
+                    </a>
+                    
+                    <a asp-controller="Account" asp-action="Register" class="bg-primary-orange hover:bg-orange-600 text-white px-6 py-2 rounded-lg font-medium transition-all flex items-center">
+                        <i class="fas fa-user-plus mr-2"></i>SIGN UP
+                    </a>
+                }
             </div>
             
             <!-- Mobile Menu Button -->
@@ -49,15 +73,32 @@
             <div class="flex flex-col space-y-4">
                 <a asp-controller="Home" asp-action="Index" class="hover:text-primary-orange transition-colors font-medium">Home</a>
                 <a asp-controller="About" asp-action="Index" class="hover:text-primary-orange transition-colors font-medium">About Us</a>
-                <a asp-controller="Categories" asp-action="Index" class="hover:text-primary-orange transition-colors font-medium">Categories</a>
+                <a asp-controller="Guide" asp-action="Index" class="hover:text-primary-orange transition-colors font-medium">Magazines</a>
                 <a asp-controller="Contact" asp-action="Index" class="hover:text-primary-orange transition-colors font-medium">Contact Us</a>
                 <div class="pt-4 border-t border-gray-600 space-y-3">
-                    <button onclick="showLoginModal()" class="w-full border-2 border-white hover:bg-white hover:text-dark-navy px-6 py-2 rounded-lg font-medium transition-all">
-                        <i class="fas fa-user mr-2"></i>LOGIN
-                    </button>
-                    <a asp-controller="Profile" asp-action="Index" class="block w-full bg-primary-orange hover:bg-orange-600 text-white px-6 py-2 rounded-lg font-medium transition-all text-center">
-                        <i class="fas fa-user-plus mr-2"></i>SIGN UP
-                    </a>
+                    @if (User.Identity?.IsAuthenticated == true)
+                    {
+                        @if (User.IsInRole("Admin") || User.IsInRole("SuperAdmin") || User.IsInRole("Uploader"))
+                        {
+                            <a asp-controller="GuideAdmin" asp-action="Index" class="block w-full border-2 border-white hover:bg-white hover:text-dark-navy px-6 py-2 rounded-lg font-medium transition-all text-center">
+                                <i class="fas fa-cog mr-2"></i>ADMIN
+                            </a>
+                        }
+                        <form asp-controller="Account" asp-action="Logout" method="post">
+                            <button type="submit" class="w-full bg-red-600 hover:bg-red-700 text-white px-6 py-2 rounded-lg font-medium transition-all">
+                                <i class="fas fa-sign-out-alt mr-2"></i>LOGOUT
+                            </button>
+                        </form>
+                    }
+                    else
+                    {
+                        <a asp-controller="Account" asp-action="Login" class="block w-full border-2 border-white hover:bg-white hover:text-dark-navy px-6 py-2 rounded-lg font-medium transition-all text-center">
+                            <i class="fas fa-user mr-2"></i>LOGIN
+                        </a>
+                        <a asp-controller="Account" asp-action="Register" class="block w-full bg-primary-orange hover:bg-orange-600 text-white px-6 py-2 rounded-lg font-medium transition-all text-center">
+                            <i class="fas fa-user-plus mr-2"></i>SIGN UP
+                        </a>
+                    }
                 </div>
             </div>
         </div>

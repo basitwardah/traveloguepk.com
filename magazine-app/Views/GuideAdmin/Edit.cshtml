@@ -1,0 +1,74 @@
+@model magazine_app.ViewModels.GuideEditViewModel
+
+@{
+    ViewData["Title"] = "Edit Magazine";
+}
+
+<div class="container mx-auto px-4 py-8 max-w-4xl">
+    <h1 class="text-3xl font-bold text-gray-800 mb-6">Edit Magazine</h1>
+
+    <div class="bg-white shadow-md rounded-lg p-6">
+        <form asp-action="Edit" method="post" enctype="multipart/form-data">
+            @Html.AntiForgeryToken()
+            <input asp-for="Id" type="hidden" />
+            <input asp-for="ExistingCoverImagePath" type="hidden" />
+            <input asp-for="ExistingPdfPath" type="hidden" />
+            <input asp-for="Slug" type="hidden" />
+
+            <div asp-validation-summary="ModelOnly" class="text-red-600 mb-4"></div>
+
+            <div class="mb-4">
+                <label asp-for="Title" class="block text-gray-700 font-semibold mb-2"></label>
+                <input asp-for="Title" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-blue" />
+                <span asp-validation-for="Title" class="text-red-600 text-sm"></span>
+            </div>
+
+            <div class="mb-4">
+                <label asp-for="Summary" class="block text-gray-700 font-semibold mb-2"></label>
+                <textarea asp-for="Summary" rows="4" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-blue"></textarea>
+                <span asp-validation-for="Summary" class="text-red-600 text-sm"></span>
+            </div>
+
+            <div class="mb-4">
+                <label class="block text-gray-700 font-semibold mb-2">Current Cover Image</label>
+                <img src="@Model.ExistingCoverImagePath" alt="Current cover" class="h-32 w-32 object-cover rounded mb-2" />
+                
+                <label asp-for="CoverImage" class="block text-gray-700 font-semibold mb-2 mt-4"></label>
+                <input asp-for="CoverImage" type="file" accept=".jpg,.jpeg,.png,.webp" class="w-full px-4 py-2 border border-gray-300 rounded-lg" />
+                <span asp-validation-for="CoverImage" class="text-red-600 text-sm"></span>
+                <p class="text-gray-500 text-sm mt-1">Leave empty to keep existing cover (Max 5MB)</p>
+            </div>
+
+            <div class="mb-4">
+                <label class="block text-gray-700 font-semibold mb-2">Current PDF</label>
+                <p class="text-sm text-gray-600">@Model.ExistingPdfPath</p>
+                
+                <label asp-for="PdfFile" class="block text-gray-700 font-semibold mb-2 mt-4"></label>
+                <input asp-for="PdfFile" type="file" accept=".pdf" class="w-full px-4 py-2 border border-gray-300 rounded-lg" />
+                <span asp-validation-for="PdfFile" class="text-red-600 text-sm"></span>
+                <p class="text-gray-500 text-sm mt-1">Leave empty to keep existing PDF (Max 50MB)</p>
+            </div>
+
+            <div class="mb-6">
+                <label class="flex items-center">
+                    <input asp-for="IsPublished" type="checkbox" class="mr-2 h-4 w-4 text-primary-blue" />
+                    <span class="text-gray-700">Published</span>
+                </label>
+            </div>
+
+            <div class="flex gap-4">
+                <button type="submit" class="bg-primary-orange text-white px-6 py-2 rounded-lg hover:bg-orange-600 transition">
+                    <i class="fas fa-save mr-2"></i>Update Magazine
+                </button>
+                <a asp-action="Index" class="bg-gray-300 text-gray-700 px-6 py-2 rounded-lg hover:bg-gray-400 transition">
+                    Cancel
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+

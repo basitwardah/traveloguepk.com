@@ -6,6 +6,10 @@
     <title>@ViewData["Title"] - Travelogue PK</title>
     
     <!-- Tailwind CSS CDN -->
+    <script>
+        // Suppress Tailwind production warning
+        window.process = { env: { NODE_ENV: 'production' } };
+    </script>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -35,6 +39,9 @@
     
     <!-- Custom CSS -->
     <link rel="stylesheet" href="~/css/custom.css" asp-append-version="true" />
+    
+    <!-- Image Placeholder Helper -->
+    <script src="~/js/image-placeholder.js" asp-append-version="true"></script>
     
     <style>
         body {

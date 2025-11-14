@@ -1,0 +1,83 @@
+@model magazine_app.ViewModels.GuideDetailViewModel
+
+@{
+    ViewData["Title"] = $"Reading: {Model.Title}";
+}
+
+<!-- Breadcrumb -->
+<div class="bg-gray-100 py-4">
+    <div class="container mx-auto px-4">
+        <nav class="text-sm">
+            <a asp-controller="Home" asp-action="Index" class="text-primary-blue hover:underline">Home</a>
+            <span class="mx-2">/</span>
+            <a asp-controller="Guide" asp-action="Index" class="text-primary-blue hover:underline">Magazines</a>
+            <span class="mx-2">/</span>
+            <a asp-controller="Guide" asp-action="Detail" asp-route-slug="@Model.Slug" class="text-primary-blue hover:underline">@Model.Title</a>
+            <span class="mx-2">/</span>
+            <span class="text-gray-600">Read</span>
+        </nav>
+    </div>
+</div>
+
+<!-- PDF Viewer -->
+<section class="bg-gray-100 py-8">
+    <div class="container mx-auto px-4">
+        <div class="bg-white rounded-lg shadow-lg p-4 mb-4">
+            <div class="flex justify-between items-center mb-4">
+                <h1 class="text-2xl font-bold text-gray-800">@Model.Title</h1>
+                <div class="flex gap-3">
+                    <a asp-action="DownloadPdf" asp-route-slug="@Model.Slug" class="bg-primary-orange text-white px-4 py-2 rounded-lg hover:bg-orange-600 transition">
+                        <i class="fas fa-download mr-2"></i>Download
+                    </a>
+                    <a asp-action="Detail" asp-route-slug="@Model.Slug" class="bg-gray-300 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-400 transition">
+                        <i class="fas fa-arrow-left mr-2"></i>Back
+                    </a>
+                </div>
+            </div>
+
+            <!-- PDF Viewer Container -->
+            <div class="border border-gray-300 rounded-lg overflow-hidden" style="height: 800px;">
+                <iframe 
+                    src="@Model.PdfPath" 
+                    type="application/pdf" 
+                    width="100%" 
+                    height="100%" 
+                    style="border: none;"
+                    title="@Model.Title">
+                    <p>Your browser does not support PDFs. 
+                        <a asp-action="DownloadPdf" asp-route-slug="@Model.Slug" class="text-primary-blue hover:underline">
+                            Download the PDF
+                        </a> instead.
+                    </p>
+                </iframe>
+            </div>
+
+            <div class="mt-4 text-center text-sm text-gray-600">
+                <p>
+                    <i class="fas fa-info-circle mr-1"></i>
+                    Having trouble viewing? 
+                    <a asp-action="DownloadPdf" asp-route-slug="@Model.Slug" class="text-primary-blue hover:underline">
+                        Download the PDF
+                    </a> to read offline.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <script>
+        // Optional: Add fullscreen functionality
+        function toggleFullscreen() {
+            var iframe = document.querySelector('iframe');
+            if (iframe.requestFullscreen) {
+                iframe.requestFullscreen();
+            } else if (iframe.webkitRequestFullscreen) {
+                iframe.webkitRequestFullscreen();
+            } else if (iframe.msRequestFullscreen) {
+                iframe.msRequestFullscreen();
+            }
+        }
+    </script>
+}
+
