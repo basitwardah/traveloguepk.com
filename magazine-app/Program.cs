@@ -1,7 +1,9 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
-using magazine_app.Data;
-using magazine_app.Models;
+using Entities.Models;
+using Repository.Data;
+using Repository.Interfaces;
+using Repository.Implementations;
 using magazine_app.Services;
 using magazine_app.Services.Interfaces;
 using magazine_app.Middleware;
@@ -53,6 +55,10 @@ builder.Services.AddAuthorization(options =>
     options.AddPolicy("UploaderAccess", policy => policy.RequireRole("Admin", "SuperAdmin", "Uploader"));
     options.AddPolicy("CustomerAccess", policy => policy.RequireRole("Customer", "Admin", "SuperAdmin"));
 });
+
+// Register Repositories
+builder.Services.AddScoped(typeof(IRepository<>), typeof(RepositoryBase<>));
+builder.Services.AddScoped<IAccountRepository, AccountRepository>();
 
 // Register Services
 builder.Services.AddScoped<ILogService, LogService>();

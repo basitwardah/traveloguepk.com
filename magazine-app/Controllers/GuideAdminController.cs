@@ -1,7 +1,9 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using magazine_app.Models;
+using Microsoft.EntityFrameworkCore;
+using Entities.Models;
+using Repository.Data;
 using magazine_app.ViewModels;
 using magazine_app.Services.Interfaces;
 
@@ -15,19 +17,22 @@ namespace magazine_app.Controllers
         private readonly IActivityService _activityService;
         private readonly ILogService _logService;
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly ApplicationDbContext _context;
 
         public GuideAdminController(
             IGuideService guideService,
             IFileService fileService,
             IActivityService activityService,
             ILogService logService,
-            UserManager<ApplicationUser> userManager)
+            UserManager<ApplicationUser> userManager,
+            ApplicationDbContext context)
         {
             _guideService = guideService;
             _fileService = fileService;
             _activityService = activityService;
             _logService = logService;
             _userManager = userManager;
+            _context = context;
         }
 
         // GET: GuideAdmin/Index
@@ -50,8 +55,14 @@ namespace magazine_app.Controllers
         }
 
         // GET: GuideAdmin/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
+            // Load categories for dropdown
+            ViewBag.Categories = await _context.Categories
+                .Where(c => c.IsActive)
+                .OrderBy(c => c.DisplayOrder)
+                .ToListAsync();
+            
             return View();
         }
 
@@ -62,6 +73,11 @@ namespace magazine_app.Controllers
         {
             if (!ModelState.IsValid)
             {
+                // Reload categories if validation fails
+                ViewBag.Categories = await _context.Categories
+                    .Where(c => c.IsActive)
+                    .OrderBy(c => c.DisplayOrder)
+                    .ToListAsync();
                 return View(model);
             }
 
@@ -123,11 +139,20 @@ namespace magazine_app.Controllers
                 return NotFound();
             }
 
+            // Load categories for dropdown
+            ViewBag.Categories = await _context.Categories
+                .Where(c => c.IsActive)
+                .OrderBy(c => c.DisplayOrder)
+                .ToListAsync();
+
             var model = new GuideEditViewModel
             {
                 Id = guide.Id,
                 Title = guide.Title,
                 Summary = guide.Summary,
+                CategoryId = guide.CategoryId,
+                CurrentPrice = guide.CurrentPrice,
+                OldPrice = guide.OldPrice,
                 IsPublished = guide.IsPublished,
                 ExistingCoverImagePath = guide.CoverImagePath,
                 ExistingPdfPath = guide.PdfPath,
@@ -149,6 +174,11 @@ namespace magazine_app.Controllers
 
             if (!ModelState.IsValid)
             {
+                // Reload categories if validation fails
+                ViewBag.Categories = await _context.Categories
+                    .Where(c => c.IsActive)
+                    .OrderBy(c => c.DisplayOrder)
+                    .ToListAsync();
                 return View(model);
             }
 

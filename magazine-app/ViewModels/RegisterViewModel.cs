@@ -25,6 +25,12 @@ namespace magazine_app.ViewModels
         [Display(Name = "Confirm Password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; } = string.Empty;
+
+        [Display(Name = "Subscribe Now (Optional)")]
+        public bool WantsSubscription { get; set; } = false;
+
+        [Display(Name = "Subscription Plan")]
+        public string SubscriptionPlan { get; set; } = "Monthly";
     }
 }
 

@@ -13,6 +13,17 @@ namespace magazine_app.ViewModels
         [StringLength(1000, ErrorMessage = "Summary cannot exceed 1000 characters")]
         public string? Summary { get; set; }
 
+        [Display(Name = "Category")]
+        public int? CategoryId { get; set; }
+
+        [Display(Name = "Current Price")]
+        [Range(0, 999999, ErrorMessage = "Price must be between 0 and 999999")]
+        public decimal CurrentPrice { get; set; } = 0;
+
+        [Display(Name = "Old Price (Optional)")]
+        [Range(0, 999999, ErrorMessage = "Price must be between 0 and 999999")]
+        public decimal OldPrice { get; set; } = 0;
+
         [Required(ErrorMessage = "Cover image is required")]
         [Display(Name = "Cover Image")]
         public IFormFile CoverImage { get; set; } = null!;

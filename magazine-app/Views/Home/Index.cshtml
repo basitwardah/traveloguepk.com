@@ -1,4 +1,6 @@
-﻿@{
+﻿@model IEnumerable<magazine_app.ViewModels.GuideListViewModel>
+
+@{
     ViewData["Title"] = "Home";
 }
 
@@ -118,7 +120,124 @@
         </div>
         
         <!-- Magazine Grid -->
-        @* <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+            @{
+                int colorIndex = 0;
+                var gradients = new[] {
+                    new { From = "orange-400", To = "orange-600", Badge = "orange" },
+                    new { From = "blue-400", To = "blue-600", Badge = "blue" },
+                    new { From = "orange-400", To = "orange-600", Badge = "orange" },
+                    new { From = "blue-400", To = "blue-600", Badge = "blue" }
+                };
+            }
+            
+            @foreach (var guide in Model)
+            {
+                var gradient = gradients[colorIndex % gradients.Length];
+                colorIndex++;
+                var categoryText = !string.IsNullOrEmpty(guide.CategoryName) ? guide.CategoryName.ToUpper() : "MAGAZINE";
+                var hasDiscount = guide.OldPrice > guide.CurrentPrice && guide.CurrentPrice > 0;
+                var discountPercent = hasDiscount ? Math.Round(((guide.OldPrice - guide.CurrentPrice) / guide.OldPrice) * 100) : 0;
+                
+                <div class="card-hover bg-gray-800/50 backdrop-blur-sm rounded-xl shadow-xl overflow-hidden group transform transition-all duration-300 hover:-translate-y-2 border border-gray-700/50">
+                    <div class="relative">
+                        <div class="bg-gradient-to-br from-@gradient.From to-@gradient.To p-6 h-72 flex items-center justify-center relative overflow-hidden">
+                            <img src="@guide.CoverImagePath" 
+                                 alt="@guide.Title" 
+                                 class="h-full object-contain relative z-10 transform group-hover:scale-110 transition-transform duration-500" 
+                                 onerror="this.src='https://placehold.co/300x400/@(gradient.Badge == "orange" ? "FF6B35" : "0C789A")/FFFFFF?text=@guide.Title'">
+                            
+                            <!-- Hover Overlay -->
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-4 z-20">
+                                <a asp-controller="Guide" asp-action="Read" asp-route-slug="@guide.Slug" 
+                                   class="bg-white text-gray-900 px-5 py-2 rounded-lg font-semibold hover:bg-primary-orange hover:text-white transition-all shadow-lg transform hover:scale-105">
+                                    <i class="fas fa-book-open mr-2"></i>Read Now
+                                </a>
+                            </div>
+                            
+                            <!-- Discount Badge -->
+                            @if (hasDiscount)
+                            {
+                                <div class="absolute top-3 left-3 bg-red-500 text-white px-2.5 py-1 rounded-full text-xs font-bold shadow-lg z-10 animate-pulse">
+                                    -@discountPercent%
+                                </div>
+                            }
+                            
+                            <!-- Category Badge -->
+                            <div class="absolute bottom-3 left-3 bg-white/95 backdrop-blur-sm text-gray-800 px-2.5 py-1 rounded-full text-xs font-bold shadow-lg">
+                                @categoryText
+                            </div>
+                            
+                            <!-- Favorite Button - Top Right -->
+                            @if (User.Identity != null && User.Identity.IsAuthenticated)
+                            {
+                                <button onclick="toggleFavorite(@guide.Id, this)" 
+                                        class="favorite-btn absolute top-3 right-3 bg-white/95 backdrop-blur-sm hover:bg-white rounded-full w-10 h-10 flex items-center justify-center shadow-lg transition-all z-30 hover:scale-110"
+                                        data-guide-id="@guide.Id"
+                                        title="@(guide.IsFavorited ? "Remove from favorites" : "Add to favorites")">
+                                    <i class="@(guide.IsFavorited ? "fas" : "far") fa-heart @(guide.IsFavorited ? "text-red-500" : "text-gray-600")"></i>
+                                </button>
+                            }
+                            else
+                            {
+                                <a asp-controller="Account" asp-action="Login" asp-route-returnUrl="@Context.Request.Path@Context.Request.QueryString"
+                                   class="absolute top-3 right-3 bg-white backdrop-blur-sm hover:bg-gray-50 rounded-full w-10 h-10 flex items-center justify-center shadow-lg transition-all z-30 hover:scale-110"
+                                   title="Login to add favorites">
+                                    <i class="far fa-heart text-gray-600 hover:text-red-500"></i>
+                                </a>
+                            }
+                        </div>
+                    </div>
+                    
+                    <div class="p-4 bg-gray-800/70">
+                        <h3 class="text-base font-bold mb-2 text-white group-hover:text-primary-orange transition-colors line-clamp-2 min-h-[3rem]">
+                            @guide.Title
+                        </h3>
+                        @if (!string.IsNullOrEmpty(guide.Summary))
+                        {
+                            <p class="text-gray-300 text-xs line-clamp-2 mb-3 min-h-[2.5rem]">@guide.Summary</p>
+                        }
+                        else
+                        {
+                            <p class="text-gray-400 text-xs mb-3 italic min-h-[2.5rem]">Discover more...</p>
+                        }
+                        
+                        <!-- Pricing -->
+                        <div class="mb-3 pb-3 border-b border-gray-700">
+                            @if (guide.CurrentPrice > 0)
+                            {
+                                <div class="flex items-center gap-2">
+                                    <span class="text-xl font-bold text-primary-orange">$@guide.CurrentPrice.ToString("F2")</span>
+                                    @if (guide.OldPrice > guide.CurrentPrice)
+                                    {
+                                        <span class="text-xs text-gray-400 line-through">$@guide.OldPrice.ToString("F2")</span>
+                                    }
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="flex items-center gap-2">
+                                    <span class="text-lg font-bold text-green-400">FREE</span>
+                                    <span class="bg-green-500/20 text-green-400 text-xs px-2 py-0.5 rounded-full font-semibold">Read Now</span>
+                                </div>
+                            }
+                        </div>
+                        
+                        <div class="flex items-center justify-between text-xs text-gray-400">
+                            <span>
+                                <i class="far fa-calendar mr-1"></i>@guide.CreatedAt.ToString("MMM yyyy")
+                            </span>
+                            <a asp-controller="Guide" asp-action="Detail" asp-route-slug="@guide.Slug" 
+                               class="text-primary-orange hover:text-orange-400 font-semibold">
+                                Details →
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+        
+        @* Old static content - removed
             <!-- Magazine Card 1 -->
             <div class="card-hover">
                 <div class="bg-gradient-to-br from-orange-400 to-orange-600 rounded-lg p-6 h-80 flex items-center justify-center relative overflow-hidden">
@@ -254,58 +373,92 @@
             <h2 class="text-4xl md:text-5xl font-bold mb-4">HOW IT WORKS?</h2>
         </div>
         
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-            <!-- Step 1 -->
-            <div class="text-center">
-                <div class="bg-white bg-opacity-20 backdrop-blur-sm rounded-2xl p-8 mb-4 h-48 flex items-center justify-center">
-                    <i class="fas fa-user-plus text-6xl"></i>
-                </div>
-                <h3 class="text-2xl font-bold mb-2">Create Account</h3>
-                <p class="text-white text-opacity-90">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.
-                </p>
-            </div>
-            
-            <!-- Arrow -->
-            <div class="hidden md:flex items-center justify-center">
-                <i class="fas fa-arrow-right text-4xl opacity-50"></i>
-            </div>
-            
-            <!-- Step 2 -->
-<div class="text-center">
-                <div class="bg-white bg-opacity-20 backdrop-blur-sm rounded-2xl p-8 mb-4 h-48 flex items-center justify-center">
-                    <i class="fas fa-book-open text-6xl"></i>
-                </div>
-                <h3 class="text-2xl font-bold mb-2">Select Your Package</h3>
-                <p class="text-white text-opacity-90">
-                    Sed ut perspiciatis unde omnis iste natus error sit voluptatem.
-                </p>
-            </div>
-            
-            <!-- Arrow -->
-            <div class="hidden md:flex items-center justify-center md:col-span-3">
-                <i class="fas fa-arrow-down text-4xl opacity-50"></i>
-            </div>
-            
-            <!-- Step 3 (Centered) -->
-            <div class="text-center md:col-span-3">
-                <div class="inline-block">
-                    <div class="bg-white bg-opacity-20 backdrop-blur-sm rounded-2xl p-8 mb-4 w-64 h-48 flex items-center justify-center mx-auto">
-                        <i class="fas fa-plane-departure text-6xl"></i>
+        <!-- Steps Container -->
+        <div class="max-w-6xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-7 gap-0 items-center">
+                
+                <!-- Step 1: Create Account -->
+                <div class="md:col-span-2 text-center">
+                    <div class="bg-white rounded-2xl p-8 mb-4 h-48 flex items-center justify-center shadow-xl mx-auto max-w-xs">
+                        <div class="text-primary-blue">
+                            <i class="fas fa-user-plus text-6xl"></i>
+                        </div>
                     </div>
-                    <h3 class="text-2xl font-bold mb-2">Travel</h3>
-                    <p class="text-white text-opacity-90 max-w-md mx-auto">
-                        Add your favourite destinations and magazines. Get ready for the adventure of a lifetime!
+                    <h3 class="text-2xl font-bold mb-3">Create Account</h3>
+                    <p class="text-white text-opacity-90 px-4">
+                        Your Journey Starts Here – Create an Account and Explore more!
                     </p>
                 </div>
+                
+                <!-- Dashed Arrow 1 -->
+                <div class="md:col-span-1 hidden md:flex items-start justify-center pt-16">
+                    <svg width="120" height="60" viewBox="0 0 120 60" class="transform -translate-y-12">
+                        <!-- Dashed curved arrow -->
+                        <path d="M 10 30 Q 60 10, 110 30" 
+                              stroke="white" 
+                              stroke-width="3" 
+                              stroke-dasharray="8,8" 
+                              fill="none" 
+                              opacity="0.6"/>
+                        <!-- Arrow head -->
+                        <polygon points="110,30 100,25 100,35" 
+                                fill="white" 
+                                opacity="0.6"/>
+                    </svg>
+                </div>
+                
+                <!-- Step 2: Select Tour Package -->
+                <div class="md:col-span-2 text-center">
+                    <div class="bg-white rounded-2xl p-8 mb-4 h-48 flex items-center justify-center shadow-xl mx-auto max-w-xs">
+                        <div class="text-primary-blue">
+                            <i class="fas fa-book-open text-6xl"></i>
+                        </div>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-3">Select Tour Package</h3>
+                    <p class="text-white text-opacity-90 px-4">
+                        Your Dream Destination Awaits – Select a Package Today!
+                    </p>
+                </div>
+                
+                <!-- Dashed Arrow 2 -->
+                <div class="md:col-span-1 hidden md:flex items-start justify-center pt-16">
+                    <svg width="120" height="60" viewBox="0 0 120 60" class="transform -translate-y-12">
+                        <!-- Dashed curved arrow -->
+                        <path d="M 10 30 Q 60 10, 110 30" 
+                              stroke="white" 
+                              stroke-width="3" 
+                              stroke-dasharray="8,8" 
+                              fill="none" 
+                              opacity="0.6"/>
+                        <!-- Arrow head -->
+                        <polygon points="110,30 100,25 100,35" 
+                                fill="white" 
+                                opacity="0.6"/>
+                    </svg>
+                </div>
+                
+                <!-- Step 3: Travel -->
+                <div class="md:col-span-2 text-center">
+                    <div class="bg-white rounded-2xl p-8 mb-4 h-48 flex items-center justify-center shadow-xl mx-auto max-w-xs">
+                        <div class="text-primary-blue">
+                            <i class="fas fa-plane-departure text-6xl"></i>
+                        </div>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-3">Travel</h3>
+                    <p class="text-white text-opacity-90 px-4">
+                        Pack your bags, step out of your comfort zone, and let the road lead you to memories.
+                    </p>
+                </div>
+                
             </div>
         </div>
     </div>
     
     <!-- Background Decoration -->
-    <div class="absolute inset-0 opacity-10">
-        <div class="absolute top-20 left-20 w-64 h-64 bg-white rounded-full"></div>
-        <div class="absolute bottom-20 right-20 w-96 h-96 bg-white rounded-full"></div>
+    <div class="absolute inset-0 opacity-10 pointer-events-none">
+        <div class="absolute top-10 left-10 w-64 h-64 bg-white rounded-full blur-3xl"></div>
+        <div class="absolute bottom-10 right-10 w-96 h-96 bg-white rounded-full blur-3xl"></div>
+        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-white rounded-full blur-3xl opacity-50"></div>
     </div>
 </section>
 
@@ -364,3 +517,72 @@
         animation: float 3s ease-in-out infinite;
     }
 </style>
+
+@section Scripts {
+    <script>
+        function toggleFavorite(guideId, button) {
+            button.disabled = true;
+            
+            fetch('/Favorite/Toggle', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'RequestVerificationToken': document.querySelector('input[name="__RequestVerificationToken"]')?.value || ''
+                },
+                body: JSON.stringify({ guideId: guideId })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    const icon = button.querySelector('i');
+                    if (data.isFavorited) {
+                        icon.classList.remove('far', 'text-gray-600');
+                        icon.classList.add('fas', 'text-red-500');
+                        button.title = 'Remove from favorites';
+                        showToast('Added to favorites!', 'success');
+                    } else {
+                        icon.classList.remove('fas', 'text-red-500');
+                        icon.classList.add('far', 'text-gray-600');
+                        button.title = 'Add to favorites';
+                        showToast('Removed from favorites', 'info');
+                    }
+                } else {
+                    if (data.isAuthenticated === false) {
+                        window.location.href = '/Account/Login?returnUrl=' + encodeURIComponent(window.location.pathname);
+                    } else {
+                        showToast(data.message || 'Error occurred', 'error');
+                    }
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                showToast('Error occurred. Please try again.', 'error');
+            })
+            .finally(() => {
+                button.disabled = false;
+            });
+        }
+
+        function showToast(message, type = 'info') {
+            const toast = document.createElement('div');
+            toast.className = `fixed top-4 right-4 z-50 px-6 py-3 rounded-lg shadow-lg text-white transform translate-x-0 transition-all duration-300 ${
+                type === 'success' ? 'bg-green-500' : 
+                type === 'error' ? 'bg-red-500' : 
+                'bg-blue-500'
+            }`;
+            toast.innerHTML = `
+                <div class="flex items-center">
+                    <i class="fas ${type === 'success' ? 'fa-check-circle' : type === 'error' ? 'fa-exclamation-circle' : 'fa-info-circle'} mr-2"></i>
+                    <span>${message}</span>
+                </div>
+            `;
+            
+            document.body.appendChild(toast);
+            setTimeout(() => { toast.style.transform = 'translateX(0)'; }, 10);
+            setTimeout(() => {
+                toast.style.transform = 'translateX(400px)';
+                setTimeout(() => { document.body.removeChild(toast); }, 300);
+            }, 3000);
+        }
+    </script>
+}

@@ -32,15 +32,34 @@
                     <!-- Logged In User -->
                     <span class="text-white">Hello, @User.Identity.Name</span>
                     
-                    @if (User.IsInRole("Admin") || User.IsInRole("SuperAdmin") || User.IsInRole("Uploader"))
+                    @if (User.IsInRole("Admin") || User.IsInRole("SuperAdmin"))
                     {
-                        <a asp-controller="GuideAdmin" asp-action="Index" class="border-2 border-white hover:bg-white hover:text-dark-navy px-6 py-2 rounded-lg font-medium transition-all flex items-center">
-                            <i class="fas fa-cog mr-2"></i>ADMIN
+                        <!-- Admin Dashboard -->
+                        <a asp-controller="AdminDashboard" asp-action="Index" class="bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-white px-6 py-2 rounded-lg font-medium transition-all flex items-center shadow-lg">
+                            <i class="fas fa-tachometer-alt mr-2"></i>ADMIN DASHBOARD
+                        </a>
+                    }
+                    else if (User.IsInRole("Uploader"))
+                    {
+                        <!-- Employee Dashboard -->
+                        <a asp-controller="GuideAdmin" asp-action="Index" class="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-6 py-2 rounded-lg font-medium transition-all flex items-center shadow-lg">
+                            <i class="fas fa-upload mr-2"></i>EMPLOYEE PANEL
+                        </a>
+                    }
+                    else if (User.IsInRole("Customer"))
+                    {
+                        <!-- Customer Dashboard -->
+                        <a asp-controller="UserDashboard" asp-action="Index" class="bg-gradient-to-r from-primary-orange to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white px-6 py-2 rounded-lg font-medium transition-all flex items-center shadow-lg">
+                            <i class="fas fa-user-circle mr-2"></i>MY DASHBOARD
                         </a>
                     }
                     
                     <a asp-controller="Guide" asp-action="Index" class="border-2 border-white hover:bg-white hover:text-dark-navy px-6 py-2 rounded-lg font-medium transition-all flex items-center">
                         <i class="fas fa-book mr-2"></i>MAGAZINES
+                    </a>
+                    
+                    <a asp-controller="Favorite" asp-action="Index" class="border-2 border-primary-orange bg-primary-orange hover:bg-orange-600 text-white px-6 py-2 rounded-lg font-medium transition-all flex items-center">
+                        <i class="fas fa-heart mr-2"></i>FAVORITES
                     </a>
                     
                     <form asp-controller="Account" asp-action="Logout" method="post" class="inline">
@@ -78,10 +97,25 @@
                 <div class="pt-4 border-t border-gray-600 space-y-3">
                     @if (User.Identity?.IsAuthenticated == true)
                     {
-                        @if (User.IsInRole("Admin") || User.IsInRole("SuperAdmin") || User.IsInRole("Uploader"))
+                        <a asp-controller="Favorite" asp-action="Index" class="block w-full bg-primary-orange hover:bg-orange-600 text-white px-6 py-2 rounded-lg font-medium transition-all text-center">
+                            <i class="fas fa-heart mr-2"></i>MY FAVORITES
+                        </a>
+                        @if (User.IsInRole("Admin") || User.IsInRole("SuperAdmin"))
                         {
-                            <a asp-controller="GuideAdmin" asp-action="Index" class="block w-full border-2 border-white hover:bg-white hover:text-dark-navy px-6 py-2 rounded-lg font-medium transition-all text-center">
-                                <i class="fas fa-cog mr-2"></i>ADMIN
+                            <a asp-controller="AdminDashboard" asp-action="Index" class="block w-full bg-gradient-to-r from-purple-600 to-purple-700 text-white px-6 py-2 rounded-lg font-medium transition-all text-center">
+                                <i class="fas fa-tachometer-alt mr-2"></i>ADMIN DASHBOARD
+                            </a>
+                        }
+                        else if (User.IsInRole("Uploader"))
+                        {
+                            <a asp-controller="GuideAdmin" asp-action="Index" class="block w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white px-6 py-2 rounded-lg font-medium transition-all text-center">
+                                <i class="fas fa-upload mr-2"></i>EMPLOYEE PANEL
+                            </a>
+                        }
+                        else if (User.IsInRole("Customer"))
+                        {
+                            <a asp-controller="UserDashboard" asp-action="Index" class="block w-full bg-gradient-to-r from-primary-orange to-orange-600 text-white px-6 py-2 rounded-lg font-medium transition-all text-center">
+                                <i class="fas fa-user-circle mr-2"></i>MY DASHBOARD
                             </a>
                         }
                         <form asp-controller="Account" asp-action="Logout" method="post">

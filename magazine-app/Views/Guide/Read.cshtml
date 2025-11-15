@@ -2,82 +2,419 @@
 
 @{
     ViewData["Title"] = $"Reading: {Model.Title}";
+    Layout = null; // Fullscreen reading experience
 }
 
-<!-- Breadcrumb -->
-<div class="bg-gray-100 py-4">
-    <div class="container mx-auto px-4">
-        <nav class="text-sm">
-            <a asp-controller="Home" asp-action="Index" class="text-primary-blue hover:underline">Home</a>
-            <span class="mx-2">/</span>
-            <a asp-controller="Guide" asp-action="Index" class="text-primary-blue hover:underline">Magazines</a>
-            <span class="mx-2">/</span>
-            <a asp-controller="Guide" asp-action="Detail" asp-route-slug="@Model.Slug" class="text-primary-blue hover:underline">@Model.Title</a>
-            <span class="mx-2">/</span>
-            <span class="text-gray-600">Read</span>
-        </nav>
-    </div>
-</div>
-
-<!-- PDF Viewer -->
-<section class="bg-gray-100 py-8">
-    <div class="container mx-auto px-4">
-        <div class="bg-white rounded-lg shadow-lg p-4 mb-4">
-            <div class="flex justify-between items-center mb-4">
-                <h1 class="text-2xl font-bold text-gray-800">@Model.Title</h1>
-                <div class="flex gap-3">
-                    <a asp-action="DownloadPdf" asp-route-slug="@Model.Slug" class="bg-primary-orange text-white px-4 py-2 rounded-lg hover:bg-orange-600 transition">
-                        <i class="fas fa-download mr-2"></i>Download
-                    </a>
-                    <a asp-action="Detail" asp-route-slug="@Model.Slug" class="bg-gray-300 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-400 transition">
-                        <i class="fas fa-arrow-left mr-2"></i>Back
-                    </a>
-                </div>
-            </div>
-
-            <!-- PDF Viewer Container -->
-            <div class="border border-gray-300 rounded-lg overflow-hidden" style="height: 800px;">
-                <iframe 
-                    src="@Model.PdfPath" 
-                    type="application/pdf" 
-                    width="100%" 
-                    height="100%" 
-                    style="border: none;"
-                    title="@Model.Title">
-                    <p>Your browser does not support PDFs. 
-                        <a asp-action="DownloadPdf" asp-route-slug="@Model.Slug" class="text-primary-blue hover:underline">
-                            Download the PDF
-                        </a> instead.
-                    </p>
-                </iframe>
-            </div>
-
-            <div class="mt-4 text-center text-sm text-gray-600">
-                <p>
-                    <i class="fas fa-info-circle mr-1"></i>
-                    Having trouble viewing? 
-                    <a asp-action="DownloadPdf" asp-route-slug="@Model.Slug" class="text-primary-blue hover:underline">
-                        Download the PDF
-                    </a> to read offline.
-                </p>
-            </div>
-        </div>
-    </div>
-</section>
-
-@section Scripts {
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Travelogue PK</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    
+    <!-- PDF.js Library for better PDF control -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    
+    <!-- Turn.js for Flipbook Effect -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/turn.js/3/turn.min.js"></script>
+    
     <script>
-        // Optional: Add fullscreen functionality
-        function toggleFullscreen() {
-            var iframe = document.querySelector('iframe');
-            if (iframe.requestFullscreen) {
-                iframe.requestFullscreen();
-            } else if (iframe.webkitRequestFullscreen) {
-                iframe.webkitRequestFullscreen();
-            } else if (iframe.msRequestFullscreen) {
-                iframe.msRequestFullscreen();
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary-blue': '#0C789A',
+                        'primary-orange': '#FF6B35',
+                        'dark-navy': '#1A2332'
+                    }
+                }
             }
         }
     </script>
-}
+    
+    <style>
+        /* Flipbook Container */
+        #flipbook {
+            width: 800px;
+            height: 600px;
+            margin: 0 auto;
+        }
+        
+        #flipbook .page {
+            width: 400px;
+            height: 600px;
+            background-color: white;
+            box-shadow: 0 0 20px rgba(0,0,0,0.3);
+        }
+        
+        #flipbook .page canvas {
+            width: 100% !important;
+            height: 100% !important;
+        }
+        
+        /* Hard pages effect */
+        #flipbook .hard {
+            background: linear-gradient(to right, #f0f0f0, white);
+        }
+        
+        /* Page flip shadow */
+        #flipbook .page-wrapper {
+            perspective: 2000px;
+        }
+        
+        /* Responsive flipbook */
+        @@media (max-width: 768px) {
+            #flipbook {
+                width: 100%;
+                height: 500px;
+            }
+            #flipbook .page {
+                width: 50%;
+                height: 500px;
+            }
+        }
+    </style>
+</head>
+<body class="bg-dark-navy">
+    
+    <!-- Top Navigation Bar -->
+    <nav class="fixed top-0 left-0 right-0 bg-dark-navy/95 backdrop-blur-sm border-b border-gray-700 z-50 shadow-lg">
+        <div class="container mx-auto px-4 py-3">
+            <div class="flex items-center justify-between">
+                <!-- Left: Back & Title -->
+                <div class="flex items-center gap-4">
+                    <a asp-action="Detail" asp-route-slug="@Model.Slug" 
+                       class="text-white hover:text-primary-orange transition-colors p-2 hover:bg-white/10 rounded-lg">
+                        <i class="fas fa-arrow-left text-xl"></i>
+                    </a>
+                    <div class="hidden md:block">
+                        <h1 class="text-white font-bold text-lg">@Model.Title</h1>
+                        <p class="text-gray-400 text-xs">Magazine Reading Mode</p>
+                    </div>
+                </div>
+                
+                <!-- Center: Reading Controls -->
+                <div class="flex items-center gap-2 bg-white/10 rounded-lg p-1">
+                    <button onclick="firstPage()" class="text-white hover:bg-white/20 px-3 py-2 rounded transition-all" title="First Page">
+                        <i class="fas fa-step-backward"></i>
+                    </button>
+                    <button onclick="previousPage()" class="text-white hover:bg-white/20 px-3 py-2 rounded transition-all" title="Previous Page">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <span class="text-white px-3 text-sm">
+                        <span id="currentPage">1</span> / <span id="totalPages">0</span>
+                    </span>
+                    <button onclick="nextPage()" class="text-white hover:bg-white/20 px-3 py-2 rounded transition-all" title="Next Page">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                    <button onclick="lastPage()" class="text-white hover:bg-white/20 px-3 py-2 rounded transition-all" title="Last Page">
+                        <i class="fas fa-step-forward"></i>
+                    </button>
+                    <div class="w-px h-6 bg-gray-600"></div>
+                    <button onclick="toggleFullscreen()" class="text-white hover:bg-white/20 px-3 py-2 rounded transition-all" title="Fullscreen">
+                        <i class="fas fa-expand"></i>
+                    </button>
+                </div>
+                
+                <!-- Right: Actions -->
+                <div class="flex items-center gap-2">
+                    <button onclick="toggleNightMode()" id="nightModeBtn" 
+                            class="hidden md:flex items-center gap-2 text-white hover:bg-white/10 px-4 py-2 rounded-lg transition-all">
+                        <i class="fas fa-moon"></i>
+                        <span class="text-sm">Night Mode</span>
+                    </button>
+                    <a asp-action="DownloadPdf" asp-route-slug="@Model.Slug" 
+                       class="flex items-center gap-2 bg-primary-orange hover:bg-orange-600 text-white px-4 py-2 rounded-lg transition-all shadow-lg">
+                        <i class="fas fa-download"></i>
+                        <span class="hidden md:inline text-sm font-semibold">Download</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Reading Area -->
+    <main class="pt-20 pb-4 min-h-screen">
+        <div class="container mx-auto px-4 h-full">
+            <!-- Magazine Viewer Card -->
+            <div class="bg-white/5 backdrop-blur-sm rounded-2xl shadow-2xl overflow-hidden h-[calc(100vh-7rem)]">
+                
+                <!-- Flipbook Container -->
+                <div class="relative h-full flex items-center justify-center bg-gradient-to-b from-gray-900 to-gray-800 overflow-hidden">
+                    
+                    <!-- Flipbook Viewer -->
+                    <div id="flipbookContainer" class="relative flex items-center justify-center p-4">
+                        <div id="flipbook"></div>
+                    </div>
+                    
+                    <!-- Fallback Message -->
+                    <div id="fallbackMessage" class="hidden flex-col items-center justify-center h-full text-white p-8">
+                        <i class="fas fa-file-pdf text-8xl text-primary-orange mb-6"></i>
+                        <h3 class="text-2xl font-bold mb-4">Loading Magazine...</h3>
+                        <p class="text-gray-300 mb-6 text-center max-w-md">
+                            Please wait while we prepare your reading experience.
+                        </p>
+                        <div class="flex gap-4">
+                            <button onclick="retryLoad()" class="bg-primary-blue hover:bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold transition-all">
+                                <i class="fas fa-redo mr-2"></i>Retry
+                            </button>
+                            <a asp-action="DownloadPdf" asp-route-slug="@Model.Slug" 
+                               class="bg-primary-orange hover:bg-orange-600 text-white px-6 py-3 rounded-lg font-semibold transition-all inline-flex items-center">
+                                <i class="fas fa-download mr-2"></i>Download PDF
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <!-- Reading Progress Bar -->
+                    <div class="absolute bottom-0 left-0 right-0 h-1 bg-gray-800">
+                        <div id="progressBar" class="h-full bg-gradient-to-r from-primary-orange to-primary-blue transition-all duration-300" style="width: 0%"></div>
+                    </div>
+                    
+                    <!-- Page Navigation Arrows -->
+                    <button onclick="previousPage()" id="prevBtn"
+                            class="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white/10 hover:bg-white/20 backdrop-blur-sm text-white w-14 h-14 rounded-full flex items-center justify-center transition-all shadow-lg hover:scale-110">
+                        <i class="fas fa-chevron-left text-xl"></i>
+                    </button>
+                    <button onclick="nextPage()" id="nextBtn"
+                            class="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white/10 hover:bg-white/20 backdrop-blur-sm text-white w-14 h-14 rounded-full flex items-center justify-center transition-all shadow-lg hover:scale-110">
+                        <i class="fas fa-chevron-right text-xl"></i>
+                    </button>
+                </div>
+                
+                <!-- Bottom Info Bar -->
+                <div class="bg-dark-navy/90 backdrop-blur-sm px-6 py-3 flex items-center justify-between border-t border-gray-700">
+                    <div class="flex items-center gap-4 text-sm text-gray-400">
+                        <span><i class="far fa-calendar mr-2"></i>@Model.CreatedAt.ToString("MMMM dd, yyyy")</span>
+                        <span class="hidden md:inline">|</span>
+                        <span class="hidden md:inline"><i class="far fa-file-pdf mr-2"></i>PDF Magazine</span>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <button onclick="printMagazine()" class="text-gray-400 hover:text-white transition-colors" title="Print">
+                            <i class="fas fa-print"></i>
+                        </button>
+                        <button onclick="shareMagazine()" class="text-gray-400 hover:text-white transition-colors" title="Share">
+                            <i class="fas fa-share-alt"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="fixed inset-0 bg-dark-navy/95 backdrop-blur-sm flex items-center justify-center z-50">
+        <div class="text-center">
+            <div class="relative w-24 h-24 mx-auto mb-6">
+                <div class="absolute inset-0 border-4 border-primary-orange border-t-transparent rounded-full animate-spin"></div>
+                <i class="fas fa-book-open text-3xl text-primary-orange absolute inset-0 flex items-center justify-center"></i>
+            </div>
+            <h3 class="text-white text-xl font-semibold mb-2">Loading Magazine...</h3>
+            <p class="text-gray-400">Please wait while we prepare your reading experience</p>
+        </div>
+    </div>
+
+    <script>
+        // PDF.js Configuration
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+        
+        let pdfDoc = null;
+        let currentPage = 1;
+        let totalPages = 0;
+        let flipbookInitialized = false;
+        const pdfUrl = '@Model.PdfPath';
+        
+        // Load PDF and create flipbook
+        async function loadPDF() {
+            try {
+                const loadingTask = pdfjsLib.getDocument(pdfUrl);
+                pdfDoc = await loadingTask.promise;
+                totalPages = pdfDoc.numPages;
+                
+                document.getElementById('totalPages').textContent = totalPages;
+                
+                // Create flipbook pages
+                await createFlipbook();
+                
+                // Hide loading overlay
+                setTimeout(() => {
+                    document.getElementById('loadingOverlay').style.display = 'none';
+                }, 500);
+                
+            } catch (error) {
+                console.error('Error loading PDF:', error);
+                document.getElementById('loadingOverlay').style.display = 'none';
+                document.getElementById('fallbackMessage').classList.remove('hidden');
+                document.getElementById('fallbackMessage').classList.add('flex');
+            }
+        }
+        
+        // Create flipbook pages from PDF
+        async function createFlipbook() {
+            const flipbook = document.getElementById('flipbook');
+            flipbook.innerHTML = ''; // Clear existing content
+            
+            // Add pages to flipbook
+            for (let pageNum = 1; pageNum <= totalPages; pageNum++) {
+                const pageDiv = document.createElement('div');
+                pageDiv.className = 'page';
+                pageDiv.id = `page-${pageNum}`;
+                
+                const canvas = document.createElement('canvas');
+                pageDiv.appendChild(canvas);
+                
+                // Render PDF page to canvas
+                const page = await pdfDoc.getPage(pageNum);
+                const viewport = page.getViewport({ scale: 1.5 });
+                
+                canvas.height = viewport.height;
+                canvas.width = viewport.width;
+                
+                const renderContext = {
+                    canvasContext: canvas.getContext('2d'),
+                    viewport: viewport
+                };
+                
+                await page.render(renderContext).promise;
+                
+                flipbook.appendChild(pageDiv);
+            }
+            
+            // Initialize Turn.js flipbook
+            $('#flipbook').turn({
+                width: 800,
+                height: 600,
+                autoCenter: true,
+                duration: 1000,
+                gradients: true,
+                acceleration: true,
+                elevation: 50,
+                pages: totalPages,
+                when: {
+                    turning: function(event, page, view) {
+                        currentPage = page;
+                        updatePageDisplay();
+                        updateProgress();
+                    }
+                }
+            });
+            
+            flipbookInitialized = true;
+        }
+        
+        // Page Navigation Functions
+        function previousPage() {
+            if (flipbookInitialized) {
+                $('#flipbook').turn('previous');
+            }
+        }
+        
+        function nextPage() {
+            if (flipbookInitialized) {
+                $('#flipbook').turn('next');
+            }
+        }
+        
+        function firstPage() {
+            if (flipbookInitialized) {
+                $('#flipbook').turn('page', 1);
+            }
+        }
+        
+        function lastPage() {
+            if (flipbookInitialized) {
+                $('#flipbook').turn('page', totalPages);
+            }
+        }
+        
+        // Update page display
+        function updatePageDisplay() {
+            document.getElementById('currentPage').textContent = currentPage;
+        }
+        
+        // Update progress bar
+        function updateProgress() {
+            const progress = (currentPage / totalPages) * 100;
+            document.getElementById('progressBar').style.width = progress + '%';
+        }
+        
+        // Fullscreen
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen();
+            } else {
+                document.exitFullscreen();
+            }
+        }
+        
+        // Night mode
+        let nightMode = false;
+        function toggleNightMode() {
+            nightMode = !nightMode;
+            const container = document.getElementById('flipbookContainer');
+            const btn = document.getElementById('nightModeBtn');
+            
+            if (nightMode) {
+                container.style.filter = 'invert(1) hue-rotate(180deg)';
+                btn.innerHTML = '<i class="fas fa-sun"></i><span class="text-sm">Day Mode</span>';
+            } else {
+                container.style.filter = 'none';
+                btn.innerHTML = '<i class="fas fa-moon"></i><span class="text-sm">Night Mode</span>';
+            }
+        }
+        
+        // Print
+        function printMagazine() {
+            window.print();
+        }
+        
+        // Share
+        function shareMagazine() {
+            if (navigator.share) {
+                navigator.share({
+                    title: '@Model.Title',
+                    text: 'Check out this amazing magazine on Travelogue PK!',
+                    url: window.location.href
+                }).catch(err => console.log('Error sharing:', err));
+            } else {
+                navigator.clipboard.writeText(window.location.href);
+                alert('Link copied to clipboard!');
+            }
+        }
+        
+        // Retry load
+        function retryLoad() {
+            document.getElementById('fallbackMessage').classList.add('hidden');
+            document.getElementById('loadingOverlay').style.display = 'flex';
+            loadPDF();
+        }
+        
+        // Keyboard shortcuts
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowLeft') previousPage();
+            if (e.key === 'ArrowRight') nextPage();
+            if (e.key === 'Home') firstPage();
+            if (e.key === 'End') lastPage();
+            if (e.key === 'f' || e.key === 'F') toggleFullscreen();
+        });
+        
+        // Handle window resize
+        window.addEventListener('resize', function() {
+            if (flipbookInitialized) {
+                const width = Math.min(window.innerWidth - 100, 800);
+                const height = (width * 3) / 4;
+                $('#flipbook').turn('size', width, height);
+            }
+        });
+        
+        // Load PDF on page load
+        window.addEventListener('load', function() {
+            loadPDF();
+        });
+    </script>
+
+</body>
+</html>
 

@@ -7,3 +7,4 @@ namespace magazine_app.Models
         public bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
     }
 }
+

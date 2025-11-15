@@ -1,0 +1,263 @@
+@using System.Security.Claims
+@inject Microsoft.AspNetCore.Identity.UserManager<Entities.Models.ApplicationUser> UserManager
+
+@{
+    var user = await UserManager.GetUserAsync(User);
+    var userRoles = User.Claims.Where(c => c.Type == ClaimTypes.Role).Select(c => c.Value).ToList();
+    var isAdmin = userRoles.Contains("Admin") || userRoles.Contains("SuperAdmin");
+    var isEmployee = userRoles.Contains("Uploader");
+    var isCustomer = userRoles.Contains("Customer");
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Travelogue PK Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary-blue': '#0C789A',
+                        'primary-orange': '#FF6B35',
+                        'dark-navy': '#1A2332'
+                    }
+                }
+            }
+        }
+        
+        // Suppress Tailwind CDN warning
+        const originalWarn = console.warn;
+        console.warn = function(...args) {
+            if (args[0]?.includes?.('cdn.tailwindcss.com')) return;
+            originalWarn.apply(console, args);
+        };
+    </script>
+</head>
+<body class="bg-gray-50">
+
+    <div class="flex h-screen overflow-hidden">
+        
+        <!-- Sidebar -->
+        <aside class="w-64 bg-dark-navy text-white flex-shrink-0 overflow-y-auto">
+            <div class="p-6">
+                <div class="flex items-center mb-8">
+                    <i class="fas fa-mountain text-primary-orange text-3xl mr-3"></i>
+                    <div>
+                        <h2 class="text-xl font-bold">Travelogue PK</h2>
+                        <p class="text-xs text-gray-400">Dashboard</p>
+                    </div>
+                </div>
+
+                <!-- User Profile Card -->
+                <div class="bg-white/10 rounded-lg p-4 mb-6">
+                    <div class="flex items-center mb-2">
+                        <div class="w-10 h-10 bg-primary-orange rounded-full flex items-center justify-center mr-3">
+                            <i class="fas fa-user text-white"></i>
+                        </div>
+                        <div class="flex-1">
+                            <p class="font-semibold text-sm">@(user?.FullName ?? "User")</p>
+                            <p class="text-xs text-gray-400">@user?.Email</p>
+                        </div>
+                    </div>
+                    
+                    @if (user?.HasActiveSubscription ?? false)
+                    {
+                        <div class="mt-2 bg-green-500/20 text-green-300 px-2 py-1 rounded text-xs flex items-center">
+                            <i class="fas fa-crown mr-1"></i>
+                            <span>@user.SubscriptionPlan Subscriber</span>
+                        </div>
+                    }
+                    else if (isCustomer)
+                    {
+                        <div class="mt-2 bg-yellow-500/20 text-yellow-300 px-2 py-1 rounded text-xs flex items-center">
+                            <i class="fas fa-user mr-1"></i>
+                            <span>Free Account</span>
+                        </div>
+                    }
+                </div>
+
+                <nav>
+                    @if (isAdmin)
+                    {
+                        <!-- Admin Navigation -->
+                        <div class="mb-6">
+                            <p class="text-xs text-gray-400 uppercase tracking-wider mb-2 px-2">Admin Panel</p>
+                            
+                            <a asp-controller="AdminDashboard" asp-action="Index" class="nav-item @(ViewContext.RouteData.Values["controller"]?.ToString() == "AdminDashboard" && ViewContext.RouteData.Values["action"]?.ToString() == "Index" ? "active" : "")">
+                                <i class="fas fa-tachometer-alt"></i>
+                                <span>Dashboard Overview</span>
+                            </a>
+                            
+                            <a asp-controller="AdminDashboard" asp-action="Users" class="nav-item @(ViewContext.RouteData.Values["controller"]?.ToString() == "AdminDashboard" && ViewContext.RouteData.Values["action"]?.ToString() == "Users" ? "active" : "")">
+                                <i class="fas fa-users"></i>
+                                <span>Manage Users</span>
+                            </a>
+                            
+                            <a asp-controller="AdminDashboard" asp-action="CreateEmployee" class="nav-item @(ViewContext.RouteData.Values["action"]?.ToString() == "CreateEmployee" ? "active" : "")">
+                                <i class="fas fa-user-plus"></i>
+                                <span>Create Employee</span>
+                            </a>
+                            
+                            <a asp-controller="GuideAdmin" asp-action="Index" class="nav-item @(ViewContext.RouteData.Values["controller"]?.ToString() == "GuideAdmin" ? "active" : "")">
+                                <i class="fas fa-book"></i>
+                                <span>Manage Magazines</span>
+                            </a>
+                        </div>
+                    }
+                    
+                    @if (isEmployee && !isAdmin)
+                    {
+                        <!-- Employee Navigation -->
+                        <div class="mb-6">
+                            <p class="text-xs text-gray-400 uppercase tracking-wider mb-2 px-2">Employee Panel</p>
+                            
+                            <a asp-controller="GuideAdmin" asp-action="Index" class="nav-item @(ViewContext.RouteData.Values["controller"]?.ToString() == "GuideAdmin" ? "active" : "")">
+                                <i class="fas fa-book"></i>
+                                <span>Manage Magazines</span>
+                            </a>
+                            
+                            <a asp-controller="GuideAdmin" asp-action="Create" class="nav-item">
+                                <i class="fas fa-plus-circle"></i>
+                                <span>Upload Magazine</span>
+                            </a>
+                        </div>
+                    }
+                    
+                    @if (isCustomer)
+                    {
+                        <!-- Customer Navigation -->
+                        <div class="mb-6">
+                            <p class="text-xs text-gray-400 uppercase tracking-wider mb-2 px-2">My Dashboard</p>
+                            
+                            <a asp-controller="UserDashboard" asp-action="Index" class="nav-item @(ViewContext.RouteData.Values["controller"]?.ToString() == "UserDashboard" && ViewContext.RouteData.Values["action"]?.ToString() == "Index" ? "active" : "")">
+                                <i class="fas fa-home"></i>
+                                <span>Dashboard</span>
+                            </a>
+                            
+                            <a asp-controller="UserDashboard" asp-action="Favorites" class="nav-item @(ViewContext.RouteData.Values["action"]?.ToString() == "Favorites" ? "active" : "")">
+                                <i class="fas fa-heart"></i>
+                                <span>My Favorites</span>
+                            </a>
+                            
+                            @if (!user?.HasActiveSubscription ?? false)
+                            {
+                                <a href="#" class="nav-item bg-primary-orange/10 border border-primary-orange">
+                                    <i class="fas fa-crown"></i>
+                                    <span>Upgrade to Premium</span>
+                                </a>
+                            }
+                        </div>
+                    }
+                    
+                    <!-- Common Navigation -->
+                    <div class="border-t border-gray-700 pt-4">
+                        <p class="text-xs text-gray-400 uppercase tracking-wider mb-2 px-2">Browse</p>
+                        
+                        <a asp-controller="Guide" asp-action="Index" class="nav-item">
+                            <i class="fas fa-th-large"></i>
+                            <span>All Magazines</span>
+                        </a>
+                        
+                        <a asp-controller="Categories" asp-action="Index" class="nav-item">
+                            <i class="fas fa-layer-group"></i>
+                            <span>Categories</span>
+                        </a>
+                        
+                        <a asp-controller="Home" asp-action="Index" class="nav-item">
+                            <i class="fas fa-globe"></i>
+                            <span>Visit Website</span>
+                        </a>
+                    </div>
+                    
+                    <!-- Logout -->
+                    <div class="border-t border-gray-700 mt-4 pt-4">
+                        <form asp-controller="Account" asp-action="Logout" method="post">
+                            <button type="submit" class="nav-item w-full text-left text-red-400 hover:bg-red-500/10">
+                                <i class="fas fa-sign-out-alt"></i>
+                                <span>Logout</span>
+                            </button>
+                        </form>
+                    </div>
+                </nav>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <div class="flex-1 flex flex-col overflow-hidden">
+            
+            <!-- Top Header -->
+            <header class="bg-white shadow-sm z-10">
+                <div class="px-6 py-4 flex items-center justify-between">
+                    <div>
+                        <h1 class="text-2xl font-bold text-gray-800">@ViewData["Title"]</h1>
+                        @if (ViewData["Subtitle"] != null)
+                        {
+                            <p class="text-sm text-gray-600">@ViewData["Subtitle"]</p>
+                        }
+                    </div>
+                    
+                    <div class="flex items-center gap-4">
+                        @if (TempData["Success"] != null)
+                        {
+                            <div class="bg-green-100 text-green-800 px-4 py-2 rounded-lg text-sm flex items-center">
+                                <i class="fas fa-check-circle mr-2"></i>
+                                @TempData["Success"]
+                            </div>
+                        }
+                        @if (TempData["Error"] != null)
+                        {
+                            <div class="bg-red-100 text-red-800 px-4 py-2 rounded-lg text-sm flex items-center">
+                                <i class="fas fa-exclamation-circle mr-2"></i>
+                                @TempData["Error"]
+                            </div>
+                        }
+                    </div>
+                </div>
+            </header>
+
+            <!-- Content Area -->
+            <main class="flex-1 overflow-y-auto p-6">
+                @RenderBody()
+            </main>
+        </div>
+    </div>
+
+    <style>
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem 1rem;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            transition: all 0.3s;
+            margin-bottom: 0.25rem;
+            cursor: pointer;
+        }
+        
+        .nav-item:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .nav-item.active {
+            background-color: #FF6B35;
+            color: white;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        
+        .nav-item i {
+            width: 1.25rem;
+            text-align: center;
+        }
+    </style>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
+

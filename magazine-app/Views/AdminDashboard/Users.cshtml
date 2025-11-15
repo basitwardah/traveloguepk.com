@@ -1,0 +1,158 @@
+@model List<magazine_app.ViewModels.UserListItemViewModel>
+
+@{
+    ViewData["Title"] = "Manage Users";
+    ViewData["Subtitle"] = "View and manage all users";
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+    var filter = ViewBag.Filter ?? "all";
+}
+
+<!-- Filter Tabs -->
+<div class="bg-white rounded-xl shadow mb-6">
+    <div class="flex border-b border-gray-200 overflow-x-auto">
+        <a asp-action="Users" asp-route-filter="all" 
+           class="px-6 py-4 text-sm font-semibold transition @(filter == "all" ? "border-b-2 border-primary-orange text-primary-orange" : "text-gray-600 hover:text-gray-800")">
+            <i class="fas fa-users mr-2"></i>All Users
+            <span class="ml-2 bg-gray-100 px-2 py-1 rounded text-xs">@Model.Count</span>
+        </a>
+        <a asp-action="Users" asp-route-filter="subscribed" 
+           class="px-6 py-4 text-sm font-semibold transition @(filter == "subscribed" ? "border-b-2 border-primary-orange text-primary-orange" : "text-gray-600 hover:text-gray-800")">
+            <i class="fas fa-crown mr-2"></i>Subscribed
+            <span class="ml-2 bg-green-100 text-green-800 px-2 py-1 rounded text-xs">@Model.Count(u => u.HasActiveSubscription)</span>
+        </a>
+        <a asp-action="Users" asp-route-filter="non-subscribed" 
+           class="px-6 py-4 text-sm font-semibold transition @(filter == "non-subscribed" ? "border-b-2 border-primary-orange text-primary-orange" : "text-gray-600 hover:text-gray-800")">
+            <i class="fas fa-user mr-2"></i>Non-Subscribed
+            <span class="ml-2 bg-yellow-100 text-yellow-800 px-2 py-1 rounded text-xs">@Model.Count(u => !u.HasActiveSubscription)</span>
+        </a>
+        <a asp-action="Users" asp-route-filter="employees" 
+           class="px-6 py-4 text-sm font-semibold transition @(filter == "employees" ? "border-b-2 border-primary-orange text-primary-orange" : "text-gray-600 hover:text-gray-800")">
+            <i class="fas fa-user-tie mr-2"></i>Employees
+            <span class="ml-2 bg-purple-100 text-purple-800 px-2 py-1 rounded text-xs">@Model.Count(u => u.Roles.Any(r => r == "Admin" || r == "SuperAdmin" || r == "Uploader"))</span>
+        </a>
+    </div>
+</div>
+
+<!-- Search & Actions -->
+<div class="bg-white rounded-xl shadow p-6 mb-6">
+    <div class="flex flex-col md:flex-row gap-4 items-center justify-between">
+        <div class="flex-1 w-full">
+            <div class="relative">
+                <input type="text" id="searchInput" placeholder="Search users by name or email..." 
+                       class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-blue"/>
+                <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
+            </div>
+        </div>
+        <a asp-action="CreateEmployee" class="bg-primary-orange hover:bg-orange-600 text-white px-6 py-2 rounded-lg font-semibold transition flex items-center whitespace-nowrap">
+            <i class="fas fa-user-plus mr-2"></i>Create Employee
+        </a>
+    </div>
+</div>
+
+<!-- Users Table -->
+<div class="bg-white rounded-xl shadow overflow-hidden">
+    <div class="overflow-x-auto">
+        <table class="w-full">
+            <thead class="bg-gray-50 border-b border-gray-200">
+                <tr>
+                    <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase">User</th>
+                    <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase">Roles</th>
+                    <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase">Subscription</th>
+                    <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase">Joined</th>
+                    <th class="px-6 py-4 text-center text-xs font-semibold text-gray-600 uppercase">Actions</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-200" id="userTableBody">
+                @foreach (var user in Model)
+                {
+                    <tr class="hover:bg-gray-50 transition user-row">
+                        <td class="px-6 py-4">
+                            <div class="flex items-center">
+                                <div class="w-10 h-10 bg-gradient-to-br from-primary-orange to-orange-600 rounded-full flex items-center justify-center text-white font-bold mr-3">
+                                    @user.FullName.Substring(0, 1).ToUpper()
+                                </div>
+                                <div>
+                                    <p class="font-semibold text-gray-800 user-name">@user.FullName</p>
+                                    <p class="text-xs text-gray-600 user-email">@user.Email</p>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="px-6 py-4">
+                            <div class="flex flex-wrap gap-1">
+                                @foreach (var role in user.Roles)
+                                {
+                                    <span class="px-2 py-1 rounded text-xs font-semibold 
+                                          @(role == "SuperAdmin" ? "bg-red-100 text-red-800" : 
+                                            role == "Admin" ? "bg-purple-100 text-purple-800" : 
+                                            role == "Uploader" ? "bg-blue-100 text-blue-800" : 
+                                            "bg-gray-100 text-gray-800")">
+                                        @role
+                                    </span>
+                                }
+                            </div>
+                        </td>
+                        <td class="px-6 py-4">
+                            @if (user.HasActiveSubscription)
+                            {
+                                <div>
+                                    <span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs font-semibold flex items-center w-fit">
+                                        <i class="fas fa-crown mr-1"></i>@user.SubscriptionPlan
+                                    </span>
+                                    @if (user.SubscriptionEndDate.HasValue)
+                                    {
+                                        <p class="text-xs text-gray-600 mt-1">Expires: @user.SubscriptionEndDate.Value.ToString("MMM dd, yyyy")</p>
+                                    }
+                                </div>
+                            }
+                            else
+                            {
+                                <span class="bg-gray-100 text-gray-800 px-2 py-1 rounded text-xs">Free Account</span>
+                            }
+                        </td>
+                        <td class="px-6 py-4">
+                            <p class="text-sm text-gray-800">@user.CreatedAt.ToString("MMM dd, yyyy")</p>
+                        </td>
+                        <td class="px-6 py-4">
+                            <div class="flex items-center justify-center gap-2">
+                                <a asp-action="ManageUser" asp-route-id="@user.Id" 
+                                   class="bg-primary-blue hover:bg-blue-600 text-white px-3 py-1 rounded text-xs font-semibold transition">
+                                    <i class="fas fa-edit mr-1"></i>Manage
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    @if (!Model.Any())
+    {
+        <div class="text-center py-12">
+            <i class="fas fa-users text-6xl text-gray-300 mb-4"></i>
+            <p class="text-gray-600 text-lg">No users found</p>
+        </div>
+    }
+</div>
+
+@section Scripts {
+    <script>
+        // Search functionality
+        document.getElementById('searchInput').addEventListener('keyup', function() {
+            const searchTerm = this.value.toLowerCase();
+            const rows = document.querySelectorAll('.user-row');
+            
+            rows.forEach(row => {
+                const name = row.querySelector('.user-name').textContent.toLowerCase();
+                const email = row.querySelector('.user-email').textContent.toLowerCase();
+                
+                if (name.includes(searchTerm) || email.includes(searchTerm)) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        });
+    </script>
+}
+

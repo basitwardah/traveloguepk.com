@@ -1,0 +1,242 @@
+@model magazine_app.ViewModels.UserDashboardViewModel
+
+@{
+    ViewData["Title"] = "My Dashboard";
+    ViewData["Subtitle"] = $"Welcome back, {Model.UserName}!";
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+}
+
+<!-- Subscription Status Banner -->
+@if (Model.HasActiveSubscription)
+{
+    var daysLeft = Model.DaysUntilExpiry;
+    <div class="bg-gradient-to-r from-green-500 to-green-600 rounded-xl shadow-lg p-6 text-white mb-6">
+        <div class="flex items-center justify-between">
+            <div class="flex items-center">
+                <div class="bg-white/20 rounded-full p-4 mr-4">
+                    <i class="fas fa-crown text-3xl"></i>
+                </div>
+                <div>
+                    <p class="text-sm opacity-90">Active Subscription</p>
+                    <p class="text-2xl font-bold">@Model.SubscriptionPlan Plan</p>
+                    @if (Model.SubscriptionEndDate.HasValue)
+                    {
+                        <p class="text-sm opacity-90">Expires on @Model.SubscriptionEndDate.Value.ToString("MMMM dd, yyyy")</p>
+                    }
+                </div>
+            </div>
+            <div class="text-right">
+                <p class="text-4xl font-bold">@daysLeft</p>
+                <p class="text-sm opacity-90">Days Remaining</p>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <div class="bg-gradient-to-r from-primary-orange to-orange-600 rounded-xl shadow-lg p-6 text-white mb-6">
+        <div class="flex items-center justify-between">
+            <div class="flex items-center">
+                <div class="bg-white/20 rounded-full p-4 mr-4">
+                    <i class="fas fa-star text-3xl"></i>
+                </div>
+                <div>
+                    <p class="text-2xl font-bold mb-1">Upgrade to Premium</p>
+                    <p class="opacity-90">Get unlimited access to all magazines</p>
+                </div>
+            </div>
+            <button class="bg-white text-primary-orange px-6 py-3 rounded-lg font-bold hover:bg-gray-100 transition">
+                Upgrade Now
+            </button>
+        </div>
+    </div>
+}
+
+<!-- Stats -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+    <div class="bg-white rounded-xl shadow p-6">
+        <div class="flex items-center justify-between">
+            <div>
+                <p class="text-gray-600 text-sm mb-1">My Favorites</p>
+                <p class="text-3xl font-bold text-gray-800">@Model.TotalFavorites</p>
+            </div>
+            <div class="bg-red-100 rounded-full p-4">
+                <i class="fas fa-heart text-2xl text-red-500"></i>
+            </div>
+        </div>
+        <a asp-action="Favorites" class="text-primary-blue hover:text-blue-700 text-sm font-semibold mt-3 inline-block">
+            View All →
+        </a>
+    </div>
+
+    <div class="bg-white rounded-xl shadow p-6">
+        <div class="flex items-center justify-between">
+            <div>
+                <p class="text-gray-600 text-sm mb-1">Magazines Read</p>
+                <p class="text-3xl font-bold text-gray-800">@Model.TotalRead</p>
+            </div>
+            <div class="bg-blue-100 rounded-full p-4">
+                <i class="fas fa-book-open text-2xl text-blue-500"></i>
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-white rounded-xl shadow p-6">
+        <div class="flex items-center justify-between">
+            <div>
+                <p class="text-gray-600 text-sm mb-1">Account Type</p>
+                <p class="text-lg font-bold text-gray-800">@(Model.HasActiveSubscription ? "Premium" : "Free")</p>
+            </div>
+            <div class="bg-green-100 rounded-full p-4">
+                <i class="fas fa-@(Model.HasActiveSubscription ? "crown" : "user") text-2xl text-green-500"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- My Favorites -->
+@if (Model.FavoriteMagazines.Any())
+{
+    <div class="mb-8">
+        <div class="flex items-center justify-between mb-4">
+            <h2 class="text-2xl font-bold text-gray-800">
+                <i class="fas fa-heart text-red-500 mr-2"></i>My Favorite Magazines
+            </h2>
+            <a asp-action="Favorites" class="text-primary-blue hover:text-blue-700 font-semibold">
+                View All (@Model.TotalFavorites) →
+            </a>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            @foreach (var magazine in Model.FavoriteMagazines.Take(6))
+            {
+                <div class="bg-white rounded-xl shadow hover:shadow-xl transition group">
+                    <div class="relative">
+                        <img src="@magazine.CoverImagePath" alt="@magazine.Title" 
+                             class="w-full h-64 object-cover rounded-t-xl"
+                             onerror="this.src='https://placehold.co/400x500/FF6B35/FFFFFF?text=@magazine.Title'"/>
+                        <div class="absolute top-3 right-3">
+                            <button onclick="removeFromFavorites(@magazine.Id)" 
+                                    class="bg-white/90 hover:bg-red-500 text-red-500 hover:text-white w-10 h-10 rounded-full flex items-center justify-center transition">
+                                <i class="fas fa-heart"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-bold text-gray-800 mb-2 line-clamp-1">@magazine.Title</h3>
+                        @if (!string.IsNullOrEmpty(magazine.Summary))
+                        {
+                            <p class="text-gray-600 text-sm mb-3 line-clamp-2">@magazine.Summary</p>
+                        }
+                        <a asp-controller="Guide" asp-action="Read" asp-route-slug="@magazine.Slug" 
+                           class="block w-full bg-primary-orange hover:bg-orange-600 text-white text-center py-2 rounded-lg font-semibold transition">
+                            <i class="fas fa-book-open mr-2"></i>Read Now
+                        </a>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+}
+else
+{
+    <div class="bg-white rounded-xl shadow p-12 text-center mb-8">
+        <i class="fas fa-heart text-6xl text-gray-300 mb-4"></i>
+        <h3 class="text-2xl font-bold text-gray-800 mb-2">No Favorites Yet</h3>
+        <p class="text-gray-600 mb-6">Start adding magazines to your favorites to see them here</p>
+        <a asp-controller="Guide" asp-action="Index" 
+           class="inline-block bg-primary-orange hover:bg-orange-600 text-white px-6 py-3 rounded-lg font-semibold transition">
+            <i class="fas fa-search mr-2"></i>Browse Magazines
+        </a>
+    </div>
+}
+
+<!-- Recommended Magazines -->
+@if (Model.RecommendedMagazines.Any())
+{
+    <div class="mb-8">
+        <h2 class="text-2xl font-bold text-gray-800 mb-4">
+            <i class="fas fa-star text-yellow-500 mr-2"></i>Recommended For You
+        </h2>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            @foreach (var magazine in Model.RecommendedMagazines)
+            {
+                <div class="bg-white rounded-xl shadow hover:shadow-xl transition group">
+                    <div class="relative">
+                        <img src="@magazine.CoverImagePath" alt="@magazine.Title" 
+                             class="w-full h-64 object-cover rounded-t-xl"
+                             onerror="this.src='https://placehold.co/400x500/0C789A/FFFFFF?text=@magazine.Title'"/>
+                        <div class="absolute top-3 right-3">
+                            <button onclick="addToFavorites(@magazine.Id)" 
+                                    class="bg-white/90 hover:bg-red-500 text-gray-400 hover:text-white w-10 h-10 rounded-full flex items-center justify-center transition">
+                                <i class="far fa-heart"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-bold text-gray-800 mb-2 line-clamp-1">@magazine.Title</h3>
+                        @if (!string.IsNullOrEmpty(magazine.Summary))
+                        {
+                            <p class="text-gray-600 text-sm mb-3 line-clamp-2">@magazine.Summary</p>
+                        }
+                        <div class="flex gap-2">
+                            <a asp-controller="Guide" asp-action="Detail" asp-route-slug="@magazine.Slug" 
+                               class="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-800 text-center py-2 rounded-lg font-semibold transition text-sm">
+                                Details
+                            </a>
+                            <a asp-controller="Guide" asp-action="Read" asp-route-slug="@magazine.Slug" 
+                               class="flex-1 bg-primary-blue hover:bg-blue-600 text-white text-center py-2 rounded-lg font-semibold transition text-sm">
+                                Read
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+}
+
+@section Scripts {
+    <script>
+        function addToFavorites(guideId) {
+            fetch('/UserDashboard/AddToFavorites/' + guideId, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'RequestVerificationToken': document.querySelector('input[name="__RequestVerificationToken"]')?.value
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    location.reload();
+                } else {
+                    alert(data.message);
+                }
+            });
+        }
+
+        function removeFromFavorites(guideId) {
+            if (confirm('Remove from favorites?')) {
+                fetch('/UserDashboard/RemoveFromFavorites/' + guideId, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'RequestVerificationToken': document.querySelector('input[name="__RequestVerificationToken"]')?.value
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        location.reload();
+                    } else {
+                        alert(data.message);
+                    }
+                });
+            }
+        }
+    </script>
+    @Html.AntiForgeryToken()
+}
+

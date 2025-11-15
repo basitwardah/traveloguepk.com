@@ -1,4 +1,4 @@
-using magazine_app.Models;
+using Entities.Models;
 
 namespace magazine_app.Services.Interfaces
 {

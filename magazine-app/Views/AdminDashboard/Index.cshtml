@@ -1,0 +1,211 @@
+@model magazine_app.ViewModels.AdminDashboardViewModel
+
+@{
+    ViewData["Title"] = "Admin Dashboard";
+    ViewData["Subtitle"] = "Overview and Statistics";
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+}
+
+<!-- Stats Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+    
+    <!-- Total Users -->
+    <div class="bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl shadow-lg p-6 text-white">
+        <div class="flex items-center justify-between mb-4">
+            <div class="bg-white/20 rounded-lg p-3">
+                <i class="fas fa-users text-2xl"></i>
+            </div>
+            <span class="text-3xl font-bold">@Model.TotalUsers</span>
+        </div>
+        <h3 class="text-lg font-semibold mb-1">Total Users</h3>
+        <p class="text-blue-100 text-sm">All registered users</p>
+    </div>
+
+    <!-- Subscribed Users -->
+    <div class="bg-gradient-to-br from-green-500 to-green-600 rounded-xl shadow-lg p-6 text-white">
+        <div class="flex items-center justify-between mb-4">
+            <div class="bg-white/20 rounded-lg p-3">
+                <i class="fas fa-crown text-2xl"></i>
+            </div>
+            <span class="text-3xl font-bold">@Model.SubscribedUsers</span>
+        </div>
+        <h3 class="text-lg font-semibold mb-1">Subscribed Users</h3>
+        <p class="text-green-100 text-sm">Active subscriptions</p>
+    </div>
+
+    <!-- Employees -->
+    <div class="bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl shadow-lg p-6 text-white">
+        <div class="flex items-center justify-between mb-4">
+            <div class="bg-white/20 rounded-lg p-3">
+                <i class="fas fa-user-tie text-2xl"></i>
+            </div>
+            <span class="text-3xl font-bold">@Model.TotalEmployees</span>
+        </div>
+        <h3 class="text-lg font-semibold mb-1">Employees</h3>
+        <p class="text-purple-100 text-sm">Admin & Uploaders</p>
+    </div>
+
+    <!-- Total Magazines -->
+    <div class="bg-gradient-to-br from-orange-500 to-orange-600 rounded-xl shadow-lg p-6 text-white">
+        <div class="flex items-center justify-between mb-4">
+            <div class="bg-white/20 rounded-lg p-3">
+                <i class="fas fa-book text-2xl"></i>
+            </div>
+            <span class="text-3xl font-bold">@Model.TotalMagazines</span>
+        </div>
+        <h3 class="text-lg font-semibold mb-1">Total Magazines</h3>
+        <p class="text-orange-100 text-sm">@Model.PublishedMagazines Published</p>
+    </div>
+</div>
+
+<!-- Quick Stats -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+    <div class="bg-white rounded-xl shadow p-6">
+        <div class="flex items-center justify-between">
+            <div>
+                <p class="text-gray-600 text-sm">Non-Subscribed Users</p>
+                <p class="text-2xl font-bold text-gray-800">@Model.NonSubscribedUsers</p>
+            </div>
+            <i class="fas fa-user-clock text-4xl text-yellow-500"></i>
+        </div>
+    </div>
+
+    <div class="bg-white rounded-xl shadow p-6">
+        <div class="flex items-center justify-between">
+            <div>
+                <p class="text-gray-600 text-sm">Free Magazines</p>
+                <p class="text-2xl font-bold text-gray-800">@Model.FreeMagazines</p>
+            </div>
+            <i class="fas fa-gift text-4xl text-green-500"></i>
+        </div>
+    </div>
+
+    <div class="bg-white rounded-xl shadow p-6">
+        <div class="flex items-center justify-between">
+            <div>
+                <p class="text-gray-600 text-sm">Paid Magazines</p>
+                <p class="text-2xl font-bold text-gray-800">@Model.PaidMagazines</p>
+            </div>
+            <i class="fas fa-dollar-sign text-4xl text-blue-500"></i>
+        </div>
+    </div>
+</div>
+
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+    
+    <!-- Recent Users -->
+    <div class="bg-white rounded-xl shadow">
+        <div class="p-6 border-b border-gray-200">
+            <div class="flex items-center justify-between">
+                <h2 class="text-xl font-bold text-gray-800">Recent Users</h2>
+                <a asp-action="Users" class="text-primary-blue hover:text-blue-700 text-sm font-semibold">
+                    View All →
+                </a>
+            </div>
+        </div>
+        <div class="p-6">
+            <div class="space-y-4">
+                @foreach (var user in Model.RecentUsers.Take(5))
+                {
+                    <div class="flex items-center justify-between p-3 hover:bg-gray-50 rounded-lg transition">
+                        <div class="flex items-center">
+                            <div class="w-10 h-10 bg-gradient-to-br from-primary-orange to-orange-600 rounded-full flex items-center justify-center text-white font-bold mr-3">
+                                @user.FullName.Substring(0, 1).ToUpper()
+                            </div>
+                            <div>
+                                <p class="font-semibold text-gray-800">@user.FullName</p>
+                                <p class="text-xs text-gray-600">@user.Email</p>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            @if (user.HasActiveSubscription)
+                            {
+                                <span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs font-semibold">
+                                    <i class="fas fa-crown"></i> Subscribed
+                                </span>
+                            }
+                            else
+                            {
+                                <span class="bg-gray-100 text-gray-800 px-2 py-1 rounded text-xs">Free</span>
+                            }
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+    <!-- Recent Magazines -->
+    <div class="bg-white rounded-xl shadow">
+        <div class="p-6 border-b border-gray-200">
+            <div class="flex items-center justify-between">
+                <h2 class="text-xl font-bold text-gray-800">Recent Magazines</h2>
+                <a asp-controller="GuideAdmin" asp-action="Index" class="text-primary-blue hover:text-blue-700 text-sm font-semibold">
+                    View All →
+                </a>
+            </div>
+        </div>
+        <div class="p-6">
+            <div class="space-y-4">
+                @foreach (var magazine in Model.RecentMagazines)
+                {
+                    <div class="flex items-center justify-between p-3 hover:bg-gray-50 rounded-lg transition">
+                        <div class="flex items-center">
+                            <img src="@magazine.CoverImagePath" alt="@magazine.Title" class="w-12 h-16 object-cover rounded mr-3" 
+                                 onerror="this.src='https://placehold.co/100x140/FF6B35/FFFFFF?text=Magazine'"/>
+                            <div>
+                                <p class="font-semibold text-gray-800">@magazine.Title</p>
+                                <p class="text-xs text-gray-600">@magazine.CreatedAt.ToString("MMM dd, yyyy")</p>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            @if (magazine.IsPublished)
+                            {
+                                <span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs font-semibold">
+                                    Published
+                                </span>
+                            }
+                            else
+                            {
+                                <span class="bg-yellow-100 text-yellow-800 px-2 py-1 rounded text-xs">
+                                    Draft
+                                </span>
+                            }
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Recent Activities -->
+<div class="bg-white rounded-xl shadow">
+    <div class="p-6 border-b border-gray-200">
+        <h2 class="text-xl font-bold text-gray-800">Recent Activities</h2>
+    </div>
+    <div class="p-6">
+        <div class="space-y-3">
+            @foreach (var activity in Model.RecentActivities)
+            {
+                <div class="flex items-center p-3 hover:bg-gray-50 rounded-lg transition">
+                    <div class="w-8 h-8 bg-primary-blue/10 rounded-full flex items-center justify-center mr-3">
+                        <i class="fas fa-@(activity.Action.Contains("Read") ? "book-open" : activity.Action.Contains("Download") ? "download" : "edit") text-primary-blue text-xs"></i>
+                    </div>
+                    <div class="flex-1">
+                        <p class="text-sm text-gray-800">
+                            <span class="font-semibold">@activity.UserName</span> 
+                            @activity.Action.ToLower()
+                            @if (!string.IsNullOrEmpty(activity.GuideTitle))
+                            {
+                                <span class="font-semibold">"@activity.GuideTitle"</span>
+                            }
+                        </p>
+                        <p class="text-xs text-gray-600">@activity.Timestamp.ToString("MMM dd, yyyy hh:mm tt")</p>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+

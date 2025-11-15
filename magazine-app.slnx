@@ -1,3 +1,5 @@
 <Solution>
+  <Project Path="Entities/Entities.csproj" Id="a6d248fe-8f5b-49ba-adeb-bdb98d82ab0a" />
   <Project Path="magazine-app/magazine-app.csproj" />
+  <Project Path="Repository/Repository.csproj" Id="033c037c-8e6f-4d07-9abb-286a76f9adea" />
 </Solution>

@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
-using magazine_app.Data;
-using magazine_app.Models;
+using Entities.Models;
+using Repository.Data;
 using magazine_app.Services.Interfaces;
 
 namespace magazine_app.Services

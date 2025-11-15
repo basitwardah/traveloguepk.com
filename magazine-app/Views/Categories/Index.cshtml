@@ -1,3 +1,5 @@
+@model IEnumerable<magazine_app.ViewModels.GuideListViewModel>
+
 @{
     ViewData["Title"] = "Categories";
 }
@@ -5,21 +7,21 @@
 <!-- Hero Section -->
 <section class="relative h-96">
     <div class="absolute inset-0">
-        <img src="~/images/categories-hero.jpg" alt="Categories" class="w-full h-full object-cover" 
+        <img src="~/images/categories-hero.jpg" alt="Categories" class="w-full h-full object-cover"
              onerror="this.src='https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1920'">
         <div class="absolute inset-0 bg-dark-navy bg-opacity-60"></div>
     </div>
-    
+
     <div class="relative container mx-auto px-4 h-full flex flex-col justify-center">
         <!-- Breadcrumb -->
         <nav class="text-white mb-4">
             <ol class="flex items-center space-x-2 text-sm">
                 <li><a asp-controller="Home" asp-action="Index" class="hover:text-primary-orange">Home</a></li>
                 <li><i class="fas fa-chevron-right text-xs"></i></li>
-                <li>About Us</li>
+                <li>Categories</li>
             </ol>
         </nav>
-        
+
         <div class="orange-label mb-4">
             TRAVELOGUE PK
         </div>
@@ -42,257 +44,369 @@
                 <button class="lg:hidden w-full bg-gray-200 text-gray-800 px-4 py-3 rounded-lg mb-4 flex items-center justify-center">
                     <i class="fas fa-filter mr-2"></i> Filter
                 </button>
-                
+
                 <div class="bg-white rounded-lg border border-gray-200 p-6">
                     <!-- Search -->
                     <div class="mb-6">
                         <div class="relative">
-                            <input type="text" placeholder="Search here..." 
+                            <input type="text" id="searchInput" placeholder="Search magazines..."
                                    class="w-full pl-4 pr-10 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-primary-blue">
                             <button class="absolute right-3 top-1/2 transform -translate-y-1/2 text-white bg-primary-blue p-2 rounded">
                                 <i class="fas fa-search"></i>
                             </button>
                         </div>
                     </div>
-                    
+
                     <!-- Categories -->
                     <div class="mb-6">
-                        <h3 class="text-lg font-bold text-gray-800 mb-4">Categories</h3>
-                        <div class="space-y-2">
-                            <label class="flex items-center justify-between cursor-pointer hover:bg-gray-50 p-2 rounded">
+                        <h3 class="text-lg font-bold text-gray-800 mb-4 flex items-center">
+                            <i class="fas fa-filter mr-2 text-primary-orange"></i>
+                            Categories
+                        </h3>
+                        <div class="space-y-1">
+                            @{
+                                var currentCategory = ViewBag.CurrentCategory ?? "all";
+                                var categoriesWithCounts = ViewBag.CategoriesWithCounts as List<dynamic> ?? new List<dynamic>();
+                                var totalCount = ViewBag.TotalCount ?? 0;
+
+                                var categoryIcons = new Dictionary<string, string>
+                                                        {
+                                                        { "adventure", "fa-mountain" },
+                                                        { "explore", "fa-compass" },
+                                                        { "discover", "fa-map-marked-alt" },
+                                                        { "journey", "fa-route" },
+                                                        { "culture", "fa-landmark" },
+                                                        { "nature", "fa-tree" },
+                                                        { "history", "fa-book" }
+                                                        };
+                            }
+
+                            <!-- All Magazines -->
+                            <a asp-action="Index" asp-route-category="all"
+                               class="flex items-center justify-between p-3 rounded-lg transition-all @(currentCategory.ToLower() == "all" ? "bg-primary-orange text-white shadow-md" : "hover:bg-gray-50 text-gray-700")">
                                 <div class="flex items-center">
-                                    <input type="checkbox" class="w-4 h-4 text-primary-orange border-gray-300 rounded focus:ring-primary-orange mr-3">
-                                    <span class="text-gray-700">Adventure Travel</span>
+                                    <i class="fas fa-th w-5 mr-3"></i>
+                                    <span class="font-medium">All Magazines</span>
                                 </div>
-                                <span class="text-gray-400 text-sm">65</span>
-                            </label>
-                            <label class="flex items-center justify-between cursor-pointer hover:bg-gray-50 p-2 rounded">
-                                <div class="flex items-center">
-                                    <input type="checkbox" class="w-4 h-4 text-primary-orange border-gray-300 rounded focus:ring-primary-orange mr-3">
-                                    <span class="text-gray-700">Luxury Travel</span>
-                                </div>
-                                <span class="text-gray-400 text-sm">32</span>
-                            </label>
-                            <label class="flex items-center justify-between cursor-pointer hover:bg-gray-50 p-2 rounded">
-                                <div class="flex items-center">
-                                    <input type="checkbox" class="w-4 h-4 text-primary-orange border-gray-300 rounded focus:ring-primary-orange mr-3">
-                                    <span class="text-gray-700">Budget Travel</span>
-                                </div>
-                                <span class="text-gray-400 text-sm">21</span>
-                            </label>
-                            <label class="flex items-center justify-between cursor-pointer hover:bg-gray-50 p-2 rounded">
-                                <div class="flex items-center">
-                                    <input type="checkbox" checked class="w-4 h-4 text-primary-orange border-gray-300 rounded focus:ring-primary-orange mr-3">
-                                    <span class="text-gray-700">Cultural Experiences</span>
-                                </div>
-                                <span class="text-gray-400 text-sm">45</span>
-                            </label>
-                            <label class="flex items-center justify-between cursor-pointer hover:bg-gray-50 p-2 rounded">
-                                <div class="flex items-center">
-                                    <input type="checkbox" class="w-4 h-4 text-primary-orange border-gray-300 rounded focus:ring-primary-orange mr-3">
-                                    <span class="text-gray-700">Beach Destinations</span>
-                                </div>
-                                <span class="text-gray-400 text-sm">28</span>
-                            </label>
-                            <label class="flex items-center justify-between cursor-pointer hover:bg-gray-50 p-2 rounded">
-                                <div class="flex items-center">
-                                    <input type="checkbox" class="w-4 h-4 text-primary-orange border-gray-300 rounded focus:ring-primary-orange mr-3">
-                                    <span class="text-gray-700">Mountain Getaways</span>
-                                </div>
-                                <span class="text-gray-400 text-sm">53</span>
-                            </label>
-                            <label class="flex items-center justify-between cursor-pointer hover:bg-gray-50 p-2 rounded">
-                                <div class="flex items-center">
-                                    <input type="checkbox" class="w-4 h-4 text-primary-orange border-gray-300 rounded focus:ring-primary-orange mr-3">
-                                    <span class="text-gray-700">City Breaks</span>
-                                </div>
-                                <span class="text-gray-400 text-sm">69</span>
-                            </label>
-                            <label class="flex items-center justify-between cursor-pointer hover:bg-gray-50 p-2 rounded">
-                                <div class="flex items-center">
-                                    <input type="checkbox" class="w-4 h-4 text-primary-orange border-gray-300 rounded focus:ring-primary-orange mr-3">
-                                    <span class="text-gray-700">Wildlife and Nature</span>
-                                </div>
-                                <span class="text-gray-400 text-sm">18</span>
-                            </label>
-                            <label class="flex items-center justify-between cursor-pointer hover:bg-gray-50 p-2 rounded">
-                                <div class="flex items-center">
-                                    <input type="checkbox" class="w-4 h-4 text-primary-orange border-gray-300 rounded focus:ring-primary-orange mr-3">
-                                    <span class="text-gray-700">Historical Sites</span>
-                                </div>
-                                <span class="text-gray-400 text-sm">41</span>
-                            </label>
-                            <label class="flex items-center justify-between cursor-pointer hover:bg-gray-50 p-2 rounded">
-                                <div class="flex items-center">
-                                    <input type="checkbox" class="w-4 h-4 text-primary-orange border-gray-300 rounded focus:ring-primary-orange mr-3">
-                                    <span class="text-gray-700">Romantic Escapes</span>
-                                </div>
-                                <span class="text-gray-400 text-sm">100</span>
-                            </label>
+                                <span class="text-xs @(currentCategory.ToLower() == "all" ? "bg-white/20" : "bg-gray-200") px-2 py-1 rounded-full">@totalCount</span>
+                            </a>
+
+                            @foreach (var cat in categoriesWithCounts)
+                            {
+                                var isActive = currentCategory.ToLower() == cat.Slug.ToLower();
+                                var icon = categoryIcons.ContainsKey(cat.Slug.ToLower()) ? categoryIcons[cat.Slug.ToLower()] : "fa-folder";
+
+                                <a asp-action="Index" asp-route-category="@cat.Slug"
+                                   class="flex items-center justify-between p-3 rounded-lg transition-all @(isActive ? "bg-primary-orange text-white shadow-md" : "hover:bg-gray-50 text-gray-700")">
+                                    <div class="flex items-center">
+                                        <i class="fas @icon w-5 mr-3"></i>
+                                        <span class="font-medium">@cat.Name</span>
+                                    </div>
+                                    <span class="text-xs @(isActive ? "bg-white/20" : "bg-gray-200") px-2 py-1 rounded-full">@cat.Count</span>
+                                </a>
+                            }
                         </div>
                     </div>
-                    
-                    <!-- Price Range -->
-                    <div>
-                        <h3 class="text-lg font-bold text-gray-800 mb-4">Prices</h3>
-                        <div class="flex items-center gap-4 mb-4">
-                            <input type="number" placeholder="$ (USD)" value="1000" 
-                                   class="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary-blue text-sm">
-                            <input type="number" placeholder="$ (USD)" value="1300" 
-                                   class="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary-blue text-sm">
-                        </div>
-                        <!-- Price Slider -->
-                        <input type="range" min="0" max="2000" value="1300" class="w-full accent-primary-orange">
+
+                    <!-- Quick Actions -->
+                    <div class="mb-6 p-4 bg-gradient-to-br from-primary-orange to-orange-600 rounded-lg text-white">
+                        <h4 class="font-bold mb-2 flex items-center">
+                            <i class="fas fa-bookmark mr-2"></i>
+                            Browse All
+                        </h4>
+                        <p class="text-sm text-white/90 mb-3">View all available magazines in one place</p>
+                        <a asp-controller="Guide" asp-action="Index" class="block w-full bg-white text-primary-orange text-center px-4 py-2 rounded-lg font-semibold hover:bg-gray-100 transition-all">
+                            View All Magazines →
+                        </a>
                     </div>
                 </div>
             </aside>
-            
-            <!-- Products Grid -->
-            <div class="flex-1">
-                <!-- Toolbar -->
-                <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-8 gap-4">
-                    <div class="flex items-center">
-                        <span class="text-gray-600 mr-4">Sort By:</span>
-                        <select class="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary-blue">
-                            <option>Featured Products</option>
-                            <option>Price: Low to High</option>
-                            <option>Price: High to Low</option>
-                            <option>Newest First</option>
-                            <option>Best Rating</option>
-                        </select>
-                    </div>
-                    
-                    <div class="flex items-center">
-                        <span class="text-gray-600 mr-4">Show:</span>
-                        <select class="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary-blue">
-                            <option>All - 30 Items</option>
-                            <option>12 Items</option>
-                            <option>24 Items</option>
-                            <option>48 Items</option>
-                        </select>
+
+            <!-- Magazine Grid -->
+            <div class="lg:w-3/4">
+                <!-- Results Header -->
+                <div class="flex items-center justify-between mb-6">
+                    <div>
+                        <h2 class="text-2xl font-bold text-gray-800">
+                            @if (currentCategory.ToLower() == "all")
+                            {
+                                <span>All Magazines</span>
+                            }
+                            else
+                            {
+                                var catName = categoriesWithCounts.FirstOrDefault(c => c.Slug.ToLower() == currentCategory.ToLower())?.Name ?? currentCategory;
+                                <span>@catName Magazines</span>
+                            }
+                        </h2>
+                        <p class="text-gray-600 text-sm mt-1">
+                            Showing @Model.Count() @(Model.Count() == 1 ? "magazine" : "magazines")
+                        </p>
                     </div>
                 </div>
-                
-                <!-- Products Grid -->
-                @* <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-                    <!-- Magazine Card 1 -->
-                    <div class="card-hover bg-white rounded-lg shadow-lg overflow-hidden">
-                        <div class="relative">
-                            <div class="bg-gradient-to-br from-orange-400 to-orange-600 p-6 flex items-center justify-center h-80">
-                                <img src="~/images/magazine-1.jpg" alt="Magazine" class="h-full object-contain" 
-                                     onerror="this.src='https://via.placeholder.com/300x400/FF6B35/FFFFFF?text=Magazine'">
-                            </div>
-                            <button class="absolute top-4 right-4 bg-white text-gray-600 hover:text-red-500 rounded-full w-10 h-10 flex items-center justify-center shadow-lg">
-                                <i class="far fa-heart"></i>
-                            </button>
-                            <div class="absolute bottom-4 left-4 bg-white text-orange-500 px-4 py-1 rounded-full text-sm font-semibold">
-                                OVERNIGHT TRIPS
-                            </div>
-                        </div>
-                        <div class="p-4">
-                            <div class="flex items-center mb-2">
-                                <i class="fas fa-star text-yellow-400 text-sm"></i>
-                                <i class="fas fa-star text-yellow-400 text-sm"></i>
-                                <i class="fas fa-star text-yellow-400 text-sm"></i>
-                                <i class="fas fa-star text-yellow-400 text-sm"></i>
-                                <i class="fas fa-star text-yellow-400 text-sm"></i>
-                            </div>
-                            <h3 class="text-lg font-semibold text-gray-800 mb-3">A Million Little Pieces</h3>
-                            <div class="flex items-center justify-between">
-                                <div>
-                                    <span class="text-2xl font-bold text-primary-orange">$36.00</span>
-                                    <span class="text-sm text-gray-400 line-through ml-2">$48.00</span>
-                                </div>
-                                <a asp-controller="Product" asp-action="Detail" asp-route-id="1" class="bg-primary-orange hover:bg-orange-600 text-white rounded-full w-10 h-10 flex items-center justify-center transition-all hover:scale-110 shadow-lg">
-                                    <i class="fas fa-shopping-cart"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Magazine Card 2 -->
-                    <div class="card-hover bg-white rounded-lg shadow-lg overflow-hidden">
-                        <div class="relative">
-                            <div class="bg-gradient-to-br from-blue-400 to-blue-600 p-6 flex items-center justify-center h-80">
-                                <img src="~/images/magazine-2.jpg" alt="Magazine" class="h-full object-contain" 
-                                     onerror="this.src='https://via.placeholder.com/300x400/0C789A/FFFFFF?text=Magazine'">
-                            </div>
-                            <button class="absolute top-4 right-4 bg-white text-gray-600 hover:text-red-500 rounded-full w-10 h-10 flex items-center justify-center shadow-lg">
-                                <i class="far fa-heart"></i>
-                            </button>
-                            <div class="absolute bottom-4 left-4 bg-white text-blue-500 px-4 py-1 rounded-full text-sm font-semibold">
-                                OVERNIGHT TRIPS
-                            </div>
-                        </div>
-                        <div class="p-4">
-                            <div class="flex items-center mb-2">
-                                <i class="fas fa-star text-yellow-400 text-sm"></i>
-                                <i class="fas fa-star text-yellow-400 text-sm"></i>
-                                <i class="fas fa-star text-yellow-400 text-sm"></i>
-                                <i class="fas fa-star text-yellow-400 text-sm"></i>
-                                <i class="fas fa-star text-yellow-400 text-sm"></i>
-                            </div>
-                            <h3 class="text-lg font-semibold text-gray-800 mb-3">A Million Little Pieces</h3>
-                            <div class="flex items-center justify-between">
-                                <div>
-                                    <span class="text-2xl font-bold text-primary-orange">$36.00</span>
-                                    <span class="text-sm text-gray-400 line-through ml-2">$48.00</span>
-                                </div>
-                                <a asp-controller="Product" asp-action="Detail" asp-route-id="2" class="bg-primary-orange hover:bg-orange-600 text-white rounded-full w-10 h-10 flex items-center justify-center transition-all hover:scale-110 shadow-lg">
-                                    <i class="fas fa-shopping-cart"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Repeat pattern for more products (Cards 3-12) -->
-                    @for (int i = 3; i <= 12; i++)
-                    {
-                        var isOrange = i % 2 != 0;
-                        <div class="card-hover bg-white rounded-lg shadow-lg overflow-hidden">
-                            <div class="relative">
-                                <div class="bg-gradient-to-br @(isOrange ? "from-orange-400 to-orange-600" : "from-blue-400 to-blue-600") p-6 flex items-center justify-center h-80">
-                                    <img src="~/images/magazine-@(i).jpg" alt="Magazine" class="h-full object-contain" 
-                                         onerror="this.src='https://via.placeholder.com/300x400/@(isOrange ? "FF6B35" : "0C789A")/FFFFFF?text=Magazine'">
-                                </div>
-                                <button class="absolute top-4 right-4 bg-white text-gray-600 hover:text-red-500 rounded-full w-10 h-10 flex items-center justify-center shadow-lg">
-                                    <i class="far fa-heart"></i>
-                                </button>
-                                <div class="absolute bottom-4 left-4 bg-white text-@(isOrange ? "orange" : "blue")-500 px-4 py-1 rounded-full text-sm font-semibold">
-                                    OVERNIGHT TRIPS
-                                </div>
-                            </div>
-                            <div class="p-4">
-                                <div class="flex items-center mb-2">
-                                    <i class="fas fa-star text-yellow-400 text-sm"></i>
-                                    <i class="fas fa-star text-yellow-400 text-sm"></i>
-                                    <i class="fas fa-star text-yellow-400 text-sm"></i>
-                                    <i class="fas fa-star text-yellow-400 text-sm"></i>
-                                    <i class="fas fa-star text-yellow-400 text-sm"></i>
-                                </div>
-                                <h3 class="text-lg font-semibold text-gray-800 mb-3">A Million Little Pieces</h3>
-                                <div class="flex items-center justify-between">
-                                    <div>
-                                        <span class="text-2xl font-bold text-primary-orange">$36.00</span>
-                                        <span class="text-sm text-gray-400 line-through ml-2">$48.00</span>
+
+                <!-- Magazines Grid -->
+                @if (Model.Any())
+                {
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                        @{
+                            int colorIndex = 0;
+                            var gradients = new[] {
+                                        new { From = "orange-400", To = "orange-600", Badge = "orange", Text = "ADVENTURE" },
+                                        new { From = "blue-400", To = "blue-600", Badge = "blue", Text = "EXPLORE" },
+                                        new { From = "emerald-400", To = "emerald-600", Badge = "emerald", Text = "DISCOVER" },
+                                        new { From = "purple-400", To = "purple-600", Badge = "purple", Text = "JOURNEY" }
+                                        };
+                        }
+
+                        @foreach (var guide in Model)
+                        {
+                            var gradient = gradients[colorIndex % gradients.Length];
+                            colorIndex++;
+                            var categoryText = !string.IsNullOrEmpty(guide.CategoryName) ? guide.CategoryName.ToUpper() : gradient.Text;
+                            var hasDiscount = guide.OldPrice > guide.CurrentPrice && guide.CurrentPrice > 0;
+                            var discountPercent = hasDiscount ? Math.Round(((guide.OldPrice - guide.CurrentPrice) / guide.OldPrice) * 100) : 0;
+
+                            <div class="card-hover bg-white rounded-xl shadow-lg overflow-hidden group transform transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl">
+                                <!-- Magazine Cover -->
+                                <div class="relative">
+                                    <div class="bg-gradient-to-br from-@gradient.From to-@gradient.To p-6 h-80 flex items-center justify-center relative overflow-hidden">
+                                        <img src="@guide.CoverImagePath"
+                                             alt="@guide.Title"
+                                             class="h-full object-contain relative z-10 transform group-hover:scale-110 transition-transform duration-700"
+                                             onerror="this.src='https://placehold.co/300x450/@(gradient.Badge == "orange" ? "FF6B35" : gradient.Badge == "blue" ? "0C789A" : gradient.Badge == "emerald" ? "10B981" : "8B5CF6")/FFFFFF?text=@guide.Title'">
+
+                                        <!-- Glow Effect -->
+                                        <div class="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+
+                                        <!-- Discount Badge -->
+                                        @if (hasDiscount)
+                                        {
+                                            <div class="absolute top-4 left-4 bg-red-500 text-white px-3 py-1.5 rounded-full text-xs font-bold shadow-lg z-20 animate-pulse">
+                                                -@discountPercent% OFF
+                                            </div>
+                                        }
+
+                                        <!-- Category Badge -->
+                                        <div class="absolute bottom-4 left-4 bg-white/95 backdrop-blur-sm text-@gradient.Badge-600 px-4 py-2 rounded-full text-xs font-bold shadow-lg z-20 uppercase">
+                                            <i class="fas fa-tag mr-1"></i>@categoryText
+                                        </div>
+
+                                        <!-- Favorite Button -->
+                                        @if (User.Identity != null && User.Identity.IsAuthenticated)
+                                        {
+                                            <button onclick="toggleFavorite(@guide.Id, this)"
+                                                    class="favorite-btn absolute top-4 right-4 bg-white/95 backdrop-blur-sm hover:bg-white rounded-full w-11 h-11 flex items-center justify-center shadow-lg transition-all z-30 hover:scale-110"
+                                                    data-guide-id="@guide.Id"
+                                                    title="@(guide.IsFavorited ? "Remove from favorites" : "Add to favorites")">
+                                                <i class="@(guide.IsFavorited ? "fas" : "far") fa-heart text-lg @(guide.IsFavorited ? "text-red-500" : "text-gray-600")"></i>
+                                            </button>
+                                        }
+                                        else
+                                        {
+                                            <a asp-controller="Account" asp-action="Login" asp-route-returnUrl="@Context.Request.Path@Context.Request.QueryString"
+                                               class="absolute top-4 right-4 bg-white backdrop-blur-sm hover:bg-gray-50 rounded-full w-11 h-11 flex items-center justify-center shadow-lg transition-all z-30 hover:scale-110"
+                                               title="Login to add favorites">
+                                                <i class="far fa-heart text-lg text-gray-600 hover:text-red-500"></i>
+                                            </a>
+                                        }
+
+                                        <!-- Hover Overlay -->
+                                        <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 flex flex-col items-center justify-center z-30 gap-3">
+                                            <a asp-action="Detail" asp-route-slug="@guide.Slug"
+                                               class="bg-white text-gray-900 px-6 py-2.5 rounded-lg font-semibold hover:bg-primary-orange hover:text-white transition-all transform translate-y-4 group-hover:translate-y-0 duration-300 shadow-lg">
+                                                <i class="fas fa-info-circle mr-2"></i>View Details
+                                            </a>
+                                            <a asp-action="Read" asp-route-slug="@guide.Slug"
+                                               class="bg-gradient-to-r from-primary-orange to-orange-600 text-white px-6 py-2.5 rounded-lg font-semibold hover:from-orange-600 hover:to-orange-700 transition-all transform translate-y-4 group-hover:translate-y-0 duration-500 shadow-lg">
+                                                <i class="fas fa-book-open mr-2"></i>Read Magazine
+                                            </a>
+                                        </div>
                                     </div>
-                                    <a asp-controller="Product" asp-action="Detail" asp-route-id="@i" class="bg-primary-orange hover:bg-orange-600 text-white rounded-full w-10 h-10 flex items-center justify-center transition-all hover:scale-110 shadow-lg">
-                                        <i class="fas fa-shopping-cart"></i>
-                                    </a>
+
+                                    <!-- Magazine Info -->
+                                    <div class="bg-white p-5">
+                                        <h3 class="text-lg font-bold text-gray-800 mb-2 line-clamp-2 group-hover:text-primary-orange transition-colors min-h-[3.5rem]">
+                                            @guide.Title
+                                        </h3>
+
+                                        @if (!string.IsNullOrEmpty(guide.Summary))
+                                        {
+                                            <p class="text-gray-600 text-sm mb-3 line-clamp-2 min-h-[2.5rem]">@guide.Summary</p>
+                                        }
+                                        else
+                                        {
+                                            <p class="text-gray-400 text-sm mb-3 italic min-h-[2.5rem]">Explore this amazing magazine...</p>
+                                        }
+
+                                        <!-- Pricing -->
+                                        <div class="mb-4 pb-4 border-b border-gray-100">
+                                            @if (guide.CurrentPrice > 0)
+                                            {
+                                                <div class="flex items-center gap-2">
+                                                    <span class="text-2xl font-bold text-primary-orange">$@guide.CurrentPrice.ToString("F2")</span>
+                                                    @if (guide.OldPrice > guide.CurrentPrice)
+                                                    {
+                                                        <span class="text-sm text-gray-400 line-through">$@guide.OldPrice.ToString("F2")</span>
+                                                    }
+                                                </div>
+                                                <p class="text-xs text-gray-500 mt-1">
+                                                    <i class="fas fa-shield-alt mr-1"></i>Secure payment available
+                                                </p>
+                                            }
+                                            else
+                                            {
+                                                <div class="flex items-center gap-2">
+                                                    <span class="text-xl font-bold text-green-600">FREE</span>
+                                                    <span class="bg-green-100 text-green-700 text-xs px-2.5 py-1 rounded-full font-semibold">Available Now</span>
+                                                </div>
+                                            }
+                                        </div>
+
+                                        <!-- Stats -->
+                                        <div class="flex items-center justify-between text-xs text-gray-500">
+                                            <span class="flex items-center">
+                                                <i class="far fa-eye mr-1 text-primary-blue"></i>View Magazine
+                                            </span>
+                                            <span class="flex items-center">
+                                                <i class="far fa-file-pdf mr-1 text-red-500"></i>PDF Available
+                                            </span>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
+                        }
+                    </div>
+                }
+                else
+                {
+                    <!-- No Results -->
+                    <div class="text-center py-20">
+                        <div class="inline-block p-8 bg-gray-50 rounded-2xl">
+                            <i class="fas fa-book-open text-7xl text-gray-300 mb-6"></i>
+                            <h3 class="text-3xl font-bold text-gray-700 mb-2">No Magazines Found</h3>
+                            <p class="text-gray-500 text-lg mb-4">
+                                @if (currentCategory.ToLower() != "all")
+                                {
+                                    <span>No magazines available in this category yet.</span>
+                                }
+                                else
+                                {
+                                    <span>No magazines available at the moment.</span>
+                                }
+                            </p>
+                            <a asp-action="Index" asp-route-category="all" class="inline-block bg-primary-orange hover:bg-orange-600 text-white px-6 py-3 rounded-lg font-semibold transition-all">
+                                View All Categories
+                            </a>
                         </div>
-                    }
-                </div> *@
-                
-                <!-- Pagination -->
-                <div class="text-center">
-                    <button class="bg-primary-orange hover:bg-orange-600 text-white px-10 py-3 rounded-lg font-semibold transition-all shadow-lg">
-                        LOAD MORE
-                    </button>
-                </div>
+                    </div>
+                }
             </div>
         </div>
     </div>
 </section>
 
+<style>
+    .line-clamp-1 {
+        display: -webkit-box;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    .line-clamp-2 {
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    .card-hover {
+        transition: all 0.3s ease;
+    }
+</style>
+
+@section Scripts {
+    <script>
+        function toggleFavorite(guideId, button) {
+            button.disabled = true;
+
+            fetch('/Favorite/Toggle', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'RequestVerificationToken': document.querySelector('input[name="__RequestVerificationToken"]')?.value || ''
+                },
+                body: JSON.stringify({ guideId: guideId })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    const icon = button.querySelector('i');
+                    if (data.isFavorited) {
+                        icon.classList.remove('far', 'text-gray-600');
+                        icon.classList.add('fas', 'text-red-500');
+                        button.title = 'Remove from favorites';
+                        showToast('Added to favorites!', 'success');
+                    } else {
+                        icon.classList.remove('fas', 'text-red-500');
+                        icon.classList.add('far', 'text-gray-600');
+                        button.title = 'Add to favorites';
+                        showToast('Removed from favorites', 'info');
+                    }
+                } else {
+                    if (data.isAuthenticated === false) {
+                        window.location.href = '/Account/Login?returnUrl=' + encodeURIComponent(window.location.pathname + window.location.search);
+                    } else {
+                        showToast(data.message || 'Error occurred', 'error');
+                    }
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                showToast('Error occurred. Please try again.', 'error');
+            })
+            .finally(() => {
+                button.disabled = false;
+            });
+        }
+
+        function showToast(message, type = 'info') {
+            const toast = document.createElement('div');
+            toast.className = `fixed top-4 right-4 z-50 px-6 py-3 rounded-lg shadow-lg text-white transform translate-x-0 transition-all duration-300 ${
+                type === 'success' ? 'bg-green-500' :
+                type === 'error' ? 'bg-red-500' :
+                'bg-blue-500'
+            }`;
+            toast.innerHTML = `
+                <div class="flex items-center">
+                    <i class="fas ${type === 'success' ? 'fa-check-circle' : type === 'error' ? 'fa-exclamation-circle' : 'fa-info-circle'} mr-2"></i>
+                    <span>${message}</span>
+                </div>
+            `;
+
+            document.body.appendChild(toast);
+            setTimeout(() => { toast.style.transform = 'translateX(0)'; }, 10);
+            setTimeout(() => {
+                toast.style.transform = 'translateX(400px)';
+                setTimeout(() => { document.body.removeChild(toast); }, 300);
+            }, 3000);
+        }
+
+        // Search functionality
+        document.getElementById('searchInput')?.addEventListener('input', function(e) {
+            const searchTerm = e.target.value.toLowerCase();
+            const magazineCards = document.querySelectorAll('.card-hover');
+
+            magazineCards.forEach(card => {
+                const title = card.querySelector('h3').textContent.toLowerCase();
+                const summary = card.querySelector('p')?.textContent.toLowerCase() || '';
+
+                if (title.includes(searchTerm) || summary.includes(searchTerm)) {
+                    card.style.display = '';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+    </script>
+}

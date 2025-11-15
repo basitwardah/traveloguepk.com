@@ -1,0 +1,145 @@
+@model magazine_app.ViewModels.CreateEmployeeViewModel
+
+@{
+    ViewData["Title"] = "Create Employee";
+    ViewData["Subtitle"] = "Add a new team member";
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+}
+
+<div class="max-w-2xl mx-auto">
+    <div class="bg-white rounded-xl shadow p-8">
+        
+        <div class="mb-6">
+            <div class="w-16 h-16 bg-gradient-to-br from-primary-orange to-orange-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                <i class="fas fa-user-plus text-2xl text-white"></i>
+            </div>
+            <h2 class="text-2xl font-bold text-gray-800 text-center">Create New Employee</h2>
+            <p class="text-gray-600 text-center">Add a new Admin or Uploader to your team</p>
+        </div>
+
+        <form asp-action="CreateEmployee" method="post">
+            @Html.AntiForgeryToken()
+            <div asp-validation-summary="ModelOnly" class="bg-red-50 border border-red-200 text-red-800 px-4 py-3 rounded-lg mb-6"></div>
+
+            <!-- Full Name -->
+            <div class="mb-4">
+                <label asp-for="FullName" class="block text-gray-700 font-semibold mb-2"></label>
+                <div class="relative">
+                    <span class="absolute left-3 top-3 text-gray-400">
+                        <i class="fas fa-user"></i>
+                    </span>
+                    <input asp-for="FullName" 
+                           class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-blue" 
+                           placeholder="Enter full name"/>
+                </div>
+                <span asp-validation-for="FullName" class="text-red-600 text-sm"></span>
+            </div>
+
+            <!-- Email -->
+            <div class="mb-4">
+                <label asp-for="Email" class="block text-gray-700 font-semibold mb-2"></label>
+                <div class="relative">
+                    <span class="absolute left-3 top-3 text-gray-400">
+                        <i class="fas fa-envelope"></i>
+                    </span>
+                    <input asp-for="Email" type="email"
+                           class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-blue" 
+                           placeholder="employee@travelogue.pk"/>
+                </div>
+                <span asp-validation-for="Email" class="text-red-600 text-sm"></span>
+            </div>
+
+            <!-- Password -->
+            <div class="mb-4">
+                <label asp-for="Password" class="block text-gray-700 font-semibold mb-2"></label>
+                <div class="relative">
+                    <span class="absolute left-3 top-3 text-gray-400">
+                        <i class="fas fa-lock"></i>
+                    </span>
+                    <input asp-for="Password" type="password"
+                           class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-blue" 
+                           placeholder="Enter password (min 6 characters)"/>
+                </div>
+                <span asp-validation-for="Password" class="text-red-600 text-sm"></span>
+            </div>
+
+            <!-- Role Selection -->
+            <div class="mb-6">
+                <label asp-for="Role" class="block text-gray-700 font-semibold mb-3">Select Role</label>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    
+                    <!-- Admin Role -->
+                    <label class="cursor-pointer">
+                        <input asp-for="Role" type="radio" value="Admin" class="hidden peer" checked />
+                        <div class="border-2 border-gray-300 peer-checked:border-primary-blue peer-checked:bg-primary-blue/5 rounded-lg p-4 transition hover:border-primary-blue/50">
+                            <div class="flex items-center mb-2">
+                                <div class="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center mr-3">
+                                    <i class="fas fa-user-shield text-purple-600"></i>
+                                </div>
+                                <div>
+                                    <p class="font-bold text-gray-800">Admin</p>
+                                    <p class="text-xs text-gray-600">Full Access</p>
+                                </div>
+                            </div>
+                            <p class="text-xs text-gray-600">
+                                Can manage users, employees, and all magazines. Has complete control over the system.
+                            </p>
+                        </div>
+                    </label>
+
+                    <!-- Uploader Role -->
+                    <label class="cursor-pointer">
+                        <input asp-for="Role" type="radio" value="Uploader" class="hidden peer" />
+                        <div class="border-2 border-gray-300 peer-checked:border-primary-blue peer-checked:bg-primary-blue/5 rounded-lg p-4 transition hover:border-primary-blue/50">
+                            <div class="flex items-center mb-2">
+                                <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center mr-3">
+                                    <i class="fas fa-upload text-blue-600"></i>
+                                </div>
+                                <div>
+                                    <p class="font-bold text-gray-800">Uploader</p>
+                                    <p class="text-xs text-gray-600">Magazine Management</p>
+                                </div>
+                            </div>
+                            <p class="text-xs text-gray-600">
+                                Can upload, edit, and manage magazines. Cannot manage users or other employees.
+                            </p>
+                        </div>
+                    </label>
+                </div>
+                <span asp-validation-for="Role" class="text-red-600 text-sm"></span>
+            </div>
+
+            <!-- Additional Info -->
+            <div class="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
+                <div class="flex items-start">
+                    <i class="fas fa-info-circle text-blue-500 mt-1 mr-3"></i>
+                    <div class="text-sm text-blue-800">
+                        <p class="font-semibold mb-1">Note:</p>
+                        <ul class="list-disc list-inside space-y-1">
+                            <li>Employees automatically get lifetime subscription</li>
+                            <li>They can access all magazines without restrictions</li>
+                            <li>Account will be created immediately and can be used right away</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Buttons -->
+            <div class="flex gap-4">
+                <button type="submit" 
+                        class="flex-1 bg-primary-orange hover:bg-orange-600 text-white py-3 rounded-lg font-semibold transition">
+                    <i class="fas fa-user-plus mr-2"></i>Create Employee
+                </button>
+                <a asp-action="Users" asp-route-filter="employees" 
+                   class="flex-1 bg-gray-200 hover:bg-gray-300 text-gray-800 py-3 rounded-lg font-semibold transition text-center">
+                    Cancel
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+

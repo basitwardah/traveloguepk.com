@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using magazine_app.Models;
+using Entities.Models;
 using magazine_app.ViewModels;
 using magazine_app.Services.Interfaces;
 

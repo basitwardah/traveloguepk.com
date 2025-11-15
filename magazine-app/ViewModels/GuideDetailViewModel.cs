@@ -9,6 +9,11 @@ namespace magazine_app.ViewModels
         public string CoverImagePath { get; set; } = string.Empty;
         public string PdfPath { get; set; } = string.Empty;
         public bool IsPublished { get; set; }
+        public int? CategoryId { get; set; }
+        public string? CategoryName { get; set; }
+        public decimal CurrentPrice { get; set; }
+        public decimal OldPrice { get; set; }
+        public bool IsFree => CurrentPrice == 0;
         public DateTime CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
         public string CreatedByName { get; set; } = string.Empty;
