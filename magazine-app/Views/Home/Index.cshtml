@@ -22,13 +22,13 @@
 <section class="relative h-screen">
     <!-- Hero Background -->
     <div class="absolute inset-0">
-        <img src="~/images/hero-bg.jpg" alt="Pakistan's Beauty" class="w-full h-full object-cover" 
+        <img src="~/images/front-website.png" alt="Pakistan's Beauty" class="w-full h-full object-cover"
              onerror="this.src='https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1920'">
         <div class="absolute inset-0 bg-gradient-to-r from-dark-navy/70 to-dark-navy/30"></div>
     </div>
     
     <!-- Hero Content -->
-    <div class="relative container mx-auto px-4 h-full flex items-center">
+    <div class="relative container mx-auto px-4 h-full flex-col  items-center">
         <div class="max-w-3xl">
             <div class="orange-label mb-6 animate-fade-in">
                 TRAVELOGUE PK
@@ -70,7 +70,7 @@
             <!-- Image -->
             <div class="order-2 lg:order-1">
                 <div class="relative">
-                    <img src="~/images/pakistan-beauty.jpg" alt="Pakistan Beauty" class="rounded-full w-full max-w-lg mx-auto shadow-2xl" 
+                    <img src="~/images/PakistanUnbelievable.png" alt="Pakistan Beauty" class="rounded-full w-full max-w-lg mx-auto shadow-2xl"
                          onerror="this.src='https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=800'">
                     <!-- Decorative Circle -->
                     <div class="absolute -bottom-10 -right-10 w-64 h-64 bg-primary-orange rounded-full -z-10 opacity-20"></div>
@@ -294,91 +294,74 @@
 <!-- How It Works Section -->
 <section class="py-20 bg-primary-orange text-white relative overflow-hidden">
     <div class="container mx-auto px-4 relative z-10">
+        <!-- Section Title -->
         <div class="text-center mb-16">
             <h2 class="text-4xl md:text-5xl font-bold mb-4">HOW IT WORKS?</h2>
         </div>
-        
+
         <!-- Steps Container -->
-        <div class="max-w-6xl mx-auto">
-            <div class="grid grid-cols-1 md:grid-cols-7 gap-0 items-center">
-                
-                <!-- Step 1: Create Account -->
-                <div class="md:col-span-2 text-center">
-                    <div class="bg-white rounded-2xl p-8 mb-4 h-48 flex items-center justify-center shadow-xl mx-auto max-w-xs">
-                        <div class="text-primary-blue">
-                            <i class="fas fa-user-plus text-6xl"></i>
-                        </div>
+        <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4 md:gap-8">
+
+            <!-- Step 1: Create Account -->
+            <div class="flex flex-col items-center text-center md:w-1/3">
+                <div class="bg-white rounded-2xl p-8 mb-4 h-48 flex items-center justify-center shadow-xl w-full max-w-xs">
+                    <div class="text-primary-blue">
+                        <i class="fas fa-user-plus text-6xl"></i>
                     </div>
-                    <h3 class="text-2xl font-bold mb-3">Create Account</h3>
-                    <p class="text-white text-opacity-90 px-4">
-                        Your Journey Starts Here – Create an Account and Explore more!
-                    </p>
                 </div>
-                
-                <!-- Dashed Arrow 1 -->
-                <div class="md:col-span-1 hidden md:flex items-start justify-center pt-16">
-                    <svg width="120" height="60" viewBox="0 0 120 60" class="transform -translate-y-12">
-                        <!-- Dashed curved arrow -->
-                        <path d="M 10 30 Q 60 10, 110 30" 
-                              stroke="white" 
-                              stroke-width="3" 
-                              stroke-dasharray="8,8" 
-                              fill="none" 
-                              opacity="0.6"/>
-                        <!-- Arrow head -->
-                        <polygon points="110,30 100,25 100,35" 
-                                fill="white" 
-                                opacity="0.6"/>
-                    </svg>
-                </div>
-                
-                <!-- Step 2: Select Tour Package -->
-                <div class="md:col-span-2 text-center">
-                    <div class="bg-white rounded-2xl p-8 mb-4 h-48 flex items-center justify-center shadow-xl mx-auto max-w-xs">
-                        <div class="text-primary-blue">
-                            <i class="fas fa-book-open text-6xl"></i>
-                        </div>
-                    </div>
-                    <h3 class="text-2xl font-bold mb-3">Select Tour Package</h3>
-                    <p class="text-white text-opacity-90 px-4">
-                        Your Dream Destination Awaits – Select a Package Today!
-                    </p>
-                </div>
-                
-                <!-- Dashed Arrow 2 -->
-                <div class="md:col-span-1 hidden md:flex items-start justify-center pt-16">
-                    <svg width="120" height="60" viewBox="0 0 120 60" class="transform -translate-y-12">
-                        <!-- Dashed curved arrow -->
-                        <path d="M 10 30 Q 60 10, 110 30" 
-                              stroke="white" 
-                              stroke-width="3" 
-                              stroke-dasharray="8,8" 
-                              fill="none" 
-                              opacity="0.6"/>
-                        <!-- Arrow head -->
-                        <polygon points="110,30 100,25 100,35" 
-                                fill="white" 
-                                opacity="0.6"/>
-                    </svg>
-                </div>
-                
-                <!-- Step 3: Travel -->
-                <div class="md:col-span-2 text-center">
-                    <div class="bg-white rounded-2xl p-8 mb-4 h-48 flex items-center justify-center shadow-xl mx-auto max-w-xs">
-                        <div class="text-primary-blue">
-                            <i class="fas fa-plane-departure text-6xl"></i>
-                        </div>
-                    </div>
-                    <h3 class="text-2xl font-bold mb-3">Travel</h3>
-                    <p class="text-white text-opacity-90 px-4">
-                        Pack your bags, step out of your comfort zone, and let the road lead you to memories.
-                    </p>
-                </div>
-                
+                <h3 class="text-2xl font-bold mb-3">Create Account</h3>
+                <p class="text-white text-opacity-90 px-4">
+                    Your Journey Starts Here – Create an Account and Explore more!
+                </p>
             </div>
+
+            <!-- Arrow 1 -->
+            <div class="hidden md:flex items-center justify-center">
+                <svg width="80" height="40" viewBox="0 0 120 60">
+                    <path d="M 10 30 Q 60 10, 110 30"
+                          stroke="white" stroke-width="3" stroke-dasharray="8,8" fill="none" opacity="0.6" />
+                    <polygon points="110,30 100,25 100,35" fill="white" opacity="0.6" />
+                </svg>
+            </div>
+
+            <!-- Step 2: Select Tour Package -->
+            <div class="flex flex-col items-center text-center md:w-1/3">
+                <div class="bg-white rounded-2xl p-8 mb-4 h-48 flex items-center justify-center shadow-xl w-full max-w-xs">
+                    <div class="text-primary-blue">
+                        <i class="fas fa-book-open text-6xl"></i>
+                    </div>
+                </div>
+                <h3 class="text-2xl font-bold mb-3">Select Tour Package</h3>
+                <p class="text-white text-opacity-90 px-4">
+                    Your Dream Destination Awaits – Select a Package Today!
+                </p>
+            </div>
+
+            <!-- Arrow 2 -->
+            <div class="hidden md:flex items-center justify-center">
+                <svg width="80" height="40" viewBox="0 0 120 60">
+                    <path d="M 10 30 Q 60 10, 110 30"
+                          stroke="white" stroke-width="3" stroke-dasharray="8,8" fill="none" opacity="0.6" />
+                    <polygon points="110,30 100,25 100,35" fill="white" opacity="0.6" />
+                </svg>
+            </div>
+
+            <!-- Step 3: Travel -->
+            <div class="flex flex-col items-center text-center md:w-1/3">
+                <div class="bg-white rounded-2xl p-8 mb-4 h-48 flex items-center justify-center shadow-xl w-full max-w-xs">
+                    <div class="text-primary-blue">
+                        <i class="fas fa-plane-departure text-6xl"></i>
+                    </div>
+                </div>
+                <h3 class="text-2xl font-bold mb-3">Travel</h3>
+                <p class="text-white text-opacity-90 px-4">
+                    Pack your bags, step out of your comfort zone, and let the road lead you to memories.
+                </p>
+            </div>
+
         </div>
     </div>
-    
+
     <!-- Background Decoration -->
     <div class="absolute inset-0 opacity-10 pointer-events-none">
         <div class="absolute top-10 left-10 w-64 h-64 bg-white rounded-full blur-3xl"></div>
@@ -386,6 +369,7 @@
         <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-white rounded-full blur-3xl opacity-50"></div>
     </div>
 </section>
+
 
 <!-- Mountain Divider -->
 <div class="mountain-divider mountain-divider-white"></div>
@@ -417,7 +401,7 @@
                 <!-- Image -->
                 <div class="relative">
                     <div class="relative z-10">
-                        <img src="~/images/storyteller.jpg" alt="Storyteller" class="rounded-full w-full max-w-md mx-auto shadow-2xl" 
+                        <img src="~/images/jointhebest.png" alt="Storyteller" class="rounded-full w-full max-w-md mx-auto shadow-2xl"
                              onerror="this.src='https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=600'">
                     </div>
                     <!-- Decorative Circle -->
@@ -478,5 +462,26 @@
             });
         }
 
+        function showToast(message, type = 'info') {
+            const toast = document.createElement('div');
+            toast.className = `fixed top-4 right-4 z-50 px-6 py-3 rounded-lg shadow-lg text-white transform translate-x-0 transition-all duration-300 ${
+                type === 'success' ? 'bg-green-500' :
+                type === 'error' ? 'bg-red-500' :
+                'bg-blue-500'
+            }`;
+            toast.innerHTML = `
+                <div class="flex items-center">
+                    <i class="fas ${type === 'success' ? 'fa-check-circle' : type === 'error' ? 'fa-exclamation-circle' : 'fa-info-circle'} mr-2"></i>
+                    <span>${message}</span>
+                </div>
+            `;
+
+            document.body.appendChild(toast);
+            setTimeout(() => { toast.style.transform = 'translateX(0)'; }, 10);
+            setTimeout(() => {
+                toast.style.transform = 'translateX(400px)';
+                setTimeout(() => { document.body.removeChild(toast); }, 300);
+            }, 3000);
+        }
     </script>
 }
