@@ -21,7 +21,7 @@ MAGAZINE COVERS:
 - magazine-detail-1.jpg through magazine-detail-5.jpg (Product detail images)
 - magazine-cart-1.jpg, magazine-cart-2.jpg (Cart thumbnails)
 - magazine-3d.png (3D magazine mockup for hero section, with transparency)
-
+logo-white
 SECTION IMAGES:
 - pakistan-beauty.jpg (Circular image for beauty section, 800x800px)
 - video-thumbnail.jpg (Video section background, 1200x675px)
