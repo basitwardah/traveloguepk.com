@@ -1,10 +1,11 @@
 using Entities.Models;
 using magazine_app.Services.Interfaces;
+using magazine_app.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Repository.Data;
 using Microsoft.EntityFrameworkCore;
+using Repository.Data;
 
 namespace magazine_app.Controllers
 {
@@ -150,8 +151,12 @@ namespace magazine_app.Controllers
 
         // POST: /Favorite/Toggle (AJAX)
         [HttpPost]
-        public async Task<IActionResult> Toggle(int guideId)
+        [IgnoreAntiforgeryToken]  // because AJAX JSON POST
+        public async Task<IActionResult> Toggle([FromBody] ToggleFavoriteRequest model)
         {
+            if (model == null || model.GuideId <= 0)
+                return Json(new { success = false, message = "Invalid guide" });
+
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
@@ -159,7 +164,7 @@ namespace magazine_app.Controllers
             }
 
             // Check if guide exists
-            var guide = await _context.Guides.FindAsync(guideId);
+            var guide = await _context.Guides.FindAsync(model.GuideId);
             if (guide == null)
             {
                 return Json(new { success = false, message = "Magazine not found" });
@@ -167,7 +172,7 @@ namespace magazine_app.Controllers
 
             // Check if already favorited
             var favorite = await _context.Favorites
-                .FirstOrDefaultAsync(f => f.UserId == user.Id && f.GuideId == guideId);
+                .FirstOrDefaultAsync(f => f.UserId == user.Id && f.GuideId == model.GuideId);
 
             if (favorite != null)
             {
@@ -183,7 +188,7 @@ namespace magazine_app.Controllers
                 var newFavorite = new Favorite
                 {
                     UserId = user.Id,
-                    GuideId = guideId,
+                    GuideId = model.GuideId,
                     CreatedAt = DateTime.UtcNow
                 };
 

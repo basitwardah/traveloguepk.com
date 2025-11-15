@@ -1,5 +1,6 @@
 using Entities.Models;
 using magazine_app.Services.Interfaces;
+using magazine_app.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Repository.Data;
@@ -59,8 +60,9 @@ namespace magazine_app.Controllers
             var allGuides = await _guideService.GetPublishedGuidesAsync();
             var allGuidesList = allGuides.ToList();
             
-            // Build category list with counts
-            var categoriesWithCounts = allCategories.Select(cat => new {
+            // Build category list with counts - use a proper class instead of anonymous type
+            var categoriesWithCounts = allCategories.Select(cat => new CategoryCountViewModel
+            {
                 Name = cat.Name,
                 Slug = cat.Slug,
                 Count = allGuidesList.Count(g => g.CategorySlug != null && g.CategorySlug.ToLower() == cat.Slug.ToLower())

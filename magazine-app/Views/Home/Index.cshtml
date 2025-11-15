@@ -3,7 +3,21 @@
 @{
     ViewData["Title"] = "Home";
 }
+<style>
+    @@keyframes float {
+        0%, 100% {
+            transform: translateY(0px) translateX(-50%);
+        }
 
+        50% {
+            transform: translateY(-20px) translateX(-50%);
+        }
+    }
+
+    .animate-float {
+        animation: float 3s ease-in-out infinite;
+    }
+</style>
 <!-- Hero Section -->
 <section class="relative h-screen">
     <!-- Hero Background -->
@@ -237,96 +251,7 @@
             }
         </div>
         
-        @* Old static content - removed
-            <!-- Magazine Card 1 -->
-            <div class="card-hover">
-                <div class="bg-gradient-to-br from-orange-400 to-orange-600 rounded-lg p-6 h-80 flex items-center justify-center relative overflow-hidden">
-                    <img src="~/images/magazine-1.jpg" alt="Magazine" class="h-full object-contain relative z-10" 
-                         onerror="this.src='https://placehold.co/300x400/FF6B35/FFFFFF?text=Magazine'">
-                    <div class="absolute bottom-4 left-4 bg-white text-orange-500 px-4 py-1 rounded-full text-sm font-semibold z-20">
-                        OVERNIGHT TRIPS
-                    </div>
-                </div>
-                <div class="mt-4">
-                    <div class="flex items-center mb-2">
-                        <i class="fas fa-star text-yellow-400 text-sm"></i>
-                        <i class="fas fa-star text-yellow-400 text-sm"></i>
-                        <i class="fas fa-star text-yellow-400 text-sm"></i>
-                        <i class="fas fa-star text-yellow-400 text-sm"></i>
-                        <i class="fas fa-star text-yellow-400 text-sm"></i>
-                    </div>
-                    <h3 class="text-lg font-semibold mb-2">A Million Little Pieces</h3>
-                    <p class="text-primary-orange text-2xl font-bold">$36.00 <span class="text-sm text-gray-400 line-through">$48.00</span></p>
-                </div>
-            </div>
-            
-            <!-- Magazine Card 2 -->
-            <div class="card-hover">
-                <div class="bg-gradient-to-br from-blue-400 to-blue-600 rounded-lg p-6 h-80 flex items-center justify-center relative overflow-hidden">
-                    <img src="~/images/magazine-2.jpg" alt="Magazine" class="h-full object-contain relative z-10" 
-                         onerror="this.src='https://placehold.co/300x400/0C789A/FFFFFF?text=Magazine'">
-                    <div class="absolute bottom-4 left-4 bg-white text-blue-500 px-4 py-1 rounded-full text-sm font-semibold z-20">
-                        OVERNIGHT TRIPS
-                    </div>
-                </div>
-                <div class="mt-4">
-                    <div class="flex items-center mb-2">
-                        <i class="fas fa-star text-yellow-400 text-sm"></i>
-                        <i class="fas fa-star text-yellow-400 text-sm"></i>
-                        <i class="fas fa-star text-yellow-400 text-sm"></i>
-                        <i class="fas fa-star text-yellow-400 text-sm"></i>
-                        <i class="fas fa-star text-yellow-400 text-sm"></i>
-                    </div>
-                    <h3 class="text-lg font-semibold mb-2">A Million Little Pieces</h3>
-                    <p class="text-primary-orange text-2xl font-bold">$36.00 <span class="text-sm text-gray-400 line-through">$48.00</span></p>
-                </div>
-            </div>
-            
-            <!-- Magazine Card 3 -->
-            <div class="card-hover">
-                <div class="bg-gradient-to-br from-orange-400 to-orange-600 rounded-lg p-6 h-80 flex items-center justify-center relative overflow-hidden">
-                    <img src="~/images/magazine-3.jpg" alt="Magazine" class="h-full object-contain relative z-10" 
-                         onerror="this.src='https://placehold.co/300x400/FF6B35/FFFFFF?text=Magazine'">
-                    <div class="absolute bottom-4 left-4 bg-white text-orange-500 px-4 py-1 rounded-full text-sm font-semibold z-20">
-                        OVERNIGHT TRIPS
-                    </div>
-                </div>
-                <div class="mt-4">
-                    <div class="flex items-center mb-2">
-                        <i class="fas fa-star text-yellow-400 text-sm"></i>
-                        <i class="fas fa-star text-yellow-400 text-sm"></i>
-                        <i class="fas fa-star text-yellow-400 text-sm"></i>
-                        <i class="fas fa-star text-yellow-400 text-sm"></i>
-                        <i class="fas fa-star text-yellow-400 text-sm"></i>
-                    </div>
-                    <h3 class="text-lg font-semibold mb-2">A Million Little Pieces</h3>
-                    <p class="text-primary-orange text-2xl font-bold">$36.00 <span class="text-sm text-gray-400 line-through">$48.00</span></p>
-                </div>
-            </div>
-            
-            <!-- Magazine Card 4 -->
-            <div class="card-hover">
-                <div class="bg-gradient-to-br from-blue-400 to-blue-600 rounded-lg p-6 h-80 flex items-center justify-center relative overflow-hidden">
-                    <img src="~/images/magazine-4.jpg" alt="Magazine" class="h-full object-contain relative z-10" 
-                         onerror="this.src='https://placehold.co/300x400/0C789A/FFFFFF?text=Magazine'">
-                    <div class="absolute bottom-4 left-4 bg-white text-blue-500 px-4 py-1 rounded-full text-sm font-semibold z-20">
-                        OVERNIGHT TRIPS
-                    </div>
-                </div>
-                <div class="mt-4">
-                    <div class="flex items-center mb-2">
-                        <i class="fas fa-star text-yellow-400 text-sm"></i>
-                        <i class="fas fa-star text-yellow-400 text-sm"></i>
-                        <i class="fas fa-star text-yellow-400 text-sm"></i>
-                        <i class="fas fa-star text-yellow-400 text-sm"></i>
-                        <i class="fas fa-star text-yellow-400 text-sm"></i>
-                    </div>
-                    <h3 class="text-lg font-semibold mb-2">A Million Little Pieces</h3>
-                    <p class="text-primary-orange text-2xl font-bold">$36.00 <span class="text-sm text-gray-400 line-through">$48.00</span></p>
-                </div>
-            </div>
-        </div>
-         *@
+      
         <!-- View More Button -->
         <div class="text-center">
             <a asp-controller="Categories" asp-action="Index" class="bg-primary-blue hover:bg-blue-600 text-white px-10 py-4 rounded-lg font-semibold text-lg transition-all inline-flex items-center shadow-lg">
@@ -503,26 +428,13 @@
     </div>
 </section>
 
-<style>
-    @@keyframes float {
-        0%, 100% {
-            transform: translateY(0px) translateX(-50%);
-        }
-        50% {
-            transform: translateY(-20px) translateX(-50%);
-        }
-    }
-    
-    .animate-float {
-        animation: float 3s ease-in-out infinite;
-    }
-</style>
+
 
 @section Scripts {
     <script>
-        function toggleFavorite(guideId, button) {
+             function toggleFavorite(guideId, button) {
             button.disabled = true;
-            
+
             fetch('/Favorite/Toggle', {
                 method: 'POST',
                 headers: {
@@ -534,7 +446,9 @@
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
+
                     const icon = button.querySelector('i');
+
                     if (data.isFavorited) {
                         icon.classList.remove('far', 'text-gray-600');
                         icon.classList.add('fas', 'text-red-500');
@@ -546,6 +460,7 @@
                         button.title = 'Add to favorites';
                         showToast('Removed from favorites', 'info');
                     }
+
                 } else {
                     if (data.isAuthenticated === false) {
                         window.location.href = '/Account/Login?returnUrl=' + encodeURIComponent(window.location.pathname);
@@ -563,26 +478,5 @@
             });
         }
 
-        function showToast(message, type = 'info') {
-            const toast = document.createElement('div');
-            toast.className = `fixed top-4 right-4 z-50 px-6 py-3 rounded-lg shadow-lg text-white transform translate-x-0 transition-all duration-300 ${
-                type === 'success' ? 'bg-green-500' : 
-                type === 'error' ? 'bg-red-500' : 
-                'bg-blue-500'
-            }`;
-            toast.innerHTML = `
-                <div class="flex items-center">
-                    <i class="fas ${type === 'success' ? 'fa-check-circle' : type === 'error' ? 'fa-exclamation-circle' : 'fa-info-circle'} mr-2"></i>
-                    <span>${message}</span>
-                </div>
-            `;
-            
-            document.body.appendChild(toast);
-            setTimeout(() => { toast.style.transform = 'translateX(0)'; }, 10);
-            setTimeout(() => {
-                toast.style.transform = 'translateX(400px)';
-                setTimeout(() => { document.body.removeChild(toast); }, 300);
-            }, 3000);
-        }
     </script>
 }

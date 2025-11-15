@@ -4,6 +4,8 @@
     ViewData["Title"] = "Categories";
 }
 
+@Html.AntiForgeryToken()
+
 <!-- Hero Section -->
 <section class="relative h-96">
     <div class="absolute inset-0">
@@ -65,20 +67,20 @@
                         </h3>
                         <div class="space-y-1">
                             @{
-                                var currentCategory = ViewBag.CurrentCategory ?? "all";
-                                var categoriesWithCounts = ViewBag.CategoriesWithCounts as List<dynamic> ?? new List<dynamic>();
-                                var totalCount = ViewBag.TotalCount ?? 0;
+                                var currentCategory = ViewBag.CurrentCategory?.ToString() ?? "all";
+                                var categoriesWithCounts = ViewBag.CategoriesWithCounts as List<magazine_app.ViewModels.CategoryCountViewModel> ?? new List<magazine_app.ViewModels.CategoryCountViewModel>();
+                                var totalCount = ViewBag.TotalCount != null ? (int)ViewBag.TotalCount : 0;
 
                                 var categoryIcons = new Dictionary<string, string>
-                                                        {
-                                                        { "adventure", "fa-mountain" },
-                                                        { "explore", "fa-compass" },
-                                                        { "discover", "fa-map-marked-alt" },
-                                                        { "journey", "fa-route" },
-                                                        { "culture", "fa-landmark" },
-                                                        { "nature", "fa-tree" },
-                                                        { "history", "fa-book" }
-                                                        };
+                                {
+                                    { "adventure", "fa-mountain" },
+                                    { "explore", "fa-compass" },
+                                    { "discover", "fa-map-marked-alt" },
+                                    { "journey", "fa-route" },
+                                    { "culture", "fa-landmark" },
+                                    { "nature", "fa-tree" },
+                                    { "history", "fa-book" }
+                                };
                             }
 
                             <!-- All Magazines -->
@@ -91,19 +93,28 @@
                                 <span class="text-xs @(currentCategory.ToLower() == "all" ? "bg-white/20" : "bg-gray-200") px-2 py-1 rounded-full">@totalCount</span>
                             </a>
 
-                            @foreach (var cat in categoriesWithCounts)
+                            @if (categoriesWithCounts != null && categoriesWithCounts.Any())
                             {
-                                var isActive = currentCategory.ToLower() == cat.Slug.ToLower();
-                                var icon = categoryIcons.ContainsKey(cat.Slug.ToLower()) ? categoryIcons[cat.Slug.ToLower()] : "fa-folder";
+                                @foreach (var cat in categoriesWithCounts)
+                                {
+                                    var isActive = currentCategory.ToLower() == cat.Slug.ToLower();
+                                    var icon = categoryIcons.ContainsKey(cat.Slug.ToLower()) ? categoryIcons[cat.Slug.ToLower()] : "fa-folder";
 
-                                <a asp-action="Index" asp-route-category="@cat.Slug"
-                                   class="flex items-center justify-between p-3 rounded-lg transition-all @(isActive ? "bg-primary-orange text-white shadow-md" : "hover:bg-gray-50 text-gray-700")">
-                                    <div class="flex items-center">
-                                        <i class="fas @icon w-5 mr-3"></i>
-                                        <span class="font-medium">@cat.Name</span>
-                                    </div>
-                                    <span class="text-xs @(isActive ? "bg-white/20" : "bg-gray-200") px-2 py-1 rounded-full">@cat.Count</span>
-                                </a>
+                                    <a asp-action="Index" asp-route-category="@cat.Slug"
+                                       class="flex items-center justify-between p-3 rounded-lg transition-all @(isActive ? "bg-primary-orange text-white shadow-md" : "hover:bg-gray-50 text-gray-700")">
+                                        <div class="flex items-center">
+                                            <i class="fas @icon w-5 mr-3"></i>
+                                            <span class="font-medium">@cat.Name</span>
+                                        </div>
+                                        <span class="text-xs @(isActive ? "bg-white/20" : "bg-gray-200") px-2 py-1 rounded-full">@cat.Count</span>
+                                    </a>
+                                }
+                            }
+                            else
+                            {
+                                <div class="p-3 text-gray-500 text-sm">
+                                    <i class="fas fa-info-circle mr-2"></i>No categories available. Categories will be created automatically.
+                                </div>
                             }
                         </div>
                     </div>
@@ -193,10 +204,10 @@
                                             <i class="fas fa-tag mr-1"></i>@categoryText
                                         </div>
 
-                                        <!-- Favorite Button -->
+                                        <!-- Favorite Button - Always Visible -->
                                         @if (User.Identity != null && User.Identity.IsAuthenticated)
                                         {
-                                            <button onclick="toggleFavorite(@guide.Id, this)"
+                                            <button onclick="toggleFavorite(@guide.Id, this, event)"
                                                     class="favorite-btn absolute top-4 right-4 bg-white/95 backdrop-blur-sm hover:bg-white rounded-full w-11 h-11 flex items-center justify-center shadow-lg transition-all z-30 hover:scale-110"
                                                     data-guide-id="@guide.Id"
                                                     title="@(guide.IsFavorited ? "Remove from favorites" : "Add to favorites")">
@@ -205,11 +216,11 @@
                                         }
                                         else
                                         {
-                                            <a asp-controller="Account" asp-action="Login" asp-route-returnUrl="@Context.Request.Path@Context.Request.QueryString"
-                                               class="absolute top-4 right-4 bg-white backdrop-blur-sm hover:bg-gray-50 rounded-full w-11 h-11 flex items-center justify-center shadow-lg transition-all z-30 hover:scale-110"
-                                               title="Login to add favorites">
+                                            <button onclick="redirectToLoginWithCurrentPage()"
+                                                    class="favorite-btn absolute top-4 right-4 bg-white backdrop-blur-sm hover:bg-gray-50 rounded-full w-11 h-11 flex items-center justify-center shadow-lg transition-all z-30 hover:scale-110"
+                                                    title="Login to add favorites">
                                                 <i class="far fa-heart text-lg text-gray-600 hover:text-red-500"></i>
-                                            </a>
+                                            </button>
                                         }
 
                                         <!-- Hover Overlay -->
@@ -330,18 +341,44 @@
 
 @section Scripts {
     <script>
-        function toggleFavorite(guideId, button) {
+        function redirectToLogin(returnUrl) {
+            // Redirect to login page with return URL
+            var finalUrl = '/Account/Login?returnUrl=' + encodeURIComponent(returnUrl);
+            window.location.href = finalUrl;
+        }
+
+        function redirectToLoginWithCurrentPage() {
+            // Get current page URL with query string
+            var currentUrl = window.location.pathname + window.location.search;
+            redirectToLogin(currentUrl);
+        }
+
+        function toggleFavorite(guideId, button, event) {
+            // Prevent event bubbling if event is provided
+            if (event) {
+                event.preventDefault();
+                event.stopPropagation();
+            }
+            
+            // Disable button during request
             button.disabled = true;
 
             fetch('/Favorite/Toggle', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'RequestVerificationToken': document.querySelector('input[name="__RequestVerificationToken"]')?.value || ''
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'Accept': 'application/json'
                 },
+                credentials: 'same-origin',
                 body: JSON.stringify({ guideId: guideId })
             })
-            .then(response => response.json())
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return response.json();
+            })
             .then(data => {
                 if (data.success) {
                     const icon = button.querySelector('i');
@@ -365,7 +402,7 @@
                 }
             })
             .catch(error => {
-                console.error('Error:', error);
+                console.error('Favorite toggle error:', error);
                 showToast('Error occurred. Please try again.', 'error');
             })
             .finally(() => {
