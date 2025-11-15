@@ -7,8 +7,28 @@
     
     <!-- Tailwind CSS CDN -->
     <script>
-        // Suppress Tailwind production warning
-        window.process = { env: { NODE_ENV: 'production' } };
+        // Completely suppress Tailwind and BrowserLink warnings
+        const originalWarn = console.warn;
+        const originalError = console.error;
+        
+        console.warn = function(...args) {
+            const msg = args[0]?.toString() || '';
+            // Suppress Tailwind CDN warning
+            if (msg.includes('cdn.tailwindcss.com')) return;
+            // Suppress BrowserLink warnings
+            if (msg.includes('WebSocket')) return;
+            if (msg.includes('browserLink')) return;
+            originalWarn.apply(console, args);
+        };
+        
+        console.error = function(...args) {
+            const msg = args[0]?.toString() || '';
+            // Suppress BrowserLink errors
+            if (msg.includes('WebSocket')) return;
+            if (msg.includes('browserLink')) return;
+            if (msg.includes('ERR_CONNECTION_REFUSED') && msg.includes(':61079')) return;
+            originalError.apply(console, args);
+        };
     </script>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
