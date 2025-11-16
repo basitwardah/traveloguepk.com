@@ -30,7 +30,7 @@ SECTION IMAGES:
 
 USER IMAGES:
 - user-profile.jpg (Default profile picture)
-- user-1.jpg, user-2.jpg (Testimonial avatars, 100x100px)
+- user-pic1.jfif, user-2.jpg (Testimonial avatars, 100x100px)
 
 DECORATIVE:
 - coffee-cup.png (Login modal decoration, optional)
