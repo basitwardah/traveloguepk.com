@@ -19,7 +19,7 @@
     }
 </style>
 <!-- Hero Section -->
-<section class="relative h-screen">
+<section class="relative min-h-[70vh] sm:min-h-[80vh] md:h-screen flex items-center">
     <!-- Hero Background -->
     <div class="absolute inset-0">
         <img src="~/images/front-website.png" alt="Pakistan's Beauty" class="w-full h-full object-cover"
@@ -28,33 +28,33 @@
     </div>
     
     <!-- Hero Content -->
-    <div class="relative container mx-auto px-4 h-full flex-col  items-center">
-        <div class="max-w-3xl">
-            <div class="orange-label mb-6 animate-fade-in">
+    <div class="relative container mx-auto px-3 sm:px-4 lg:px-6 h-full flex items-center py-12 sm:py-16 md:py-20">
+        <div class="max-w-3xl w-full">
+            <div class="orange-label mb-4 sm:mb-6 animate-fade-in text-xs sm:text-sm">
                 TRAVELOGUE PK
             </div>
-            <h1 class="hero-title text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight">
+            <h1 class="hero-title text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white mb-4 sm:mb-6 leading-tight px-2 sm:px-0">
                 DISCOVERING ALL <br>
                 <span class="text-primary-orange">PAKISTAN'S HIDDEN</span><br>
                 WONDERS
             </h1>
-            <p class="text-white text-lg md:text-xl mb-8 max-w-2xl">
+            <p class="text-white text-sm sm:text-base md:text-lg lg:text-xl mb-6 sm:mb-8 max-w-2xl px-2 sm:px-0">
                 Travelogue PK is your gateway to Pakistan's hidden gems. Step into journey closer to the untold wonders of majestic landscapes, centuries-old heritage, and vibrant cultures to timeless memories.
             </p>
-            <div class="flex flex-wrap gap-4">
-                <a asp-controller="Categories" asp-action="Index" class="bg-primary-blue hover:bg-blue-600 text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all inline-flex items-center shadow-lg hover:shadow-xl transform hover:scale-105">
+            <div class="flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4 px-2 sm:px-0">
+                <a asp-controller="Categories" asp-action="Index" class="bg-primary-blue hover:bg-blue-600 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-lg font-semibold text-sm sm:text-base md:text-lg transition-all inline-flex items-center justify-center shadow-lg hover:shadow-xl transform hover:scale-105">
                     START YOUR ADVENTURE
-                    <i class="fas fa-arrow-right ml-3"></i>
+                    <i class="fas fa-arrow-right ml-2 sm:ml-3"></i>
                 </a>
-                <button class="bg-white hover:bg-gray-100 text-dark-navy px-8 py-4 rounded-lg font-semibold text-lg transition-all shadow-lg hover:shadow-xl">
+                <button class="bg-white hover:bg-gray-100 text-dark-navy px-6 sm:px-8 py-3 sm:py-4 rounded-lg font-semibold text-sm sm:text-base md:text-lg transition-all shadow-lg hover:shadow-xl">
                     LEARN MORE
                 </button>
             </div>
         </div>
         
         <!-- Magazine Mockup (Right Side) -->
-        <div class="hidden xl:block absolute right-20 top-1/2 transform -translate-y-1/2">
-            <img src="~/images/magazine-3d.png" alt="Magazine" class="w-96 animate-float" 
+        <div class="hidden xl:block absolute right-8 xl:right-20 top-1/2 transform -translate-y-1/2">
+            <img src="~/images/magazine-3d.png" alt="Magazine" class="w-72 xl:w-96 animate-float" 
                  onerror="this.style.display='none'">
         </div>
     </div>
@@ -64,54 +64,54 @@
 <div class="mountain-divider mountain-divider-white"></div>
 
 <!-- Pakistan Beauty Section -->
-<section class="py-20 bg-white">
-    <div class="container mx-auto px-4">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+<section class="py-12 sm:py-16 md:py-20 bg-white">
+    <div class="container mx-auto px-3 sm:px-4 lg:px-6">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-10 md:gap-12 items-center">
             <!-- Image -->
             <div class="order-2 lg:order-1">
                 <div class="relative">
-                    <img src="~/images/PakistanUnbelievable.png" alt="Pakistan Beauty" class="rounded-full w-full max-w-lg mx-auto shadow-2xl"
+                    <img src="~/images/PakistanUnbelievable.png" alt="Pakistan Beauty" class="rounded-full w-full max-w-xs sm:max-w-sm md:max-w-lg mx-auto shadow-2xl"
                          onerror="this.src='https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=800'">
                     <!-- Decorative Circle -->
-                    <div class="absolute -bottom-10 -right-10 w-64 h-64 bg-primary-orange rounded-full -z-10 opacity-20"></div>
+                    <div class="absolute -bottom-6 sm:-bottom-8 md:-bottom-10 -right-6 sm:-right-8 md:-right-10 w-32 h-32 sm:w-48 sm:h-48 md:w-64 md:h-64 bg-primary-orange rounded-full -z-10 opacity-20"></div>
                 </div>
             </div>
             
             <!-- Content -->
             <div class="order-1 lg:order-2">
-                <h2 class="text-4xl md:text-5xl font-bold text-gray-800 mb-6">
+                <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-800 mb-4 sm:mb-6 px-2 sm:px-0">
                     PAKISTAN <span class="text-primary-orange">UNBELIEVABLE<br>BEAUTY</span> OF WORLD.
                 </h2>
                 
                 <!-- Feature 1 -->
-                <div class="flex items-start mb-6 bg-gray-50 p-6 rounded-lg">
-                    <div class="bg-primary-orange text-white rounded-lg p-4 mr-4">
-                        <i class="fas fa-mountain text-3xl"></i>
+                <div class="flex flex-col sm:flex-row items-start mb-4 sm:mb-6 bg-gray-50 p-4 sm:p-5 md:p-6 rounded-lg">
+                    <div class="bg-primary-orange text-white rounded-lg p-3 sm:p-4 mb-3 sm:mb-0 sm:mr-4 flex-shrink-0">
+                        <i class="fas fa-mountain text-2xl sm:text-3xl"></i>
                     </div>
-                    <div>
-                        <h3 class="text-xl font-bold text-gray-800 mb-2">Step beyond the ordinary and dive into a world towering peaks touching.</h3>
-                        <p class="text-gray-600">
+                    <div class="flex-1">
+                        <h3 class="text-base sm:text-lg md:text-xl font-bold text-gray-800 mb-2">Step beyond the ordinary and dive into a world towering peaks touching.</h3>
+                        <p class="text-gray-600 text-sm sm:text-base">
                             The skies and emerald rivers carve their way through gorgeous natural valleys. From the mystical beauty of the Hunza Valley to the golden silence of the Cholistan Desert, every corner of Pakistan holds an adventure waiting to be discovered.
                         </p>
                     </div>
                 </div>
                 
                 <!-- Feature 2 -->
-                <div class="flex items-start mb-6 bg-gray-50 p-6 rounded-lg">
-                    <div class="bg-primary-orange text-white rounded-lg p-4 mr-4">
-                        <i class="fas fa-landmark text-3xl"></i>
+                <div class="flex flex-col sm:flex-row items-start mb-4 sm:mb-6 bg-gray-50 p-4 sm:p-5 md:p-6 rounded-lg">
+                    <div class="bg-primary-orange text-white rounded-lg p-3 sm:p-4 mb-3 sm:mb-0 sm:mr-4 flex-shrink-0">
+                        <i class="fas fa-landmark text-2xl sm:text-3xl"></i>
                     </div>
-                    <div>
-                        <h3 class="text-xl font-bold text-gray-800 mb-2">Venture into hidden landscapes where nature reigns supreme & history whispers through ancient ruins</h3>
-                        <p class="text-gray-600">
+                    <div class="flex-1">
+                        <h3 class="text-base sm:text-lg md:text-xl font-bold text-gray-800 mb-2">Venture into hidden landscapes where nature reigns supreme & history whispers through ancient ruins</h3>
+                        <p class="text-gray-600 text-sm sm:text-base">
                             Journey to serene valleys nestled between snow-capped peaks. Traverse trails where mighty mountains meet crystalline lakes. Trace the footprints of ancient civilizations at the enigmatic ruins. Explore.
                         </p>
                     </div>
                 </div>
                 
-                <button class="bg-primary-orange hover:bg-orange-600 text-white px-8 py-3 rounded-lg font-semibold transition-all inline-flex items-center shadow-lg">
+                <button class="bg-primary-orange hover:bg-orange-600 text-white px-6 sm:px-8 py-2.5 sm:py-3 rounded-lg font-semibold text-sm sm:text-base transition-all inline-flex items-center shadow-lg w-full sm:w-auto justify-center">
                     EXPLORE MORE
-                    <i class="fas fa-arrow-right ml-3"></i>
+                    <i class="fas fa-arrow-right ml-2 sm:ml-3"></i>
                 </button>
             </div>
         </div>
@@ -122,19 +122,19 @@
 <div class="mountain-divider mountain-divider-blue"></div>
 
 <!-- Explore Pakistan Section -->
-<section class="py-20 bg-dark-navy text-white">
-    <div class="container mx-auto px-4">
-        <div class="text-center mb-16">
-            <h2 class="text-4xl md:text-5xl font-bold mb-4">
-                EXPLORE PAKISTAN, WHERE ADVENTURE<br>MEETS WONDER
+<section class="py-12 sm:py-16 md:py-20 bg-dark-navy text-white">
+    <div class="container mx-auto px-3 sm:px-4 lg:px-6">
+        <div class="text-center mb-10 sm:mb-12 md:mb-16 px-2">
+            <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-3 sm:mb-4 px-2">
+                EXPLORE PAKISTAN, WHERE ADVENTURE<br class="hidden sm:block">MEETS WONDER
             </h2>
-            <p class="text-gray-300 text-lg max-w-3xl mx-auto">
+            <p class="text-gray-300 text-sm sm:text-base md:text-lg max-w-3xl mx-auto px-2">
                 Travelogue PK is a journey through Pakistan's hidden treasure, showcasing the splendor of mountain peaks, emerald valleys, ancient landmarks. It's a roadmap to discover and find your story, one journey at a time.
             </p>
         </div>
         
         <!-- Magazine Grid -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 md:gap-8 mb-8 sm:mb-10 md:mb-12">
             @{
                 int colorIndex = 0;
                 var gradients = new[] {
@@ -155,30 +155,30 @@
                 
                 <div class="card-hover bg-gray-800/50 backdrop-blur-sm rounded-xl shadow-xl overflow-hidden group transform transition-all duration-300 hover:-translate-y-2 border border-gray-700/50">
                     <div class="relative">
-                        <div class="bg-gradient-to-br from-@gradient.From to-@gradient.To p-6 h-72 flex items-center justify-center relative overflow-hidden">
+                        <div class="bg-gradient-to-br from-@gradient.From to-@gradient.To p-4 sm:p-5 md:p-6 h-56 sm:h-64 md:h-72 flex items-center justify-center relative overflow-hidden">
                             <img src="@guide.CoverImagePath" 
                                  alt="@guide.Title" 
                                  class="h-full object-contain relative z-10 transform group-hover:scale-110 transition-transform duration-500" 
                                  onerror="this.src='https://placehold.co/300x400/@(gradient.Badge == "orange" ? "FF6B35" : "0C789A")/FFFFFF?text=@guide.Title'">
                             
                             <!-- Hover Overlay -->
-                            <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-4 z-20">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-2 sm:pb-3 md:pb-4 z-20">
                                 <a asp-controller="Guide" asp-action="Read" asp-route-slug="@guide.Slug" 
-                                   class="bg-white text-gray-900 px-5 py-2 rounded-lg font-semibold hover:bg-primary-orange hover:text-white transition-all shadow-lg transform hover:scale-105">
-                                    <i class="fas fa-book-open mr-2"></i>Read Now
+                                   class="bg-white text-gray-900 px-3 sm:px-4 md:px-5 py-1.5 sm:py-2 rounded-lg font-semibold text-xs sm:text-sm hover:bg-primary-orange hover:text-white transition-all shadow-lg transform hover:scale-105 whitespace-nowrap">
+                                    <i class="fas fa-book-open mr-1 sm:mr-2"></i>Read Now
                                 </a>
                             </div>
                             
                             <!-- Discount Badge -->
                             @if (hasDiscount)
                             {
-                                <div class="absolute top-3 left-3 bg-red-500 text-white px-2.5 py-1 rounded-full text-xs font-bold shadow-lg z-10 animate-pulse">
+                                <div class="absolute top-2 sm:top-3 left-2 sm:left-3 bg-red-500 text-white px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-full text-[10px] sm:text-xs font-bold shadow-lg z-10 animate-pulse">
                                     -@discountPercent%
                                 </div>
                             }
                             
                             <!-- Category Badge -->
-                            <div class="absolute bottom-3 left-3 bg-white/95 backdrop-blur-sm text-gray-800 px-2.5 py-1 rounded-full text-xs font-bold shadow-lg">
+                            <div class="absolute bottom-2 sm:bottom-3 left-2 sm:left-3 bg-white/95 backdrop-blur-sm text-gray-800 px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-full text-[10px] sm:text-xs font-bold shadow-lg">
                                 @categoryText
                             </div>
                             
@@ -186,64 +186,64 @@
                             @if (User.Identity != null && User.Identity.IsAuthenticated)
                             {
                                 <button onclick="toggleFavorite(@guide.Id, this)" 
-                                        class="favorite-btn absolute top-3 right-3 bg-white/95 backdrop-blur-sm hover:bg-white rounded-full w-10 h-10 flex items-center justify-center shadow-lg transition-all z-30 hover:scale-110"
+                                        class="favorite-btn absolute top-2 sm:top-3 right-2 sm:right-3 bg-white/95 backdrop-blur-sm hover:bg-white rounded-full w-8 h-8 sm:w-9 sm:h-9 md:w-10 md:h-10 flex items-center justify-center shadow-lg transition-all z-30 hover:scale-110"
                                         data-guide-id="@guide.Id"
                                         title="@(guide.IsFavorited ? "Remove from favorites" : "Add to favorites")">
-                                    <i class="@(guide.IsFavorited ? "fas" : "far") fa-heart @(guide.IsFavorited ? "text-red-500" : "text-gray-600")"></i>
+                                    <i class="@(guide.IsFavorited ? "fas" : "far") fa-heart text-sm sm:text-base @(guide.IsFavorited ? "text-red-500" : "text-gray-600")"></i>
                                 </button>
                             }
                             else
                             {
                                 <a asp-controller="Account" asp-action="Login" asp-route-returnUrl="@Context.Request.Path@Context.Request.QueryString"
-                                   class="absolute top-3 right-3 bg-white backdrop-blur-sm hover:bg-gray-50 rounded-full w-10 h-10 flex items-center justify-center shadow-lg transition-all z-30 hover:scale-110"
+                                   class="absolute top-2 sm:top-3 right-2 sm:right-3 bg-white backdrop-blur-sm hover:bg-gray-50 rounded-full w-8 h-8 sm:w-9 sm:h-9 md:w-10 md:h-10 flex items-center justify-center shadow-lg transition-all z-30 hover:scale-110"
                                    title="Login to add favorites">
-                                    <i class="far fa-heart text-gray-600 hover:text-red-500"></i>
+                                    <i class="far fa-heart text-sm sm:text-base text-gray-600 hover:text-red-500"></i>
                                 </a>
                             }
                         </div>
                     </div>
                     
-                    <div class="p-4 bg-gray-800/70">
-                        <h3 class="text-base font-bold mb-2 text-white group-hover:text-primary-orange transition-colors line-clamp-2 min-h-[3rem]">
+                    <div class="p-3 sm:p-4 bg-gray-800/70">
+                        <h3 class="text-sm sm:text-base font-bold mb-1 sm:mb-2 text-white group-hover:text-primary-orange transition-colors line-clamp-2 min-h-[2.5rem] sm:min-h-[3rem]">
                             @guide.Title
                         </h3>
                         @if (!string.IsNullOrEmpty(guide.Summary))
                         {
-                            <p class="text-gray-300 text-xs line-clamp-2 mb-3 min-h-[2.5rem]">@guide.Summary</p>
+                            <p class="text-gray-300 text-[10px] sm:text-xs line-clamp-2 mb-2 sm:mb-3 min-h-[2rem] sm:min-h-[2.5rem]">@guide.Summary</p>
                         }
                         else
                         {
-                            <p class="text-gray-400 text-xs mb-3 italic min-h-[2.5rem]">Discover more...</p>
+                            <p class="text-gray-400 text-[10px] sm:text-xs mb-2 sm:mb-3 italic min-h-[2rem] sm:min-h-[2.5rem]">Discover more...</p>
                         }
                         
                         <!-- Pricing -->
-                        <div class="mb-3 pb-3 border-b border-gray-700">
+                        <div class="mb-2 sm:mb-3 pb-2 sm:pb-3 border-b border-gray-700">
                             @if (guide.CurrentPrice > 0)
                             {
-                                <div class="flex items-center gap-2">
-                                    <span class="text-xl font-bold text-primary-orange">$@guide.CurrentPrice.ToString("F2")</span>
+                                <div class="flex items-center gap-2 flex-wrap">
+                                    <span class="text-base sm:text-lg md:text-xl font-bold text-primary-orange">$@guide.CurrentPrice.ToString("F2")</span>
                                     @if (guide.OldPrice > guide.CurrentPrice)
                                     {
-                                        <span class="text-xs text-gray-400 line-through">$@guide.OldPrice.ToString("F2")</span>
+                                        <span class="text-[10px] sm:text-xs text-gray-400 line-through">$@guide.OldPrice.ToString("F2")</span>
                                     }
                                 </div>
                             }
                             else
                             {
-                                <div class="flex items-center gap-2">
-                                    <span class="text-lg font-bold text-green-400">FREE</span>
-                                    <span class="bg-green-500/20 text-green-400 text-xs px-2 py-0.5 rounded-full font-semibold">Read Now</span>
+                                <div class="flex items-center gap-2 flex-wrap">
+                                    <span class="text-sm sm:text-base md:text-lg font-bold text-green-400">FREE</span>
+                                    <span class="bg-green-500/20 text-green-400 text-[10px] sm:text-xs px-1.5 sm:px-2 py-0.5 rounded-full font-semibold">Read Now</span>
                                 </div>
                             }
                         </div>
                         
-                        <div class="flex items-center justify-between text-xs text-gray-400">
-                            <span>
-                                <i class="far fa-calendar mr-1"></i>@guide.CreatedAt.ToString("MMM yyyy")
+                        <div class="flex items-center justify-between text-[10px] sm:text-xs text-gray-400 gap-2">
+                            <span class="flex items-center">
+                                <i class="far fa-calendar mr-1"></i><span class="hidden sm:inline">@guide.CreatedAt.ToString("MMM yyyy")</span><span class="sm:hidden">@guide.CreatedAt.ToString("MMM")</span>
                             </span>
                             <a asp-controller="Guide" asp-action="Detail" asp-route-slug="@guide.Slug" 
-                               class="text-primary-orange hover:text-orange-400 font-semibold">
-                                Details →
+                               class="text-primary-orange hover:text-orange-400 font-semibold whitespace-nowrap">
+                                <span class="hidden sm:inline">Details →</span><span class="sm:hidden">→</span>
                             </a>
                         </div>
                     </div>
@@ -253,10 +253,10 @@
         
       
         <!-- View More Button -->
-        <div class="text-center">
-            <a asp-controller="Categories" asp-action="Index" class="bg-primary-blue hover:bg-blue-600 text-white px-10 py-4 rounded-lg font-semibold text-lg transition-all inline-flex items-center shadow-lg">
+        <div class="text-center px-2">
+            <a asp-controller="Categories" asp-action="Index" class="bg-primary-blue hover:bg-blue-600 text-white px-6 sm:px-8 md:px-10 py-3 sm:py-4 rounded-lg font-semibold text-sm sm:text-base md:text-lg transition-all inline-flex items-center shadow-lg">
                 VIEW MORE
-                <i class="fas fa-arrow-right ml-3"></i>
+                <i class="fas fa-arrow-right ml-2 sm:ml-3"></i>
             </a>
         </div>
     </div>
@@ -266,21 +266,21 @@
 <div class="mountain-divider mountain-divider-white"></div>
 
 <!-- Video Section -->
-<section class="py-20 bg-white">
-    <div class="container mx-auto px-4">
-        <div class="text-center mb-12">
-            <h2 class="text-4xl md:text-5xl font-bold text-gray-800 mb-4">
+<section class="py-12 sm:py-16 md:py-20 bg-white">
+    <div class="container mx-auto px-3 sm:px-4 lg:px-6">
+        <div class="text-center mb-8 sm:mb-10 md:mb-12 px-2">
+            <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-800 mb-3 sm:mb-4 px-2">
                 LET'S MAKE <span class="text-primary-orange">YOUR JOURNEY</span> MOMENTOUS
             </h2>
         </div>
         
-        <div class="max-w-4xl mx-auto">
-            <div class="relative rounded-2xl overflow-hidden shadow-2xl">
-                <img src="~/images/video-thumbnail.jpg" alt="Journey Video" class="w-full" 
+        <div class="max-w-4xl mx-auto px-2">
+            <div class="relative rounded-xl sm:rounded-2xl overflow-hidden shadow-2xl">
+                <img src="~/images/video-thumbnail.jpg" alt="Journey Video" class="w-full h-auto" 
                      onerror="this.src='https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1200'">
                 <div class="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center">
-                    <button class="video-play-btn">
-                        <i class="fas fa-play text-white text-2xl ml-1"></i>
+                    <button class="video-play-btn w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24">
+                        <i class="fas fa-play text-white text-lg sm:text-xl md:text-2xl ml-1"></i>
                     </button>
                 </div>
             </div>
@@ -292,32 +292,32 @@
 <div class="mountain-divider mountain-divider-orange"></div>
 
 <!-- How It Works Section -->
-<section class="py-20 bg-primary-orange text-white relative overflow-hidden">
-    <div class="container mx-auto px-4 relative z-10">
+<section class="py-12 sm:py-16 md:py-20 bg-primary-orange text-white relative overflow-hidden">
+    <div class="container mx-auto px-3 sm:px-4 lg:px-6 relative z-10">
         <!-- Section Title -->
-        <div class="text-center mb-16">
-            <h2 class="text-4xl md:text-5xl font-bold mb-4">HOW IT WORKS?</h2>
+        <div class="text-center mb-10 sm:mb-12 md:mb-16 px-2">
+            <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-3 sm:mb-4">HOW IT WORKS?</h2>
         </div>
 
         <!-- Steps Container -->
-        <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4 md:gap-8">
+        <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6 sm:gap-8 md:gap-4 lg:gap-8 px-2">
 
             <!-- Step 1: Create Account -->
-            <div class="flex flex-col items-center text-center md:w-1/3">
-                <div class="bg-white rounded-2xl p-8 mb-4 h-48 flex items-center justify-center shadow-xl w-full max-w-xs">
+            <div class="flex flex-col items-center text-center md:w-1/3 w-full max-w-xs mx-auto">
+                <div class="bg-white rounded-xl sm:rounded-2xl p-6 sm:p-8 mb-3 sm:mb-4 h-40 sm:h-44 md:h-48 flex items-center justify-center shadow-xl w-full">
                     <div class="text-primary-blue">
-                        <i class="fas fa-user-plus text-6xl"></i>
+                        <i class="fas fa-user-plus text-4xl sm:text-5xl md:text-6xl"></i>
                     </div>
                 </div>
-                <h3 class="text-2xl font-bold mb-3">Create Account</h3>
-                <p class="text-white text-opacity-90 px-4">
+                <h3 class="text-xl sm:text-2xl font-bold mb-2 sm:mb-3">Create Account</h3>
+                <p class="text-white text-opacity-90 text-sm sm:text-base px-2 sm:px-4">
                     Your Journey Starts Here – Create an Account and Explore more!
                 </p>
             </div>
 
             <!-- Arrow 1 -->
             <div class="hidden md:flex items-center justify-center">
-                <svg width="80" height="40" viewBox="0 0 120 60">
+                <svg width="60" height="30" class="lg:w-80 lg:h-40" viewBox="0 0 120 60" preserveAspectRatio="xMidYMid meet">
                     <path d="M 10 30 Q 60 10, 110 30"
                           stroke="white" stroke-width="3" stroke-dasharray="8,8" fill="none" opacity="0.6" />
                     <polygon points="110,30 100,25 100,35" fill="white" opacity="0.6" />
@@ -325,21 +325,21 @@
             </div>
 
             <!-- Step 2: Select Tour Package -->
-            <div class="flex flex-col items-center text-center md:w-1/3">
-                <div class="bg-white rounded-2xl p-8 mb-4 h-48 flex items-center justify-center shadow-xl w-full max-w-xs">
+            <div class="flex flex-col items-center text-center md:w-1/3 w-full max-w-xs mx-auto">
+                <div class="bg-white rounded-xl sm:rounded-2xl p-6 sm:p-8 mb-3 sm:mb-4 h-40 sm:h-44 md:h-48 flex items-center justify-center shadow-xl w-full">
                     <div class="text-primary-blue">
-                        <i class="fas fa-book-open text-6xl"></i>
+                        <i class="fas fa-book-open text-4xl sm:text-5xl md:text-6xl"></i>
                     </div>
                 </div>
-                <h3 class="text-2xl font-bold mb-3">Select Tour Package</h3>
-                <p class="text-white text-opacity-90 px-4">
+                <h3 class="text-xl sm:text-2xl font-bold mb-2 sm:mb-3">Select Tour Package</h3>
+                <p class="text-white text-opacity-90 text-sm sm:text-base px-2 sm:px-4">
                     Your Dream Destination Awaits – Select a Package Today!
                 </p>
             </div>
 
             <!-- Arrow 2 -->
             <div class="hidden md:flex items-center justify-center">
-                <svg width="80" height="40" viewBox="0 0 120 60">
+                <svg width="60" height="30" class="lg:w-80 lg:h-40" viewBox="0 0 120 60" preserveAspectRatio="xMidYMid meet">
                     <path d="M 10 30 Q 60 10, 110 30"
                           stroke="white" stroke-width="3" stroke-dasharray="8,8" fill="none" opacity="0.6" />
                     <polygon points="110,30 100,25 100,35" fill="white" opacity="0.6" />
@@ -347,14 +347,14 @@
             </div>
 
             <!-- Step 3: Travel -->
-            <div class="flex flex-col items-center text-center md:w-1/3">
-                <div class="bg-white rounded-2xl p-8 mb-4 h-48 flex items-center justify-center shadow-xl w-full max-w-xs">
+            <div class="flex flex-col items-center text-center md:w-1/3 w-full max-w-xs mx-auto">
+                <div class="bg-white rounded-xl sm:rounded-2xl p-6 sm:p-8 mb-3 sm:mb-4 h-40 sm:h-44 md:h-48 flex items-center justify-center shadow-xl w-full">
                     <div class="text-primary-blue">
-                        <i class="fas fa-plane-departure text-6xl"></i>
+                        <i class="fas fa-plane-departure text-4xl sm:text-5xl md:text-6xl"></i>
                     </div>
                 </div>
-                <h3 class="text-2xl font-bold mb-3">Travel</h3>
-                <p class="text-white text-opacity-90 px-4">
+                <h3 class="text-xl sm:text-2xl font-bold mb-2 sm:mb-3">Travel</h3>
+                <p class="text-white text-opacity-90 text-sm sm:text-base px-2 sm:px-4">
                     Pack your bags, step out of your comfort zone, and let the road lead you to memories.
                 </p>
             </div>
@@ -375,33 +375,33 @@
 <div class="mountain-divider mountain-divider-white"></div>
 
 <!-- Newsletter Section -->
-<section class="py-20 bg-gray-50">
-    <div class="container mx-auto px-4">
+<section class="py-12 sm:py-16 md:py-20 bg-gray-50">
+    <div class="container mx-auto px-3 sm:px-4 lg:px-6">
         <div class="max-w-5xl mx-auto">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-10 md:gap-12 items-center">
                 <!-- Content -->
-                <div>
-                    <h2 class="text-4xl md:text-5xl font-bold text-gray-800 mb-6">
+                <div class="order-2 lg:order-1 px-2 sm:px-0">
+                    <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-800 mb-4 sm:mb-6">
                         JOIN <span class="text-primary-blue">THE BEST<br>STORYTELLERS</span> OF<br>WORLD
                     </h2>
-                    <p class="text-gray-600 text-lg mb-8">
+                    <p class="text-gray-600 text-sm sm:text-base md:text-lg mb-6 sm:mb-8">
                         A collection of travel stories and stunning photos that help to plan big.
                     </p>
                     
                     <!-- Newsletter Form -->
-                    <div class="flex gap-4">
+                    <div class="flex flex-col sm:flex-row gap-3 sm:gap-4">
                         <input type="email" placeholder="Enter Your Email" 
-                               class="flex-1 px-6 py-4 border border-gray-300 rounded-lg focus:outline-none focus:border-primary-blue focus:ring-2 focus:ring-primary-blue focus:ring-opacity-20">
-                        <button class="bg-primary-blue hover:bg-blue-600 text-white px-8 py-4 rounded-lg font-semibold transition-all whitespace-nowrap">
+                               class="flex-1 px-4 sm:px-5 md:px-6 py-3 sm:py-3.5 md:py-4 text-sm sm:text-base border border-gray-300 rounded-lg focus:outline-none focus:border-primary-blue focus:ring-2 focus:ring-primary-blue focus:ring-opacity-20">
+                        <button class="bg-primary-blue hover:bg-blue-600 text-white px-6 sm:px-7 md:px-8 py-3 sm:py-3.5 md:py-4 rounded-lg font-semibold text-sm sm:text-base transition-all whitespace-nowrap">
                             SUBSCRIBE
                         </button>
                     </div>
-</div>
+                </div>
                 
                 <!-- Image -->
-                <div class="relative">
+                <div class="relative order-1 lg:order-2">
                     <div class="relative z-10">
-                        <img src="~/images/jointhebest.png" alt="Storyteller" class="rounded-full w-full max-w-md mx-auto shadow-2xl"
+                        <img src="~/images/jointhebest.png" alt="Storyteller" class="rounded-full w-full max-w-xs sm:max-w-sm md:max-w-md mx-auto shadow-2xl"
                              onerror="this.src='https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=600'">
                     </div>
                     <!-- Decorative Circle -->
@@ -464,13 +464,13 @@
 
         function showToast(message, type = 'info') {
             const toast = document.createElement('div');
-            toast.className = `fixed top-4 right-4 z-50 px-6 py-3 rounded-lg shadow-lg text-white transform translate-x-0 transition-all duration-300 ${
+            toast.className = `fixed top-4 right-4 left-4 sm:left-auto sm:right-4 sm:max-w-md z-50 px-4 sm:px-6 py-2 sm:py-3 rounded-lg shadow-lg text-white transform translate-x-0 transition-all duration-300 ${
                 type === 'success' ? 'bg-green-500' :
                 type === 'error' ? 'bg-red-500' :
                 'bg-blue-500'
             }`;
             toast.innerHTML = `
-                <div class="flex items-center">
+                <div class="flex items-center text-sm sm:text-base">
                     <i class="fas ${type === 'success' ? 'fa-check-circle' : type === 'error' ? 'fa-exclamation-circle' : 'fa-info-circle'} mr-2"></i>
                     <span>${message}</span>
                 </div>
@@ -479,7 +479,7 @@
             document.body.appendChild(toast);
             setTimeout(() => { toast.style.transform = 'translateX(0)'; }, 10);
             setTimeout(() => {
-                toast.style.transform = 'translateX(400px)';
+                toast.style.transform = window.innerWidth < 640 ? 'translateY(-100px)' : 'translateX(400px)';
                 setTimeout(() => { document.body.removeChild(toast); }, 300);
             }, 3000);
         }

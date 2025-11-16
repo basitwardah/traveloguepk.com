@@ -2,101 +2,101 @@
 <div class="mountain-divider mountain-divider-blue"></div>
 
 <!-- Footer -->
-<footer class="bg-dark-navy text-white pt-16 pb-8">
-    <div class="container mx-auto px-4">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+<footer class="bg-dark-navy text-white pt-12 sm:pt-16 pb-6 sm:pb-8">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10 lg:gap-12 mb-10 sm:mb-12">
             <!-- Logo & Description -->
             <div class="lg:col-span-1">
                 <a asp-controller="Home" asp-action="Index" class="inline-block mb-4">
-                    <img src="~/images/logo-white.png" alt="Travelogue PK" class="h-12" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-                    <div style="display:none;" class="text-2xl font-bold">
+                    <img src="~/images/logo-white.png" alt="Travelogue PK" class="h-10 sm:h-12 transition-all duration-300" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                    <div style="display:none;" class="text-xl sm:text-2xl font-bold">
                         <span class="text-white">TRAVEL</span><span class="text-primary-orange">OGUE</span> <span class="text-primary-orange">PK</span>
                     </div>
                 </a>
-                <p class="text-gray-300 text-sm leading-relaxed mb-4">
+                <p class="text-gray-300 text-xs sm:text-sm leading-relaxed mb-4 sm:mb-6">
                     Our mission is to showcase Pakistan's natural beauty in all its glory, inspiring you to explore what lies beyond the ordinary.
                 </p>
                 <!-- Social Media Icons -->
-                <div class="flex space-x-4">
-                    <a href="#" class="text-gray-300 hover:text-primary-orange transition-colors">
-                        <i class="fab fa-facebook-f text-lg"></i>
+                <div class="flex space-x-3 sm:space-x-4">
+                    <a href="#" class="text-gray-300 hover:text-primary-orange transition-colors text-base sm:text-lg p-2 hover:bg-white/10 rounded-lg">
+                        <i class="fab fa-facebook-f"></i>
                     </a>
-                    <a href="#" class="text-gray-300 hover:text-primary-orange transition-colors">
-                        <i class="fab fa-instagram text-lg"></i>
+                    <a href="#" class="text-gray-300 hover:text-primary-orange transition-colors text-base sm:text-lg p-2 hover:bg-white/10 rounded-lg">
+                        <i class="fab fa-instagram"></i>
                     </a>
-                    <a href="#" class="text-gray-300 hover:text-primary-orange transition-colors">
-                        <i class="fab fa-youtube text-lg"></i>
+                    <a href="#" class="text-gray-300 hover:text-primary-orange transition-colors text-base sm:text-lg p-2 hover:bg-white/10 rounded-lg">
+                        <i class="fab fa-youtube"></i>
                     </a>
-                    <a href="#" class="text-gray-300 hover:text-primary-orange transition-colors">
-                        <i class="fab fa-linkedin-in text-lg"></i>
+                    <a href="#" class="text-gray-300 hover:text-primary-orange transition-colors text-base sm:text-lg p-2 hover:bg-white/10 rounded-lg">
+                        <i class="fab fa-linkedin-in"></i>
                     </a>
                 </div>
             </div>
             
             <!-- Quick Links -->
             <div>
-                <h3 class="text-xl font-semibold mb-4 border-b-2 border-primary-orange inline-block pb-2">QUICK LINKS</h3>
-                <ul class="space-y-2">
+                <h3 class="text-lg sm:text-xl font-semibold mb-4 sm:mb-6 border-b-2 border-primary-orange inline-block pb-2">QUICK LINKS</h3>
+                <ul class="space-y-2 sm:space-y-3">
                     <li>
-                        <a asp-controller="Home" asp-action="Index" class="text-gray-300 hover:text-primary-orange transition-colors text-sm">Home</a>
+                        <a asp-controller="Home" asp-action="Index" class="text-gray-300 hover:text-primary-orange transition-colors text-xs sm:text-sm inline-block py-1">Home</a>
                     </li>
                     <li>
-                        <a asp-controller="About" asp-action="Index" class="text-gray-300 hover:text-primary-orange transition-colors text-sm">About Us</a>
+                        <a asp-controller="About" asp-action="Index" class="text-gray-300 hover:text-primary-orange transition-colors text-xs sm:text-sm inline-block py-1">About Us</a>
                     </li>
                     <li>
-                        <a asp-controller="Categories" asp-action="Index" class="text-gray-300 hover:text-primary-orange transition-colors text-sm">Categories</a>
+                        <a asp-controller="Categories" asp-action="Index" class="text-gray-300 hover:text-primary-orange transition-colors text-xs sm:text-sm inline-block py-1">Categories</a>
                     </li>
                     <li>
-                        <a asp-controller="Contact" asp-action="Index" class="text-gray-300 hover:text-primary-orange transition-colors text-sm">Contact Us</a>
+                        <a asp-controller="Contact" asp-action="Index" class="text-gray-300 hover:text-primary-orange transition-colors text-xs sm:text-sm inline-block py-1">Contact Us</a>
                     </li>
                 </ul>
             </div>
             
             <!-- Legal -->
             <div>
-                <h3 class="text-xl font-semibold mb-4 border-b-2 border-primary-orange inline-block pb-2">LEGAL</h3>
-                <ul class="space-y-2">
+                <h3 class="text-lg sm:text-xl font-semibold mb-4 sm:mb-6 border-b-2 border-primary-orange inline-block pb-2">LEGAL</h3>
+                <ul class="space-y-2 sm:space-y-3">
                     <li>
-                        <a href="#" class="text-gray-300 hover:text-primary-orange transition-colors text-sm">Terms & Condition</a>
+                        <a href="#" class="text-gray-300 hover:text-primary-orange transition-colors text-xs sm:text-sm inline-block py-1">Terms & Condition</a>
                     </li>
                     <li>
-                        <a href="#" class="text-gray-300 hover:text-primary-orange transition-colors text-sm">Privacy</a>
+                        <a href="#" class="text-gray-300 hover:text-primary-orange transition-colors text-xs sm:text-sm inline-block py-1">Privacy</a>
                     </li>
                     <li>
-                        <a href="#" class="text-gray-300 hover:text-primary-orange transition-colors text-sm">Cookies</a>
+                        <a href="#" class="text-gray-300 hover:text-primary-orange transition-colors text-xs sm:text-sm inline-block py-1">Cookies</a>
                     </li>
                     <li>
-                        <a href="#" class="text-gray-300 hover:text-primary-orange transition-colors text-sm">Licenses</a>
+                        <a href="#" class="text-gray-300 hover:text-primary-orange transition-colors text-xs sm:text-sm inline-block py-1">Licenses</a>
                     </li>
                 </ul>
             </div>
             
             <!-- Contact Us -->
             <div>
-                <h3 class="text-xl font-semibold mb-4 border-b-2 border-primary-orange inline-block pb-2">CONTACT US</h3>
-                <ul class="space-y-3">
-                    <li class="flex items-start text-sm">
-                        <i class="fas fa-map-marker-alt text-primary-orange mt-1 mr-3"></i>
-                        <span class="text-gray-300">Loremipsum528 doghouse</span>
+                <h3 class="text-lg sm:text-xl font-semibold mb-4 sm:mb-6 border-b-2 border-primary-orange inline-block pb-2">CONTACT US</h3>
+                <ul class="space-y-3 sm:space-y-4">
+                    <li class="flex items-start text-xs sm:text-sm">
+                        <i class="fas fa-map-marker-alt text-primary-orange mt-1 mr-2 sm:mr-3 flex-shrink-0"></i>
+                        <span class="text-gray-300 break-words">Loremipsum528 doghouse</span>
                     </li>
-                    <li class="flex items-center text-sm">
-                        <i class="fas fa-phone text-primary-orange mr-3"></i>
-                        <a href="tel:+123-456-7890" class="text-gray-300 hover:text-primary-orange transition-colors">+123-456-7890</a>
+                    <li class="flex items-center text-xs sm:text-sm">
+                        <i class="fas fa-phone text-primary-orange mr-2 sm:mr-3 flex-shrink-0"></i>
+                        <a href="tel:+123-456-7890" class="text-gray-300 hover:text-primary-orange transition-colors break-all">+123-456-7890</a>
                     </li>
-                    <li class="flex items-center text-sm">
-                        <i class="fas fa-envelope text-primary-orange mr-3"></i>
-                        <a href="mailto:zoomescue@gmail.com" class="text-gray-300 hover:text-primary-orange transition-colors">zoomescue@gmail.com</a>
+                    <li class="flex items-center text-xs sm:text-sm">
+                        <i class="fas fa-envelope text-primary-orange mr-2 sm:mr-3 flex-shrink-0"></i>
+                        <a href="mailto:zoomescue@gmail.com" class="text-gray-300 hover:text-primary-orange transition-colors break-all">zoomescue@gmail.com</a>
                     </li>
                 </ul>
             </div>
         </div>
         
         <!-- Copyright -->
-        <div class="border-t border-gray-700 pt-6 flex flex-col md:flex-row justify-between items-center">
-            <p class="text-gray-400 text-sm mb-4 md:mb-0">
+        <div class="border-t border-gray-700 pt-6 flex flex-col sm:flex-row justify-between items-center gap-4">
+            <p class="text-gray-400 text-xs sm:text-sm text-center sm:text-left">
                 &copy; 2025 - Travelogue. All rights reserved.
             </p>
-            <div class="flex space-x-6 text-sm">
+            <div class="flex flex-wrap justify-center sm:justify-end gap-4 sm:gap-6 text-xs sm:text-sm">
                 <a href="#" class="text-gray-400 hover:text-primary-orange transition-colors">Privacy & Policy</a>
                 <a href="#" class="text-gray-400 hover:text-primary-orange transition-colors">Terms & Conditions</a>
             </div>

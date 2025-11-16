@@ -260,6 +260,94 @@
     }
 }
 
+/* Comprehensive Responsive Utilities */
+@media (max-width: 640px) {
+    /* Mobile-specific adjustments */
+    .container {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+    
+    /* Touch-friendly button sizes */
+    button, a.btn, .btn {
+        min-height: 44px;
+        min-width: 44px;
+    }
+    
+    /* Improved spacing on mobile */
+    section {
+        padding-top: 3rem;
+        padding-bottom: 3rem;
+    }
+    
+    /* Better text wrapping */
+    h1, h2, h3 {
+        word-break: break-word;
+        hyphens: auto;
+    }
+}
+
+/* Tablet adjustments */
+@media (min-width: 641px) and (max-width: 1024px) {
+    .container {
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+    }
+}
+
+/* Prevent horizontal scroll on mobile */
+html, body {
+    overflow-x: hidden;
+    max-width: 100%;
+}
+
+/* Responsive images */
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Responsive video play button */
+@media (max-width: 640px) {
+    .video-play-btn {
+        width: 64px;
+        height: 64px;
+    }
+}
+
+/* Responsive mountain divider */
+@media (max-width: 640px) {
+    .mountain-divider {
+        height: 60px;
+        background-size: auto 100%;
+    }
+}
+
+/* Mobile menu improvements */
+@media (max-width: 1024px) {
+    #mobile-menu {
+        animation: slideDown 0.3s ease-out;
+    }
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Better form inputs on mobile */
+@media (max-width: 640px) {
+    input, textarea, select {
+        font-size: 16px; /* Prevents zoom on iOS */
+    }
+}
+
 /* Loading Animation */
 @keyframes pulse {
     0%, 100% {

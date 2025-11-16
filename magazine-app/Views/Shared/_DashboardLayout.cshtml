@@ -43,15 +43,24 @@
 
     <div class="flex h-screen overflow-hidden">
         
+        <!-- Sidebar Overlay (Mobile Only) -->
+        <div id="sidebar-overlay" class="hidden fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden" onclick="toggleSidebar()"></div>
+        
         <!-- Sidebar -->
-        <aside class="w-64 bg-dark-navy text-white flex-shrink-0 overflow-y-auto">
+        <aside id="dashboard-sidebar" class="fixed lg:static inset-y-0 left-0 w-64 bg-dark-navy text-white flex-shrink-0 overflow-y-auto z-50 transform -translate-x-full lg:translate-x-0 transition-transform duration-300 ease-in-out sidebar-visible">
             <div class="p-6">
-                <div class="flex items-center mb-8">
-                    <i class="fas fa-mountain text-primary-orange text-3xl mr-3"></i>
-                    <div>
-                        <h2 class="text-xl font-bold">Travelogue PK</h2>
-                        <p class="text-xs text-gray-400">Dashboard</p>
+                <div class="flex items-center justify-between mb-8">
+                    <div class="flex items-center">
+                        <i class="fas fa-mountain text-primary-orange text-3xl mr-3"></i>
+                        <div>
+                            <h2 class="text-xl font-bold">Travelogue PK</h2>
+                            <p class="text-xs text-gray-400">Dashboard</p>
+                        </div>
                     </div>
+                    <!-- Close Button (Mobile Only) -->
+                    <button id="sidebar-close-btn" class="lg:hidden text-white hover:text-primary-orange transition-colors p-2" onclick="toggleSidebar()">
+                        <i class="fas fa-times text-xl"></i>
+                    </button>
                 </div>
 
                 <!-- User Profile Card -->
@@ -189,32 +198,40 @@
         </aside>
 
         <!-- Main Content -->
-        <div class="flex-1 flex flex-col overflow-hidden">
+        <div id="main-content-wrapper" class="flex-1 flex flex-col overflow-hidden lg:transition-all lg:duration-300">
             
             <!-- Top Header -->
             <header class="bg-white shadow-sm z-10">
-                <div class="px-6 py-4 flex items-center justify-between">
-                    <div>
-                        <h1 class="text-2xl font-bold text-gray-800">@ViewData["Title"]</h1>
-                        @if (ViewData["Subtitle"] != null)
-                        {
-                            <p class="text-sm text-gray-600">@ViewData["Subtitle"]</p>
-                        }
+                <div class="px-4 sm:px-6 py-4 flex items-center justify-between">
+                    <div class="flex items-center gap-4">
+                        <!-- Hamburger Menu Button (Mobile & Desktop Toggle) -->
+                        <button id="sidebar-toggle-btn" class="text-gray-700 hover:text-primary-orange transition-colors p-2 rounded-lg hover:bg-gray-100" onclick="toggleSidebar()" aria-label="Toggle Sidebar">
+                            <i class="fas fa-bars text-xl"></i>
+                        </button>
+                        <div>
+                            <h1 class="text-xl sm:text-2xl font-bold text-gray-800">@ViewData["Title"]</h1>
+                            @if (ViewData["Subtitle"] != null)
+                            {
+                                <p class="text-sm text-gray-600">@ViewData["Subtitle"]</p>
+                            }
+                        </div>
                     </div>
                     
-                    <div class="flex items-center gap-4">
+                    <div class="flex items-center gap-2 sm:gap-4">
                         @if (TempData["Success"] != null)
                         {
-                            <div class="bg-green-100 text-green-800 px-4 py-2 rounded-lg text-sm flex items-center">
+                            <div class="bg-green-100 text-green-800 px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm flex items-center">
                                 <i class="fas fa-check-circle mr-2"></i>
-                                @TempData["Success"]
+                                <span class="hidden sm:inline">@TempData["Success"]</span>
+                                <span class="sm:hidden">Success</span>
                             </div>
                         }
                         @if (TempData["Error"] != null)
                         {
-                            <div class="bg-red-100 text-red-800 px-4 py-2 rounded-lg text-sm flex items-center">
+                            <div class="bg-red-100 text-red-800 px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm flex items-center">
                                 <i class="fas fa-exclamation-circle mr-2"></i>
-                                @TempData["Error"]
+                                <span class="hidden sm:inline">@TempData["Error"]</span>
+                                <span class="sm:hidden">Error</span>
                             </div>
                         }
                     </div>
@@ -255,7 +272,162 @@
             width: 1.25rem;
             text-align: center;
         }
+        
+        /* Sidebar Responsive Styles */
+        @@media (max-width: 1023px) {
+            #dashboard-sidebar {
+                box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+            }
+            
+            /* On mobile, sidebar starts hidden */
+            #dashboard-sidebar {
+                transform: translateX(-100%);
+            }
+            
+            /* Show sidebar when visible class is added */
+            #dashboard-sidebar.sidebar-visible {
+                transform: translateX(0);
+            }
+        }
+        
+        @@media (min-width: 1024px) {
+            /* Desktop: sidebar visible by default when sidebar-visible class is present */
+            #dashboard-sidebar.sidebar-visible {
+                transform: translateX(0);
+            }
+            
+            /* Hide sidebar when sidebar-visible class is removed */
+            #dashboard-sidebar:not(.sidebar-visible) {
+                transform: translateX(-100%);
+                position: fixed;
+            }
+            
+            /* Adjust main content when sidebar is hidden on desktop */
+            #main-content-wrapper.sidebar-hidden {
+                margin-left: 0;
+            }
+            
+            #main-content-wrapper {
+                transition: margin-left 0.3s ease-in-out;
+            }
+            
+            #sidebar-close-btn {
+                display: none !important;
+            }
+            
+            #sidebar-overlay {
+                display: none !important;
+            }
+        }
     </style>
+
+    <script>
+        // Toggle Sidebar Function
+        function toggleSidebar() {
+            const sidebar = document.getElementById('dashboard-sidebar');
+            const overlay = document.getElementById('sidebar-overlay');
+            const mainContent = document.getElementById('main-content-wrapper');
+            const isMobile = window.innerWidth < 1024;
+            
+            if (!sidebar) return;
+            
+            const isVisible = sidebar.classList.contains('sidebar-visible');
+            
+            if (isMobile) {
+                // Mobile behavior
+                if (isVisible) {
+                    // Hide sidebar on mobile
+                    sidebar.classList.remove('sidebar-visible');
+                    sidebar.classList.add('-translate-x-full');
+                    if (overlay) overlay.classList.add('hidden');
+                    document.body.style.overflow = '';
+                } else {
+                    // Show sidebar on mobile
+                    sidebar.classList.add('sidebar-visible');
+                    sidebar.classList.remove('-translate-x-full');
+                    if (overlay) overlay.classList.remove('hidden');
+                    document.body.style.overflow = 'hidden'; // Prevent body scroll when sidebar is open
+                }
+            } else {
+                // Desktop behavior
+                if (isVisible) {
+                    // Hide sidebar on desktop
+                    sidebar.classList.remove('sidebar-visible');
+                    if (mainContent) mainContent.classList.add('sidebar-hidden');
+                } else {
+                    // Show sidebar on desktop
+                    sidebar.classList.add('sidebar-visible');
+                    if (mainContent) mainContent.classList.remove('sidebar-hidden');
+                }
+            }
+        }
+        
+        // Initialize sidebar state
+        document.addEventListener('DOMContentLoaded', function() {
+            const sidebar = document.getElementById('dashboard-sidebar');
+            const overlay = document.getElementById('sidebar-overlay');
+            const mainContent = document.getElementById('main-content-wrapper');
+            const isMobile = window.innerWidth < 1024;
+            
+            if (sidebar) {
+                if (isMobile) {
+                    // Mobile: start hidden
+                    sidebar.classList.remove('sidebar-visible');
+                    sidebar.classList.add('-translate-x-full');
+                } else {
+                    // Desktop: start visible
+                    sidebar.classList.add('sidebar-visible');
+                }
+            }
+            
+            // Close sidebar when clicking overlay (mobile only)
+            if (overlay) {
+                overlay.addEventListener('click', function() {
+                    if (window.innerWidth < 1024) {
+                        toggleSidebar();
+                    }
+                });
+            }
+            
+            // Handle window resize
+            window.addEventListener('resize', function() {
+                const isMobileNow = window.innerWidth < 1024;
+                const sidebar = document.getElementById('dashboard-sidebar');
+                const overlay = document.getElementById('sidebar-overlay');
+                const mainContent = document.getElementById('main-content-wrapper');
+                
+                if (!sidebar) return;
+                
+                if (isMobileNow) {
+                    // Switched to mobile: hide sidebar if visible
+                    sidebar.classList.remove('sidebar-visible');
+                    sidebar.classList.add('-translate-x-full');
+                    if (overlay) overlay.classList.add('hidden');
+                    document.body.style.overflow = '';
+                    if (mainContent) mainContent.classList.remove('sidebar-hidden');
+                } else {
+                    // Switched to desktop: show sidebar if it was visible
+                    if (sidebar.classList.contains('sidebar-visible')) {
+                        sidebar.classList.remove('-translate-x-full');
+                    }
+                    if (overlay) overlay.classList.add('hidden');
+                    document.body.style.overflow = '';
+                }
+            });
+        });
+        
+        // Keyboard support - ESC to close sidebar
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                const sidebar = document.getElementById('dashboard-sidebar');
+                if (sidebar && sidebar.classList.contains('sidebar-visible')) {
+                    if (window.innerWidth < 1024 || sidebar.classList.contains('sidebar-visible')) {
+                        toggleSidebar();
+                    }
+                }
+            }
+        });
+    </script>
 
     @await RenderSectionAsync("Scripts", required: false)
 </body>
