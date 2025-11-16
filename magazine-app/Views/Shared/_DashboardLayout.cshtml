@@ -75,20 +75,25 @@
                         </div>
                     </div>
                     
-                    @if (user?.HasActiveSubscription ?? false)
+                    @* Only show subscription information for Customer role *@
+                    @if (isCustomer)
                     {
-                        <div class="mt-2 bg-green-500/20 text-green-300 px-2 py-1 rounded text-xs flex items-center">
-                            <i class="fas fa-crown mr-1"></i>
-                            <span>@user.SubscriptionPlan Subscriber</span>
-                        </div>
+                        @if (user?.HasActiveSubscription ?? false)
+                        {
+                            <div class="mt-2 bg-green-500/20 text-green-300 px-2 py-1 rounded text-xs flex items-center">
+                                <i class="fas fa-crown mr-1"></i>
+                                <span>@user.SubscriptionPlan Subscriber</span>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="mt-2 bg-yellow-500/20 text-yellow-300 px-2 py-1 rounded text-xs flex items-center">
+                                <i class="fas fa-user mr-1"></i>
+                                <span>Free Account</span>
+                            </div>
+                        }
                     }
-                    else if (isCustomer)
-                    {
-                        <div class="mt-2 bg-yellow-500/20 text-yellow-300 px-2 py-1 rounded text-xs flex items-center">
-                            <i class="fas fa-user mr-1"></i>
-                            <span>Free Account</span>
-                        </div>
-                    }
+                    @* Employee roles (SuperAdmin, Admin, Uploader) don't see subscription info *@
                 </div>
 
                 <nav>
@@ -138,7 +143,8 @@
                         </div>
                     }
                     
-                    @if (isCustomer)
+                    @* Only Customer role sees customer navigation and upgrade option *@
+                    @if (isCustomer && !isAdmin && !isEmployee)
                     {
                         <!-- Customer Navigation -->
                         <div class="mb-6">
@@ -154,6 +160,7 @@
                                 <span>My Favorites</span>
                             </a>
                             
+                            @* Only show upgrade option for customers without subscription *@
                             @if (!user?.HasActiveSubscription ?? false)
                             {
                                 <a href="#" class="nav-item bg-primary-orange/10 border border-primary-orange">
