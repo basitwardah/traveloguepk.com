@@ -1,7 +1,7 @@
 <!-- Header Navigation -->
 <header class="bg-dark-navy text-white sticky top-0 z-50 shadow-lg">
-    <nav class="container mx-auto px-3 sm:px-4 py-3 sm:py-4">
-        <div class="flex items-center justify-between">
+    <nav class="container mx-auto px-3 sm:px-4 py-3 sm:py-4 max-w-full overflow-hidden">
+        <div class="flex items-center justify-between gap-2 min-w-0">
             <!-- Logo -->
             <div class="flex items-center flex-shrink-0">
                 <a asp-controller="Home" asp-action="Index" class="flex items-center">
@@ -13,15 +13,15 @@
             </div>
             
             <!-- Desktop Navigation -->
-            <div class="hidden lg:flex items-center space-x-4 xl:space-x-8">
-                <a asp-controller="Home" asp-action="Index" class="hover:text-primary-orange transition-colors font-medium text-sm xl:text-base whitespace-nowrap">Home</a>
-                <a asp-controller="About" asp-action="Index" class="hover:text-primary-orange transition-colors font-medium text-sm xl:text-base whitespace-nowrap">About Us</a>
-                <a asp-controller="Categories" asp-action="Index" class="hover:text-primary-orange transition-colors font-medium text-sm xl:text-base whitespace-nowrap">Categories</a>
-                <a asp-controller="Contact" asp-action="Index" class="hover:text-primary-orange transition-colors font-medium text-sm xl:text-base whitespace-nowrap">Contact Us</a>
+            <div class="hidden lg:flex items-center space-x-2 xl:space-x-4 2xl:space-x-8 flex-shrink-0">
+                <a asp-controller="Home" asp-action="Index" class="hover:text-primary-orange transition-colors font-medium text-xs xl:text-sm 2xl:text-base whitespace-nowrap">Home</a>
+                <a asp-controller="About" asp-action="Index" class="hover:text-primary-orange transition-colors font-medium text-xs xl:text-sm 2xl:text-base whitespace-nowrap">About Us</a>
+                <a asp-controller="Categories" asp-action="Index" class="hover:text-primary-orange transition-colors font-medium text-xs xl:text-sm 2xl:text-base whitespace-nowrap">Categories</a>
+                <a asp-controller="Contact" asp-action="Index" class="hover:text-primary-orange transition-colors font-medium text-xs xl:text-sm 2xl:text-base whitespace-nowrap">Contact Us</a>
             </div>
             
             <!-- Right Side Buttons -->
-            <div class="hidden lg:flex items-center space-x-2 xl:space-x-4">
+            <div class="hidden lg:flex items-center space-x-1 xl:space-x-2 2xl:space-x-4 flex-shrink-0 min-w-0">
                 <!-- Search Button -->
                 <button id="search-button" class="bg-primary-blue hover:bg-blue-600 text-white p-2 sm:p-2.5 rounded-lg transition-all flex items-center justify-center min-w-[40px]">
                     <i class="fas fa-search text-sm sm:text-base"></i>
@@ -30,53 +30,53 @@
                 @if (User.Identity?.IsAuthenticated == true)
                 {
                     <!-- Logged In User -->
-                    <span class="text-white text-xs xl:text-sm hidden xl:inline truncate max-w-[120px]">Hello, @User.Identity.Name</span>
+                    <span class="text-white text-xs xl:text-sm hidden 2xl:inline truncate max-w-[120px]">Hello, @User.Identity.Name</span>
                     
                     @if (User.IsInRole("Admin") || User.IsInRole("SuperAdmin"))
                     {
                         <!-- Admin Dashboard -->
-                        <a asp-controller="AdminDashboard" asp-action="Index" class="bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-white px-3 xl:px-6 py-2 rounded-lg font-medium transition-all flex items-center shadow-lg text-xs xl:text-sm whitespace-nowrap">
-                            <i class="fas fa-tachometer-alt mr-1 xl:mr-2"></i><span class="hidden xl:inline">ADMIN DASHBOARD</span><span class="xl:hidden">ADMIN</span>
+                        <a asp-controller="AdminDashboard" asp-action="Index" class="bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-white px-2 xl:px-3 2xl:px-6 py-1.5 xl:py-2 rounded-lg font-medium transition-all flex items-center shadow-lg text-[10px] xl:text-xs 2xl:text-sm whitespace-nowrap">
+                            <i class="fas fa-tachometer-alt mr-1"></i><span class="hidden 2xl:inline">ADMIN DASHBOARD</span><span class="2xl:hidden">ADMIN</span>
                         </a>
                     }
                     else if (User.IsInRole("Uploader"))
                     {
                         <!-- Employee Dashboard -->
-                        <a asp-controller="GuideAdmin" asp-action="Index" class="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-3 xl:px-6 py-2 rounded-lg font-medium transition-all flex items-center shadow-lg text-xs xl:text-sm whitespace-nowrap">
-                            <i class="fas fa-upload mr-1 xl:mr-2"></i><span class="hidden xl:inline">EMPLOYEE PANEL</span><span class="xl:hidden">EMPLOYEE</span>
+                        <a asp-controller="GuideAdmin" asp-action="Index" class="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-2 xl:px-3 2xl:px-6 py-1.5 xl:py-2 rounded-lg font-medium transition-all flex items-center shadow-lg text-[10px] xl:text-xs 2xl:text-sm whitespace-nowrap">
+                            <i class="fas fa-upload mr-1"></i><span class="hidden 2xl:inline">EMPLOYEE PANEL</span><span class="2xl:hidden">EMPLOYEE</span>
                         </a>
                     }
                     else if (User.IsInRole("Customer"))
                     {
                         <!-- Customer Dashboard -->
-                        <a asp-controller="UserDashboard" asp-action="Index" class="bg-gradient-to-r from-primary-orange to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white px-3 xl:px-6 py-2 rounded-lg font-medium transition-all flex items-center shadow-lg text-xs xl:text-sm whitespace-nowrap">
-                            <i class="fas fa-user-circle mr-1 xl:mr-2"></i><span class="hidden xl:inline">MY DASHBOARD</span><span class="xl:hidden">DASHBOARD</span>
+                        <a asp-controller="UserDashboard" asp-action="Index" class="bg-gradient-to-r from-primary-orange to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white px-2 xl:px-3 2xl:px-6 py-1.5 xl:py-2 rounded-lg font-medium transition-all flex items-center shadow-lg text-[10px] xl:text-xs 2xl:text-sm whitespace-nowrap">
+                            <i class="fas fa-user-circle mr-1"></i><span class="hidden 2xl:inline">MY DASHBOARD</span><span class="2xl:hidden">DASHBOARD</span>
                         </a>
                     }
                     
-                    <a asp-controller="Guide" asp-action="Index" class="border-2 border-white hover:bg-white hover:text-dark-navy px-3 xl:px-6 py-2 rounded-lg font-medium transition-all flex items-center text-xs xl:text-sm whitespace-nowrap">
-                        <i class="fas fa-book mr-1 xl:mr-2"></i><span class="hidden xl:inline">MAGAZINES</span><span class="xl:hidden">BOOKS</span>
+                    <a asp-controller="Guide" asp-action="Index" class="border-2 border-white hover:bg-white hover:text-dark-navy px-2 xl:px-3 2xl:px-6 py-1.5 xl:py-2 rounded-lg font-medium transition-all flex items-center text-[10px] xl:text-xs 2xl:text-sm whitespace-nowrap">
+                        <i class="fas fa-book mr-1"></i><span class="hidden 2xl:inline">MAGAZINES</span><span class="2xl:hidden">BOOKS</span>
                     </a>
                     
-                    <a asp-controller="Favorite" asp-action="Index" class="border-2 border-primary-orange bg-primary-orange hover:bg-orange-600 text-white px-3 xl:px-6 py-2 rounded-lg font-medium transition-all flex items-center text-xs xl:text-sm whitespace-nowrap">
-                        <i class="fas fa-heart mr-1 xl:mr-2"></i><span class="hidden xl:inline">FAVORITES</span><span class="xl:hidden">FAVS</span>
+                    <a asp-controller="Favorite" asp-action="Index" class="border-2 border-primary-orange bg-primary-orange hover:bg-orange-600 text-white px-2 xl:px-3 2xl:px-6 py-1.5 xl:py-2 rounded-lg font-medium transition-all flex items-center text-[10px] xl:text-xs 2xl:text-sm whitespace-nowrap">
+                        <i class="fas fa-heart mr-1"></i><span class="hidden 2xl:inline">FAVORITES</span><span class="2xl:hidden">FAVS</span>
                     </a>
                     
                     <form asp-controller="Account" asp-action="Logout" method="post" class="inline">
-                        <button type="submit" class="bg-red-600 hover:bg-red-700 text-white px-3 xl:px-6 py-2 rounded-lg font-medium transition-all flex items-center text-xs xl:text-sm whitespace-nowrap">
-                            <i class="fas fa-sign-out-alt mr-1 xl:mr-2"></i><span class="hidden xl:inline">LOGOUT</span><span class="xl:hidden">OUT</span>
+                        <button type="submit" class="bg-red-600 hover:bg-red-700 text-white px-2 xl:px-3 2xl:px-6 py-1.5 xl:py-2 rounded-lg font-medium transition-all flex items-center text-[10px] xl:text-xs 2xl:text-sm whitespace-nowrap">
+                            <i class="fas fa-sign-out-alt mr-1"></i><span class="hidden 2xl:inline">LOGOUT</span><span class="2xl:hidden">OUT</span>
                         </button>
                     </form>
                 }
                 else
                 {
                     <!-- Not Logged In -->
-                    <a asp-controller="Account" asp-action="Login" class="border-2 border-white hover:bg-white hover:text-dark-navy px-3 xl:px-6 py-2 rounded-lg font-medium transition-all flex items-center text-xs xl:text-sm whitespace-nowrap">
-                        <i class="fas fa-user mr-1 xl:mr-2"></i>LOGIN
+                    <a asp-controller="Account" asp-action="Login" class="border-2 border-white hover:bg-white hover:text-dark-navy px-2 xl:px-3 2xl:px-6 py-1.5 xl:py-2 rounded-lg font-medium transition-all flex items-center text-[10px] xl:text-xs 2xl:text-sm whitespace-nowrap">
+                        <i class="fas fa-user mr-1"></i>LOGIN
                     </a>
                     
-                    <a asp-controller="Account" asp-action="Register" class="bg-primary-orange hover:bg-orange-600 text-white px-3 xl:px-6 py-2 rounded-lg font-medium transition-all flex items-center text-xs xl:text-sm whitespace-nowrap">
-                        <i class="fas fa-user-plus mr-1 xl:mr-2"></i>SIGN UP
+                    <a asp-controller="Account" asp-action="Register" class="bg-primary-orange hover:bg-orange-600 text-white px-2 xl:px-3 2xl:px-6 py-1.5 xl:py-2 rounded-lg font-medium transition-all flex items-center text-[10px] xl:text-xs 2xl:text-sm whitespace-nowrap">
+                        <i class="fas fa-user-plus mr-1"></i>SIGN UP
                     </a>
                 }
             </div>

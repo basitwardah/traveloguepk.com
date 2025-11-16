@@ -348,6 +348,78 @@ img {
     }
 }
 
+/* Header Responsiveness for Laptop Screens (1024px - 1440px) */
+@media (min-width: 1024px) and (max-width: 1535px) {
+    /* Laptop screens - prevent header overflow */
+    header nav {
+        overflow-x: visible;
+        overflow-y: visible;
+    }
+    
+    header nav > div {
+        flex-wrap: nowrap;
+        gap: 0.25rem;
+    }
+    
+    /* Ensure buttons don't overflow */
+    header .flex.items-center {
+        min-width: 0;
+        flex-shrink: 1;
+    }
+    
+    /* Make logo smaller on smaller laptops */
+    header img {
+        max-height: 2.5rem;
+    }
+}
+
+/* Edge Browser Specific Fixes */
+@supports (-ms-ime-align: auto) {
+    /* Microsoft Edge specific styles */
+    header nav {
+        display: flex;
+        flex-wrap: wrap;
+    }
+    
+    header nav > div {
+        min-width: 0;
+        max-width: 100%;
+    }
+}
+
+/* Additional overflow protection for Edge */
+header {
+    overflow-x: hidden;
+    overflow-y: visible;
+}
+
+/* Ensure header buttons are responsive */
+@media (min-width: 1024px) and (max-width: 1279px) {
+    header button,
+    header a[class*="px-"] {
+        padding-left: 0.5rem !important;
+        padding-right: 0.5rem !important;
+        font-size: 0.625rem !important;
+    }
+    
+    header .hidden.xl\\:inline {
+        display: none !important;
+    }
+}
+
+/* Extra small laptop screens (1024px - 1280px) */
+@media (min-width: 1024px) and (max-width: 1280px) {
+    /* Reduce spacing even more on small laptops */
+    header nav > div.flex.items-center {
+        gap: 0.125rem;
+    }
+    
+    /* Hide greeting text on small laptops */
+    header span.text-white {
+        display: none !important;
+    }
+}
+
 /* Loading Animation */
 @keyframes pulse {
     0%, 100% {
